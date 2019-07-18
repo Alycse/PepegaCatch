@@ -1,5 +1,5 @@
 const isBeta = true;
-const gameLink = "https://github.com/Alycse";
+const gameLink = "https://github.com/Alycse/PepegaCatch";
 const gameTitle = "Pepega Catch!";
 
 const pepegasPerRow = 5;
