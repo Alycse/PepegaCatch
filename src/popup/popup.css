@@ -17,13 +17,13 @@ body{
 }
 
 #gameTitle{
-    color: rgb(170, 170, 170);
-    font-size: 14px;
+    color: rgb(190, 190, 190);
+    font-size: 15px;
 
     float: right;
 }
 #gameTitle:hover{
-    color: rgb(210, 210, 210);
+    color: rgb(230, 230, 230);
     cursor: pointer;
 }
 

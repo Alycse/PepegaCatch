@@ -1,7 +1,6 @@
-const version = "1.0.0.0";
-const versionId = 0;
-const isBeta = 1;
+const isBeta = true;
 const gameLink = "https://github.com/Alycse";
+const gameTitle = "Pepega Catch!";
 
 const pepegasPerRow = 5;
 const defaultInputBoxArmyName = "My Pepega Army";
@@ -12,6 +11,17 @@ var mouseEnteredBuyPepegaSlot;
 
 var pepegaElementTemplate = document.getElementById("pepegaElementTemplate");
 pepegaElementTemplate.parentNode.removeChild(pepegaElementTemplate);
+
+updateGameTitle();
+
+function updateGameTitle(){
+	var manifestData = chrome.runtime.getManifest();
+	var newGameTitle = gameTitle + " v" + manifestData.version;
+	if(isBeta){
+		newGameTitle += " BETA";
+	}
+	document.getElementById("gameTitle").innerHTML = newGameTitle;
+}
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
