@@ -12,33 +12,42 @@
 				Settings
 			</span>
 
-			<div id="siteFilters">
-				Filter individual sites
+			<div id="settingsModalOptions">
+				<div id="siteFilters">
+					Filter individual sites
+				</div>
+
+				<div id="encounterMode">
+					<div id="encounterModeTitle">Switch Encounter Mode</div>
+					<div id="encounterModeContent">
+						Maximum Encounters
+					</div>
+				</div>
+
+				<label class="checkmarkContainer">
+					Enable sounds
+					<input id="enableSoundsCheckmark" type="checkbox">
+					<span class="checkmark"></span>
+				</label>
+
+				<label class="checkmarkContainer">
+					Enable Pepega Catch/Release notifications
+					<input id="enablePepegaCatchReleaseNotificationsCheckmark" type="checkbox">
+					<span class="checkmark"></span>
+				</label>
+
+				<label class="checkmarkContainer">
+					Enable Rank Up notifications
+					<input id="enableRankUpNotificationsCheckmark" type="checkbox">
+					<span class="checkmark"></span>
+				</label>
+
+				<label class="checkmarkContainer">
+					Record the site of where a Pepega was caught
+					<input id="recordOriginCheckmark" type="checkbox">
+					<span class="checkmark"></span>
+				</label>
 			</div>
-
-			<label class="checkmarkContainer">
-				Enable sounds
-				<input id="enableSoundsCheckmark" type="checkbox">
-				<span class="checkmark"></span>
-			</label>
-
-			<label class="checkmarkContainer">
-				Enable Pepega Catch/Release notifications
-				<input id="enablePepegaCatchReleaseNotificationsCheckmark" type="checkbox">
-				<span class="checkmark"></span>
-			</label>
-
-			<label class="checkmarkContainer">
-				Enable Rank Up notifications
-				<input id="enableRankUpNotificationsCheckmark" type="checkbox">
-				<span class="checkmark"></span>
-			</label>
-
-			<label class="checkmarkContainer">
-				Record the site of where a Pepega was caught
-				<input id="recordOriginCheckmark" type="checkbox">
-				<span class="checkmark"></span>
-			</label>
 
 			<div class="modalButtons">
 				<button id="settingsModalClose" class="button grayButton">Save & Close</button>
@@ -123,8 +132,8 @@
 		<span id="iqpsContent">
 			50
 		</span>
-		<span class="iqpsMultiplier">
-			(<span id="totalIqps">50</span><span id="rankIqpsMultiplier" title="From your current rank!">x 1.0</span><span id="uniquePepegaIqpsMultiplier" title="From the number of unique Pepegas in your army!">x 1.0</span>)
+		<span id="iqpsMultiplier">
+			(<span id="totalIqps">50</span> x <span id="rankIqpsMultiplier" title="From your current rank!">1.0</span> x <span id="uniquePepegaIqpsMultiplier" title="From the number of unique Pepegas in your army!">1.0</span>)
 		</span>
 	</div>
 
@@ -141,9 +150,11 @@
 		<span id="encounterRateTitle" title="Changing the Encounter Rate can stop Pepegas from appearing on sites!&#013;Use this setting if you don't want to be annoyed by them!">
 			Encounter Rate:
 		</span>
-		<img id="encounterRateModifier" src="../../images/pepegaArmy/EncounterRateModifier.png">
 		<span id="encounterRateContent">
-			Maximum
+			50%
+		</span>
+		<span id="encounterRateMultiplier">
+			(<span id="totalEncounterRate">50</span> x <span id="encounterModeMultiplier" title="From your currently set Encounter Mode. You may change this in the game's settings.">0.5</span>)
 		</span>
 	</div>
 
@@ -182,7 +193,10 @@
 					<img class="pepegaStar pepegaStar3" src="../../images/pepegaArmy/Star.png" title="Template">
 				</div>
 				<div class="pepegaIq">
-					IQ/s: <span class="pepegaIqCount"> 10 </span>
+					IQ/s: <span class="pepegaIqContent"> 10 </span>
+				</div>
+				<div class="pepegaEncounterRate">
+					ER: <span class="pepegaEncounterRateContent"> 10 </span>
 				</div>
 			</div>
 		</div>

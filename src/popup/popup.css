@@ -31,7 +31,7 @@ body{
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 40px;
+    padding-top: 20px;
     left: 0;
     top: 0;
     width: 100%;
@@ -41,7 +41,9 @@ body{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .modalTitle{
-    font-size: 24px;
+    font-size: 32px;
+
+    color: rgb(180, 180, 180);
 }
 .modalDescription{
     font-size: 15px;
@@ -53,7 +55,7 @@ body{
     font-size: 16px;
     background-color: rgb(35,35,35);
     margin: auto;
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #888;
     width: 65%;
 }
@@ -126,7 +128,7 @@ body{
 
     color: rgb(230, 230, 230);
 }
-.iqpsMultiplier{
+#iqpsMultiplier{
     color: rgb(240, 210, 110);
 
     font-size: 16px;
@@ -147,16 +149,12 @@ body{
     
     color: rgb(200, 200, 200);
 }
-#encounterRateModifier{
-    height: 12px;
-    width: 12px;
+#encounterRateMultiplier{
+    color: rgb(240, 210, 110);
 
-    cursor: pointer;
-    margin-left: 2px;
-    margin-right: 4px;
-}
-#encounterRateModifier:hover{
-    opacity: 0.75;
+    font-size: 16px;
+
+    margin-left: 5px;
 }
 
 #nextRankTitle{
@@ -190,11 +188,33 @@ body{
     margin-top: 20px;
 }
 
+#settingsModalOptions{
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+#encounterMode{
+    font-size: 18px;
+
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+    color: rgb(248, 215, 72);
+}
+#encounterModeTitle:hover{
+    cursor: pointer;
+
+    color: rgb(255, 245, 180);
+}
+#encounterModeContent{
+    color: rgb(200, 200, 200);
+}
+
 #siteFilters{
     font-size: 20px;
 
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 
     color: rgb(248, 215, 72);
 
@@ -304,9 +324,18 @@ body{
 .pepegaIq{
     font-size: 12px;
 }
-.pepegaIqCount{
+.pepegaIqContent{
     font-size: 16px;
     color: rgb(240, 240, 240);
+}
+.pepegaEncounterRate{
+    font-size: 10px;
+    margin-top: -4px;
+    color: rgb(170, 170, 170);
+}
+.pepegaEncounterRateContent{
+    font-size: 16px;
+    color: rgb(200, 200, 200);
 }
 .pepegaStar{
     width: 10px;

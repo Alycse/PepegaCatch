@@ -32,15 +32,12 @@ chrome.runtime.onMessage.addListener(
 			sendResponse();
 		}else if(request.message == "player-pepegas-updated"){
 			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.additionalPepegaEncounterRate, request.playerEncounterMode);
 			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
 			setDisplayedIqps(request.totalIqps, request.multiplierTotalIqps);
 			sendResponse();
-		}else if(request.message == "player-encounter-rate-updated"){
-			setDisplayedEncounterRate(request.playerEncounterRate);
-			sendResponse();
 		}else if(request.message == "settings-updated"){
-			setDisplayedSettings(request.settingsFilteredSites, request.settingsEnableSounds, 
-				request.settingsEnablePepegaCatchReleaseNotifications, request.settingsEnableRankUpNotifications, request.settingsRecordOrigin);
+			setDisplayedSettings(request.settings);
 			sendResponse();
 		}else if(request.message == "player-army-name-updated"){
 			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
@@ -48,6 +45,10 @@ chrome.runtime.onMessage.addListener(
 		}else if(request.message == "player-pepega-slots-updated"){
 			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+			sendResponse();
+		}else if(request.message == "player-encounter-mode-updated"){
+			setDisplayedEncounterMode(request.playerEncounterMode);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.additionalPepegaEncounterRate, request.playerEncounterMode);
 			sendResponse();
 		}
 	}
@@ -108,22 +109,22 @@ function setDisplayedArmyName(playerArmyName, isDefaultArmyName = false){
 	}
 }
 
-function setDisplayedSettings(settingsFilteredSites, settingsEnableSounds, settingsEnablePepegaCatchReleaseNotifications, settingsEnableRankUpNotifications, settingsRecordSites){
-	if(settingsFilteredSites){
-		var settingsFilteredSitesText = settingsFilteredSites.join('\n');
+function setDisplayedSettings(settings){
+	if(settings.filteredSites){
+		var settingsFilteredSitesText = settings.filteredSites.join('\n');
 		document.getElementById("siteFiltersModalTextArea").value = settingsFilteredSitesText;
 	}
-	if(settingsEnableSounds){
-		document.getElementById('enableSoundsCheckmark').checked = settingsEnableSounds;
+	if(settings.enableSounds){
+		document.getElementById('enableSoundsCheckmark').checked = settings.enableSounds;
 	}
-	if(settingsEnablePepegaCatchReleaseNotifications){
-		document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked = settingsEnablePepegaCatchReleaseNotifications;
+	if(settings.enablePepegaCatchReleaseNotifications){
+		document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked = settings.enablePepegaCatchReleaseNotifications;
 	}
-	if(settingsEnableRankUpNotifications){
-		document.getElementById('enableRankUpNotificationsCheckmark').checked = settingsEnableRankUpNotifications;
+	if(settings.enableRankUpNotifications){
+		document.getElementById('enableRankUpNotificationsCheckmark').checked = settings.enableRankUpNotifications;
 	}
-	if(settingsRecordSites){
-		document.getElementById('recordOriginCheckmark').checked = settingsRecordSites;
+	if(settings.recordSites){
+		document.getElementById('recordOriginCheckmark').checked = settings.recordSites;
 	}
 }
 
@@ -141,7 +142,7 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 	document.getElementById("rankContent").innerHTML = rankTitle;
 	document.getElementById("rankContent").title = "Rank " + (ranksLength - rank.id) + "\n" + rankDescription;
 	if(rank.iqpsMultiplier != 1){
-		document.getElementById("rankIqpsMultiplier").innerHTML = " x " + rank.iqpsMultiplier.toFixed(2) + "";
+		document.getElementById("rankIqpsMultiplier").innerHTML =rank.iqpsMultiplier.toFixed(2) + "";
 	}else{
 		document.getElementById("rankIqpsMultiplier").innerHTML = "";
 	}
@@ -168,12 +169,23 @@ function commarize() {
 Number.prototype.commarize = commarize
 String.prototype.commarize = commarize
   
-function setDisplayedEncounterRate(playerEncounterRate){
-	document.getElementById("encounterRateContent").innerHTML = playerEncounterRate.name;
+function setDisplayedEncounterRate(baseEncounterRate, additionalPepegaEncounterRate, playerEncounterMode){
+	document.getElementById("encounterRateContent").innerHTML = ((baseEncounterRate + additionalPepegaEncounterRate) * (playerEncounterMode.multiplier / 100)) + "%";
+	if(playerEncounterMode.multiplier != 100){
+		document.getElementById("encounterRateMultiplier").style.display = "inline";
+		document.getElementById("totalEncounterRate").innerHTML = (baseEncounterRate + additionalPepegaEncounterRate);
+		document.getElementById("encounterModeMultiplier").innerHTML = (playerEncounterMode.multiplier / 100).toFixed(1);
+	}else{
+		document.getElementById("encounterRateMultiplier").style.display = "none";
+	}
 }
 
 function setDisplayedPlayerIqCount(playerIqCount){
 	document.getElementById("iqCountContent").innerHTML = Math.round(playerIqCount).commarize();
+}
+
+function setDisplayedEncounterMode(playerEncounterMode){
+	document.getElementById("encounterModeContent").innerHTML = playerEncounterMode.name;
 }
 
 function setDisplayedIqps(totalIqps, multipliedTotalIqps){
@@ -218,7 +230,13 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 				pepegaImageTitle += " at " + playerPepegas[index].date;
 			}
 			pepegaElement.getElementsByClassName("pepegaImage")[0].title = pepegaImageTitle;
-			pepegaElement.getElementsByClassName("pepegaIqCount")[0].innerHTML = formatWithCommas(playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
+			pepegaElement.getElementsByClassName("pepegaIqContent")[0].innerHTML = formatWithCommas(playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
+			if(playerPepegas[index].pepegaType.additionalEncounterRate != 0){
+				pepegaElement.getElementsByClassName("pepegaEncounterRate")[0].style.display = "block";
+				pepegaElement.getElementsByClassName("pepegaEncounterRateContent")[0].innerHTML = playerPepegas[index].pepegaType.additionalEncounterRate;
+			}else{
+				pepegaElement.getElementsByClassName("pepegaEncounterRate")[0].style.display = "none";
+			}
 			pepegaElement.getElementsByClassName("pepegaOrigin")[0].innerHTML = playerPepegas[index].origin;
 
 			if(playerPepegas[index].level <= 2){
@@ -248,9 +266,8 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 		document.getElementById("noPepegasMessage").style.display = "block";
 	}
 
-	console.log("unique pepega iqps:"+ uniquePepegaIqpsMultiplier);
 	if(uniquePepegaIqpsMultiplier != 1){
-		document.getElementById("uniquePepegaIqpsMultiplier").innerHTML = " x " + uniquePepegaIqpsMultiplier.toFixed(2) + "";
+		document.getElementById("uniquePepegaIqpsMultiplier").innerHTML = uniquePepegaIqpsMultiplier.toFixed(2) + "";
 	}else{
 		document.getElementById("uniquePepegaIqpsMultiplier").innerHTML = "";
 	}
@@ -300,10 +317,15 @@ function releasePlayerPepega(){
 }
 
 function updateSettings(){
-	chrome.runtime.sendMessage({"message": "update-settings", "filteredSitesText": document.getElementById("siteFiltersModalTextArea").value, "enableSounds": document.getElementById('enableSoundsCheckmark').checked, 
+	chrome.runtime.sendMessage({"message": "update-settings", 
+
+	"filteredSitesText": document.getElementById("siteFiltersModalTextArea").value, 
+	"enableSounds": document.getElementById('enableSoundsCheckmark').checked, 
 	"enablePepegaCatchReleaseNotifications": document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked, 
 	"enableRankUpNotifications": document.getElementById('enableRankUpNotificationsCheckmark').checked, 
-	"recordOrigin": document.getElementById('recordOriginCheckmark').checked}, function(response) {
+	"recordOrigin": document.getElementById('recordOriginCheckmark').checked
+
+	}, function(response) {
 		hideSettingsModal();
 	});
 }
@@ -314,8 +336,8 @@ function updateArmyName(){
 	});
 }
 
-function updateEncounterRate(){
-	chrome.runtime.sendMessage({"message": "update-player-encounter-rate"}, function(response) {
+function updateEncounterMode(){
+	chrome.runtime.sendMessage({"message": "update-player-encounter-mode"}, function(response) {
 	});
 }
 
@@ -330,7 +352,6 @@ function openGameLink(){
 
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
-document.getElementById("encounterRateModifier").addEventListener("click", updateEncounterRate);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
 document.getElementById("renameArmyModalClose").addEventListener("click", updateArmyName);
 document.getElementById("buyPepegaSlot").addEventListener("click", buyPepegaSlot);
@@ -341,3 +362,4 @@ document.getElementById("settingsModalClose").addEventListener("click", updateSe
 document.getElementById("siteFilters").addEventListener("click", showSiteFiltersModal);
 document.getElementById("siteFiltersModalClose").addEventListener("click", hideSiteFiltersModal);
 document.getElementById("gameTitle").addEventListener("click", openGameLink);
+document.getElementById("encounterModeTitle").addEventListener("click", updateEncounterMode);
