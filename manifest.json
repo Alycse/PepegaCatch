@@ -1,0 +1,38 @@
+{
+  "name": "Pepega Catch!",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Catch and collect all Pepegas across the web!",
+  "homepage_url": "https://github.com/Alycse",
+  "icons": {
+    "128": "icons/pepegaIcon128.png"
+  },
+  "background": {
+    "page": "src/background/background.html",
+    "persistent": true
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "notifications"
+  ],
+  "web_accessible_resources": [
+    "images/*",
+    "src/pepega/*"
+  ],
+  "browser_action": {
+    "default_icon": "icons/pepegaIcon128.png",
+    "default_title": "Popup",
+    "default_popup": "src/popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "src/content/content.js"
+      ]
+    }
+  ]
+}

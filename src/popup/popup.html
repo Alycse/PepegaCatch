@@ -1,0 +1,192 @@
+<!doctype html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="./popup.css">
+	<link rel="stylesheet" type="text/css" href="./custom.css">
+</head>
+
+<body>
+	<div id="settingsModal" class="modal">
+		<div id="settingsModalContent" class="modalContent">
+			<span class="modalTitle">
+				Settings
+			</span>
+
+			<div id="siteFilters">
+				Filter individual sites
+			</div>
+
+			<label class="checkmarkContainer">
+				Enable sounds
+				<input id="enableSoundsCheckmark" type="checkbox">
+				<span class="checkmark"></span>
+			</label>
+
+			<label class="checkmarkContainer">
+				Enable Pepega Catch/Release notifications
+				<input id="enablePepegaCatchReleaseNotificationsCheckmark" type="checkbox">
+				<span class="checkmark"></span>
+			</label>
+
+			<label class="checkmarkContainer">
+				Enable Rank Up notifications
+				<input id="enableRankUpNotificationsCheckmark" type="checkbox">
+				<span class="checkmark"></span>
+			</label>
+
+			<label class="checkmarkContainer">
+				Record the site of where a Pepega was caught
+				<input id="recordOriginCheckmark" type="checkbox">
+				<span class="checkmark"></span>
+			</label>
+
+			<div class="modalButtons">
+				<button id="settingsModalClose" class="button grayButton">Save & Close</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="releaseConfirmationModal" class="modal">
+		<div class="modalContent">
+			<span class="modalTitle">
+				Are you sure you want to release this <span id="releaseConfirmationModalPepegaName">Pepega</span> for 
+				<span id="releaseConfirmationModalPepegaIqReleasePrice">140</span> IQ?
+			</span>
+			<p>You won't be able to get it back!</p>
+			<div class="modalButtons">
+				<button id="releaseConfirmationModalYes" class="button redButton">Yes, release it!</button>
+				<button id="releaseConfirmationModalNo" class="button grayButton">No, keep it!</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="siteFiltersModal" class="modal">
+		<div class="modalContent">
+			<span class="modalTitle">
+				Filter individual sites
+			</span>
+			<div class="modalDescription">
+				This will stop Pepegas from appearing on certain sites.<br>
+				Make sure to separate each site with a new line.<br>
+				<span id="siteFilterExample">(example input: <span id="siteFilterExampleSite">twitch.tv</span>)</span>
+			</div>
+			<div class="textAreaContainer">
+				<textarea id="siteFiltersModalTextArea" textarea rows="6" cols="10"></textarea>
+			</div>
+			<div class="modalButtons">
+				<button id="siteFiltersModalClose" class="button grayButton">Done</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="renameArmyModal" class="modal">
+		<div class="modalContent">
+			<center>
+				<span class="modalTitle">
+					Name your Pepega Army:
+				</span>
+				<br>
+				<input maxlength="64" id="renameArmyInputBox" type="text"><br>
+			</center>
+			<div class="modalButtons">
+					<button id="renameArmyModalClose" class="button grayButton">Save & Close</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="gameTitle">
+		Pepega Catch! v1.0.0
+	</div>
+
+	<div id="rank" class="section">
+		<span id="rankTitle">
+			Rank:
+		</span>
+		<span id="rankContent" title="You're the captain now!">
+			PepeGOD
+		</span>
+	</div>
+
+	<div id="iqCount" class="section">
+		<span id="iqCountTitle">
+			IQ Count:
+		</span>
+		<span id="iqCountContent">
+			140
+		</span>
+	</div>
+
+	<div id="iqps" class="section">
+		<span id="iqpsTitle">
+			IQ per second:
+		</span>
+		<span id="iqpsContent">
+			50
+		</span>
+		<span class="iqpsMultiplier">
+			(<span id="totalIqps">50</span><span id="rankIqpsMultiplier" title="From your current rank!">x 1.0</span><span id="uniquePepegaIqpsMultiplier" title="From the number of unique Pepegas in your army!">x 1.0</span>)
+		</span>
+	</div>
+
+	<div id="nextRank" class="section">
+		<span id="nextRankTitle">
+			IQ needed to rank up:
+		</span>
+		<span id="nextRankContent">
+			2000
+		</span>
+	</div>
+
+	<div id="encounterRate" class="section">
+		<span id="encounterRateTitle" title="Changing the Encounter Rate can stop Pepegas from appearing on sites!&#013;Use this setting if you don't want to be annoyed by them!">
+			Encounter Rate:
+		</span>
+		<img id="encounterRateModifier" src="../../images/pepegaArmy/EncounterRateModifier.png">
+		<span id="encounterRateContent">
+			Maximum
+		</span>
+	</div>
+
+	<div id="settings" class="section">
+		Settings
+	</div>
+
+	<div id="pepegaArmy" class="section">
+		<div id="pepegaArmyTitle">
+			My Pepega Army
+		</div>
+		<div id="pepegaArmyCount">
+			Pepega Count: <span id="pepegaArmyCountContent">0/5</span>
+			<div id="buyPepegaSlot">
+				Buy a slot for <span id="buyPepegaSlotCost">1000 IQ</span>
+			</div>
+		</div>
+		<div id="noPepegasMessage">
+			You haven't caught any pepegas yet!
+		</div>
+		<div id="pepegaArmyContent">
+			<div id="pepegaElementTemplate" class="pepega">
+				<div class="pepegaDisplay">
+					<img class="pepegaImage" src="../../images/pepegas/0_Pepega.png" title="Template">
+					<img class="releaseButton" src="../../images/pepegas/0_Pepega.png" title="Release this Pepega">
+					<!--
+					<span class="releasePepegaId" style="display: none"> </span>
+					<span class="releasePepegaName" style="display: none"> </span>
+					<span class="releaseiqReleasePrice" style="display: none"> </span>
+					-->
+					<div class="pepegaOrigin"></div>
+				</div>
+				<div class="pepegaLevel">
+					<img class="pepegaStar" src="../../images/pepegaArmy/Star.png" title="Template">
+					<img class="pepegaStar pepegaStar2" src="../../images/pepegaArmy/Star.png" title="Template">
+					<img class="pepegaStar pepegaStar3" src="../../images/pepegaArmy/Star.png" title="Template">
+				</div>
+				<div class="pepegaIq">
+					IQ/s: <span class="pepegaIqCount"> 10 </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript" src="./popup.js"></script>
