@@ -233,7 +233,7 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			pepegaElement.getElementsByClassName("pepegaIqContent")[0].innerHTML = formatWithCommas(playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
 			if(playerPepegas[index].pepegaType.additionalEncounterRate != 0){
 				pepegaElement.getElementsByClassName("pepegaEncounterRate")[0].style.display = "block";
-				pepegaElement.getElementsByClassName("pepegaEncounterRateContent")[0].innerHTML = playerPepegas[index].pepegaType.additionalEncounterRate;
+				pepegaElement.getElementsByClassName("pepegaEncounterRateContent")[0].innerHTML = (playerPepegas[index].pepegaType.additionalEncounterRate * playerPepegas[index].level);
 			}else{
 				pepegaElement.getElementsByClassName("pepegaEncounterRate")[0].style.display = "none";
 			}

@@ -256,7 +256,7 @@ const pepegaTypes = [
         chrome.runtime.getURL("images/pepegas/22_Weebga.png")),
 
     new PepegaType(23, [], "Pokketga", "", 
-        4, 80, 0,
+        4, 80, 0.1,
         chrome.runtime.getURL("images/pepegas/23_Pokketga.png")),
 
     new PepegaType(24, [], "Mald Pepega", "This Pepega somehow manages to not only be mald, but also bald at the same time.", 
@@ -267,7 +267,7 @@ const pepegaTypes = [
         70, 22500, 2.5,
         chrome.runtime.getURL("images/pepegas/25_Ninjaga.png")),
 
-    new PepegaType(26, [21, 11, 5], "GreekGaX", "This Pepega has a habit of sticking to other Pepegas in hopes of stealing their IQ. It enjoys eating excessive amounts of food even though it has swore, many times in the past, to do the complete opposite.", 
+    new PepegaType(26, [21, 11, 4], "GreekGaX", "This Pepega has a habit of sticking to other Pepegas in hopes of stealing their IQ. It enjoys eating excessive amounts of food even though it has swore, many times in the past, to do the complete opposite.", 
         70, 22500, 2.5,
         chrome.runtime.getURL("images/pepegas/26_GreekGaX.png")),
 
@@ -275,17 +275,17 @@ const pepegaTypes = [
         80, 24000, 1.5,
         chrome.runtime.getURL("images/pepegas/27_Tylerga.png")),
 
-    new PepegaType(28, [21, 22, 4], "Triga", "Trigas are very popular for their immense skill in the game called Maldio. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
+    new PepegaType(28, [21, 23, 23, 3], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega. For some reason, you can see through its body.", 
         80, 24000, 1.5,
-        chrome.runtime.getURL("images/pepegas/28_Triga.png")),
+        chrome.runtime.getURL("images/pepegas/30_Doctor-Pepega.png")),
 
     new PepegaType(29, [21, 24, 5], "Forsenga", "A professional children's card player that gets mad and bald when it loses. Although, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever. Perhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
         90, 25500, 0.5,
         chrome.runtime.getURL("images/pepegas/29_Forsenga.png")),
 
-    new PepegaType(30, [21, 23, 23, 3], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega. For some reason, you can see through its body.", 
+    new PepegaType(30, [21, 22, 5], "Triga", "Trigas are very popular for their immense skill in the game called Maldio. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
         90, 25500, 0.5,
-        chrome.runtime.getURL("images/pepegas/30_Doctor-Pepega.png")),
+        chrome.runtime.getURL("images/pepegas/28_Triga.png")),
 
 
     new PepegaType(31, [], "Pridega", "", 
@@ -701,8 +701,9 @@ chrome.storage.local.get(["playerPepegas"], function(result) {
             
             addPlayerPepega(playerPepega, false, false);
         }
-        analyzeUniquePepegas();
-        analyzeBranch();
+        analyzeUniquePepegaIqpsMultiplier();
+        analyzeAdditionalPepegaEncounterRate();
+        //analyzeBranch();
     }
 });
 
@@ -715,6 +716,7 @@ chrome.storage.local.get(["playerArmyName"], function(result) {
 chrome.storage.local.get(["playerEncounterMode"], function(result) {
     if(result.playerEncounterMode != null){
         player.encounterMode = result.playerEncounterMode;
+        updateIconFromEncounterMode();
     }
 });
 
@@ -778,8 +780,9 @@ function removePlayerPepega(id, save = true){
         }
     }
 
-    analyzeUniquePepegas();
-    analyzeBranch();
+    analyzeUniquePepegaIqpsMultiplier();
+    analyzeAdditionalPepegaEncounterRate();
+    //analyzeBranch();
     updatePlayerPepegasPopupDisplay();
 
     if(save){
@@ -805,14 +808,15 @@ function analyzePepegaSlotCost(){
     pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots + 1, 5) * 2);
 }
 
-function analyzeUniquePepegas(){
+function analyzeUniquePepegaIqpsMultiplier(){
     var uniquePepegas = [...new Set(player.pepegas.map(pepega => pepega.pepegaType.id))];
     uniquePepegaIqpsMultiplier = 1 + ((uniquePepegas.length-1) * iqpsMultiplierForEachUniquePepega);
-    console.log("length: " +uniquePepegas.length);
+    
+}
+function analyzeAdditionalPepegaEncounterRate(){
     var calculatedAdditionalPepegaEncounterRate = 0;
-    for(var i = 0; i < uniquePepegas.length; i++){
-        console.log("id: "+ uniquePepegas[i].id);
-        calculatedAdditionalPepegaEncounterRate += pepegaTypes[uniquePepegas[i]].additionalEncounterRate;
+    for(var i = 0; i < player.pepegas.length; i++){
+        calculatedAdditionalPepegaEncounterRate += (player.pepegas[i].pepegaType.additionalEncounterRate * player.pepegas[i].level);
     }
     additionalPepegaEncounterRate = Math.max(Math.min(calculatedAdditionalPepegaEncounterRate, 100), 0);
 }
@@ -855,8 +859,8 @@ function rollWildPepega(category){
 
 function rollEncounter(){
     var roll = (Math.random() * (100 - 0.1)) + 0.1;
-    console.log("Encounter Roll: " + roll + " must be less than " + ((baseEncounterRate + additionalPepegaEncounterRate)));
-    return roll <= ((baseEncounterRate + additionalPepegaEncounterRate) * settings.encounterMode.multiplier);
+    console.log("Encounter Roll: " + roll + " must be less than " +((baseEncounterRate + additionalPepegaEncounterRate) * (player.encounterMode.multiplier/100)));
+    return roll <= ((baseEncounterRate + additionalPepegaEncounterRate) * (player.encounterMode.multiplier/100));
 }
 
 function rollTimeBeforeNextWildPepegaSpawn(){
@@ -864,8 +868,8 @@ function rollTimeBeforeNextWildPepegaSpawn(){
     return roll;
 }
 
-const minTimeBeforeNextWildPepegaSpawn = 7500;
-const maxTimeBeforeNextWildPepegaSpawn = 30000;
+const minTimeBeforeNextWildPepegaSpawn = 5000;
+const maxTimeBeforeNextWildPepegaSpawn = 20000;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
 chrome.storage.local.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"], function(result) {
@@ -1032,8 +1036,9 @@ function addPlayerPepega(pepega, save = true, displayForPopup = true){
         totalIqps += pepega.pepegaType.iqps * pepega.level;
 
         if(displayForPopup){
-            analyzeUniquePepegas();
-            analyzeBranch();
+            analyzeUniquePepegaIqpsMultiplier();
+            analyzeAdditionalPepegaEncounterRate();
+            //analyzeBranch();
             updatePlayerPepegasPopupDisplay();
         }
 
