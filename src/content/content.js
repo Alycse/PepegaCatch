@@ -1,5 +1,8 @@
 const wildPepegaSpawnMinimumDiv = 40;
 
+var browser = chrome;
+var browserRuntime = browser.runtime;
+
 var readyStateCheckInterval = setInterval(function() {
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
@@ -15,7 +18,7 @@ function rollPagePosition() {
 }
 
 function insertWildPepega() {
-	chrome.runtime.sendMessage({"message": "get-wild-pepega", "location": window.location}, function(response) {
+	browserRuntime.sendMessage({"message": "get-wild-pepega", "location": window.location}, function(response) {
 		var divs = document.getElementsByTagName("div");
 		console.log("Site has " + divs.length + " divs, minimum requirement is " + wildPepegaSpawnMinimumDiv + " divs");
 		if(!response.isSiteFiltered && response.wildPepega != null && divs.length >= wildPepegaSpawnMinimumDiv){
@@ -23,17 +26,17 @@ function insertWildPepega() {
 			if(divElement == null){
 				return;
 			}
-			insertWildPepegaImage(divElement, response.wildPepega.pepegaType.imageUrl, response.wildPepega.pepegaType.id);
+			insertWildPepegaImage(divElement, response.wildPepega.pepegaType.imageUrl, response.wildPepega.pepegaType.id, response.wildPepega.power);
 			insertWildPepegaJs();
 			insertWildPepegaCss();
 		}
 	});
 }
 
-function insertWildPepegaImage(divElement, wildPepegaImageUrl, wildPepegaTypeId){
+function insertWildPepegaImage(divElement, wildPepegaImageUrl, wildPepegaTypeId, wildPepegaPower){
 	var wildPepegaImage = document.createElement("img");
 	wildPepegaImage.id = "wildPepega";
-	wildPepegaImage.name = wildPepegaTypeId;
+	wildPepegaImage.name = wildPepegaTypeId + " " + wildPepegaPower;
 	wildPepegaImage.src = wildPepegaImageUrl;
 	var pagePosition = rollPagePosition();
 	wildPepegaImage.style.top = pagePosition.y + "px";
@@ -45,13 +48,13 @@ function insertWildPepegaCss(){
 	var link = document.createElement('link');
 	link.rel = "stylesheet";
 	link.type = "text/css";
-	link.href = chrome.runtime.getURL("src/pepega/pepega.css");
+	link.href = browserRuntime.getURL("src/pepega/pepega.css");
 	(document.head || document.documentElement).appendChild(link);
 }
 
 function insertWildPepegaJs(){
 	var script = document.createElement('script');
-	script.src = chrome.runtime.getURL("src/pepega/pepega.js");
+	script.src = browserRuntime.getURL("src/pepega/pepega.js");
 	(document.head || document.documentElement).appendChild(script);
 }
 
@@ -60,7 +63,8 @@ window.addEventListener("message", function(event) {
         return;
     }
     if (event.data.message && event.data.message == "catch-wild-pepega") {
-		chrome.runtime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "location": window.location}, function(response) {
-		});
+		try{
+			browserRuntime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, "location": window.location});
+		}catch(e){}
     }
 }, false);

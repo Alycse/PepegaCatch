@@ -4,7 +4,7 @@ function catchWildPepega() {
 	var wildPepega = document.getElementById("wildPepega");
 	wildPepega.parentNode.removeChild(wildPepega);
 
-	console.log("\nName: " + wildPepega.name + "\n");
-
-	window.postMessage({ "message": "catch-wild-pepega", "wildPepegaTypeId": wildPepega.name }, "*");
+	var wildPepegaInfo = wildPepega.name.split(" ");
+	
+	window.postMessage({ "message": "catch-wild-pepega", "wildPepegaTypeId": wildPepegaInfo[0], "wildPepegaPower": wildPepegaInfo[1] }, "*");
 }

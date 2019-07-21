@@ -5,17 +5,30 @@ const gameTitle = "Pepega Catch!";
 const pepegasPerRow = 5;
 const defaultInputBoxArmyName = "My Pepega Army";
 
+const tutorialModalDelay = 200;
+var displayedIqCount = 0;
+
 var mouseEnterBuyPepegaSlotColor;
 var mouseLeaveBuyPepegaSlotColor;
 var mouseEnteredBuyPepegaSlot;
 
+var shownTutorialPhase;
+var shownRandomTutorialPhase;
+
+var hasUniquePepegaIqpsMultiplier = false;
+var hasRankIqpsMultiplier = false;
+
 var pepegaElementTemplate = document.getElementById("pepegaElementTemplate");
 pepegaElementTemplate.parentNode.removeChild(pepegaElementTemplate);
+
+var browser = chrome;
+var browserRuntime = browser.runtime;
+var browserTabs = browser.tabs;
 
 updateGameTitle();
 
 function updateGameTitle(){
-	var manifestData = chrome.runtime.getManifest();
+	var manifestData = browserRuntime.getManifest();
 	var newGameTitle = gameTitle + " v" + manifestData.version;
 	if(isBeta){
 		newGameTitle += " BETA";
@@ -23,39 +36,265 @@ function updateGameTitle(){
 	document.getElementById("gameTitle").innerHTML = newGameTitle;
 }
 
-chrome.runtime.onMessage.addListener(
+browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if(request.message == "player-iq-count-updated"){
 			setDisplayedPlayerIqCount(request.playerIqCount);
 			setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
-			sendResponse();
 		}else if(request.message == "player-pepegas-updated"){
 			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
-			setDisplayedEncounterRate(request.baseEncounterRate, request.additionalPepegaEncounterRate, request.playerEncounterMode);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.settingsEncounterMode);
 			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
-			setDisplayedIqps(request.totalIqps, request.multiplierTotalIqps);
-			sendResponse();
+			setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
+			setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
 		}else if(request.message == "settings-updated"){
 			setDisplayedSettings(request.settings);
-			sendResponse();
 		}else if(request.message == "player-army-name-updated"){
 			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
-			sendResponse();
 		}else if(request.message == "player-pepega-slots-updated"){
 			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
-			sendResponse();
-		}else if(request.message == "player-encounter-mode-updated"){
-			setDisplayedEncounterMode(request.playerEncounterMode);
-			setDisplayedEncounterRate(request.baseEncounterRate, request.additionalPepegaEncounterRate, request.playerEncounterMode);
-			sendResponse();
+		}else if(request.message == "settings-encounter-mode-updated"){
+			setDisplayedEncounterMode(request.settingsEncounterMode);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.settingsEncounterMode);
+		}else if(request.message == "tutorial-phase-updated"){
+			setDisplayedTutorialPhase(request.tutorialPhase);
+		}else if(request.message == "show-random-tutorial"){
+			setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
 		}
 	}
 );
 
-chrome.runtime.sendMessage({"message": "update-all-popup-displays"}, function(response) {
-});
+browserRuntime.sendMessage({"message": "update-all-popup-displays"});
+
+function setDisplayedTutorialPhase(tutorialPhase){
+	var tutorialDisplayContent = "";
+	var tutorialDisplayDescription = "";
+	document.getElementById("tutorialDisplay").style.display = "none";
+
+	if(tutorialPhase == "ask"){
+
+		setTimeout(function() {
+			document.getElementById("tutorialAskModal").style.display = "block";
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "catchPrompt"){
+
+		setTimeout(function() {
+			showTutorialModal("Let's catch your first Pepega!", 
+			"<p>Go to any website, find the Wild Pepega hiding within the page, then click it!</p>" + 
+			"<p>In order to successfully catch it, you need to \"overpower\" it.</p>" + 
+			"<p>This means using your all of your Pepegas' power and your own power to catch the Wild Pepega.</p>" +
+			"<p>But since you don't have any Pepegas yet, you're gonna have to rely on your own Power! Don't worry, this is all done automatically!</p>");
+		}, tutorialModalDelay);
+		
+	} else if(tutorialPhase == "catch"){
+
+		tutorialDisplayContent = "Catch your first Pepega!";
+		tutorialDisplayDescription = "Go to any website, find the Wild Pepega hiding within the page, then click it!\n" + 
+		"In order to successfully catch it, you need to \"overpower\" it.\n" + 
+		"This means using your Pepegas' power and your own power to catch the Wild Pepega.\n"+
+		"But since you don't have any Pepegas yet, you're gonna have to rely on your own Power! Don't worry, this is all done automatically!";
+
+	} else if(tutorialPhase == "catchDone"){
+
+		setTimeout(function() {
+			showTutorialModal("Great! You caught your first Pepega!", 
+			"<p>This Pepega will increase the amount of IQ you get per second, " +
+			"and it will also fight for you when you're catching more Wild Pepegas!</p>" +
+			"<p>Your Total Estimated Power is your power combined with your Pepegas' power, which you can find on your home screen.</p>" +
+			"<p>Generally, you need this to be higher than the power of the Wild Pepega that you're trying to catch.</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "exploreInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("A Pepega's Natural Habitat", 
+			"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
+			"<p>This means that, you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
+			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "hoverInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("Hovering over stuff with your cursor lets you view their information!", 
+			"<p>You may hover over a Pepega with your cursor in your Pepega Army to view its information.</p>" + 
+			"<p>You may also release/sell a Pepega by hovering over it then clicking the Release button on its top left.</p>" +
+			"<p>Remember, If you don't know what something is, just hover over it!</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "levelUpPrompt"){
+
+		setTimeout(function() {
+			showTutorialModal("Now, let's try leveling up your Pepega!", 
+			"<p>Three Pepegas of the same type and level will combine into a Pepega which is one level higher.</p>" + 
+			"<p>So three Level 1 Pepegas will combine into a Level 2 Pepega, and three Level 2 Pepegas will combine into a Level 3 Pepega!</p>" + 
+			"<p>The maximum level is Level 3! Go ahead and try leveling up your Pepega now!</p>");
+		}, tutorialModalDelay);
+
+	}else if(tutorialPhase == "levelUp"){
+
+		tutorialDisplayContent = "Level up your Pepega!";
+		tutorialDisplayDescription = "Catch THREE of the same type of Pepega to level it up.";
+
+	} else if(tutorialPhase == "levelUpDone"){
+
+		setTimeout(function() {
+			showTutorialModal("Amazing job! Your Pepega has leveled up!", "Now it's less stupid than before!");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "buySlotPrompt"){
+
+		setTimeout(function() {
+			showTutorialModal("Buy more slots for your Pepega Army.", 
+			"<p>Notice how you only have a limited amount of space for Pepegas in your army.</p>" + 
+			"<p>You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count. Try it now!</p>" +
+			"<p>You might not have enough IQ yet, so just wait and let your Pepegas do their work! You should also catch more Pepegas to get more IQ faster!</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "buySlot"){
+
+		tutorialDisplayContent = "Buy a slot";
+		tutorialDisplayDescription = "You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count.\nIf you don't have enough IQ yet to buy one, just wait and let your Pepegas do their work!\nYou should also catch more Pepegas to get more IQ faster!";
+
+	} else if(tutorialPhase == "buySlotDone"){
+
+		setTimeout(function() {
+			showTutorialModal("Now you have more space for more Pepegas!", "Greekgas can now fit.");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "fusionPrompt"){
+
+		setTimeout(function() {
+			showTutorialModal("For your last task, I want you to make a Fusion Pepega.", 
+			"<p>Only Level 3 Pepegas can be fusioned, so you'll need THREE Level 2 of the same type of Pepega to level it up even further.</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "fusionInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!", 
+			"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!</p>" +
+			"<p>To make a Peppahga, you need to fuse a Baby Pepega and a Grassga. That means a Level 3 Baby Pepega, and a Level 3 Grassga!</p>" +
+			"<p>Good luck! This might take you a while to complete.</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "fusion"){
+
+		tutorialDisplayContent = "Make a Fusion Pepega";
+		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!\n" + 
+			"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!\n" +
+			"To make a Peppahga, you need to fuse a Baby Pepega and a Grassga. That means a Level 3 Baby Pepega, and a Level 3 Grassga!\n"+
+			"Good luck! This might take you a while to complete.";
+
+	} else if(tutorialPhase == "fusionDone"){
+
+		setTimeout(function() {
+			showTutorialModal("Wonderful! You finally made your first Pepega Fusion!", "Note that Fusions aren't always this simple. Some fusions require multiple different types of Pepegas!");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "complete"){
+
+		setTimeout(function() {
+			showTutorialModal("You've completed the tutorial!", 
+				"<p>If you need more information about the game, you may <a href=\""+gameLink+"\">visit the game's page</a>!</p>" + 
+				"<p>Thank you!</p>");
+		}, tutorialModalDelay);
+
+	} 
+
+	if(tutorialDisplayContent != ""){
+		document.getElementById("tutorialDisplay").style.display = "block";
+		document.getElementById("tutorialDisplayContent").innerHTML = tutorialDisplayContent;
+		document.getElementById("tutorialDisplay").title = tutorialDisplayDescription;
+	}
+
+	shownTutorialPhase = tutorialPhase;
+}
+
+function closeTutorialModal(){
+	var tutorialPhase = "end";
+	if(shownTutorialPhase == "catchPrompt"){
+		tutorialPhase = "catch";
+	}else if(shownTutorialPhase == "catchDone"){
+		tutorialPhase = "exploreInfo";
+	}else if(shownTutorialPhase == "exploreInfo"){
+		tutorialPhase = "hoverInfo";
+	}else if(shownTutorialPhase == "hoverInfo"){
+		tutorialPhase = "levelUpPrompt";
+	}else if(shownTutorialPhase == "levelUpPrompt"){
+		tutorialPhase = "levelUp";
+	}else if(shownTutorialPhase == "levelUpDone"){
+		tutorialPhase = "buySlotPrompt";
+	}else if(shownTutorialPhase == "buySlotPrompt"){
+		tutorialPhase = "buySlot";
+	}else if(shownTutorialPhase == "buySlotDone"){
+		tutorialPhase = "fusionPrompt";
+	}else if(shownTutorialPhase == "fusionPrompt"){
+		tutorialPhase = "fusionInfo";
+	}else if(shownTutorialPhase == "fusionInfo"){
+		tutorialPhase = "fusion";
+	}else if(shownTutorialPhase == "fusionDone"){
+		tutorialPhase = "complete";
+	}else if(shownTutorialPhase == "complete"){
+		tutorialPhase = "end";
+	}
+	browserRuntime.sendMessage({"message": "update-tutorial-phase", "tutorialPhase": tutorialPhase});
+	hideTutorialModal();
+}
+
+function setDisplayedRandomTutorialPhase(randomTutorialPhase){
+	if(randomTutorialPhase.includes("uniquePepega")){
+
+		showRandomTutorialModal("uniquePepega", "Unique!", "So unique!");
+
+	}else if(randomTutorialPhase.includes("rankUp")){
+
+		showRandomTutorialModal("rankUp", "You've ranked up!", 
+		"<p>By ranking up, your IQ/s multiplier and your Base Power increases!</p>" +
+		"<p>This will help you gain IQ much faster, and also allow you to catch even more powerful Wild Pepegas!</p>");
+
+	}else if(randomTutorialPhase.includes("deadPepega")){
+
+		showRandomTutorialModal("deadPepega", "Oh no! One of your Pepegas died while fighting the Wild Pepega!", 
+		"<p>When a Pepega dies, it won't produce any IQ and it won't fight for you.</p>"+
+		"<p>To bring it back to life, you can either wait for it to be ressurected (you can see how long this will take by hovering over the dead Pepega with your cursor)...</p>" +
+		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button.</p>");
+	
+	}
+	console.log("random tut: " + randomTutorialPhase);
+	shownRandomTutorialPhase = randomTutorialPhase;
+}
+
+function closeRandomTutorialModal(){
+	shownRandomTutorialPhase = shownRandomTutorialPhase.replace("_" + document.getElementById("randomTutorialModal").randomTutorialPhase + "_", "");
+
+	browserRuntime.sendMessage({"message": "replace-random-tutorial-phase", "randomTutorialPhase": shownRandomTutorialPhase});
+	hideRandomTutorialModal();
+}
+
+function showTutorialModal(tutorialTitle, tutorialDescription){
+	document.getElementById("tutorialModal").style.display = "block";
+	document.getElementById("tutorialModalTitle").innerHTML = tutorialTitle;
+	document.getElementById("tutorialModalDescription").innerHTML = tutorialDescription;
+}
+function hideTutorialModal(){
+	document.getElementById("tutorialModal").style.display = "none";
+	shownTutorialPhase = "";
+}
+
+function showRandomTutorialModal(randomTutorialPhase, tutorialTitle, tutorialDescription){
+	document.getElementById("randomTutorialModal").style.display = "block";
+	document.getElementById("randomTutorialModalTitle").innerHTML = tutorialTitle;
+	document.getElementById("randomTutorialModalDescription").innerHTML = tutorialDescription;
+	document.getElementById("randomTutorialModal").randomTutorialPhase = randomTutorialPhase;
+}
+function hideRandomTutorialModal(){
+	document.getElementById("randomTutorialModal").style.display = "none";
+	randomTutorialPhase = "";
+}
 
 function setDisplayedPepegaSlots(playerPepegaCount, playerPepegaSlots, pepegaSlotCost){
 	document.getElementById("pepegaArmyCountContent").innerHTML = playerPepegaCount + "/" + playerPepegaSlots;
@@ -110,21 +349,25 @@ function setDisplayedArmyName(playerArmyName, isDefaultArmyName = false){
 }
 
 function setDisplayedSettings(settings){
-	if(settings.filteredSites){
+	if(settings.filteredSites != null){
 		var settingsFilteredSitesText = settings.filteredSites.join('\n');
 		document.getElementById("siteFiltersModalTextArea").value = settingsFilteredSitesText;
 	}
-	if(settings.enableSounds){
+	if(settings.enableSounds != null){
 		document.getElementById('enableSoundsCheckmark').checked = settings.enableSounds;
 	}
-	if(settings.enablePepegaCatchReleaseNotifications){
+	if(settings.enablePepegaCatchReleaseNotifications != null){
 		document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked = settings.enablePepegaCatchReleaseNotifications;
 	}
-	if(settings.enableRankUpNotifications){
+	if(settings.enableRankUpNotifications != null){
 		document.getElementById('enableRankUpNotificationsCheckmark').checked = settings.enableRankUpNotifications;
 	}
-	if(settings.recordSites){
-		document.getElementById('recordOriginCheckmark').checked = settings.recordSites;
+	if(settings.enablePepegaHealNotifications != null){
+		document.getElementById('enablePepegaHealNotificationsCheckmark').checked = settings.enablePepegaHealNotifications;
+	}
+	console.log("display: " + settings.recordOrigin);
+	if(settings.recordOrigin != null){
+		document.getElementById('recordOriginCheckmark').checked = settings.recordOrigin;
 	}
 }
 
@@ -142,10 +385,13 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 	document.getElementById("rankContent").innerHTML = rankTitle;
 	document.getElementById("rankContent").title = "Rank " + (ranksLength - rank.id) + "\n" + rankDescription;
 	if(rank.iqpsMultiplier != 1){
-		document.getElementById("rankIqpsMultiplier").innerHTML =rank.iqpsMultiplier.toFixed(2) + "";
+		document.getElementById("rankIqpsMultiplier").innerHTML = " x " + rank.iqpsMultiplier.toFixed(2) + "";
+		hasRankIqpsMultiplier = true;
 	}else{
 		document.getElementById("rankIqpsMultiplier").innerHTML = "";
+		hasRankIqpsMultiplier = false;
 	}
+	checkForIqpsMultiplier();
 	if(nextRank){
 		document.getElementById("nextRankContent").innerHTML =  formatWithCommas(nextRank.iqRequirement);
 	}else{
@@ -169,28 +415,90 @@ function commarize() {
 Number.prototype.commarize = commarize
 String.prototype.commarize = commarize
   
-function setDisplayedEncounterRate(baseEncounterRate, additionalPepegaEncounterRate, playerEncounterMode){
-	document.getElementById("encounterRateContent").innerHTML = ((baseEncounterRate + additionalPepegaEncounterRate) * (playerEncounterMode.multiplier / 100)) + "%";
-	if(playerEncounterMode.multiplier != 100){
+function setDisplayedEncounterRate(baseEncounterRate, settingsEncounterMode){
+	document.getElementById("encounterRateContent").innerHTML = ((baseEncounterRate) * (settingsEncounterMode.multiplier / 100)) + "%";
+	if(settingsEncounterMode.multiplier != 100){
 		document.getElementById("encounterRateMultiplier").style.display = "inline";
-		document.getElementById("totalEncounterRate").innerHTML = (baseEncounterRate + additionalPepegaEncounterRate);
-		document.getElementById("encounterModeMultiplier").innerHTML = (playerEncounterMode.multiplier / 100).toFixed(1);
+		document.getElementById("totalEncounterRate").innerHTML = (baseEncounterRate);
+		document.getElementById("encounterModeMultiplier").innerHTML = " x " + (settingsEncounterMode.multiplier / 100).toFixed(1);
 	}else{
 		document.getElementById("encounterRateMultiplier").style.display = "none";
 	}
 }
 
 function setDisplayedPlayerIqCount(playerIqCount){
+	displayedIqCount = playerIqCount;
 	document.getElementById("iqCountContent").innerHTML = Math.round(playerIqCount).commarize();
 }
 
-function setDisplayedEncounterMode(playerEncounterMode){
-	document.getElementById("encounterModeContent").innerHTML = playerEncounterMode.name;
+function setDisplayedEncounterMode(settingsEncounterMode){
+	document.getElementById("encounterModeContent").innerHTML = settingsEncounterMode.name;
 }
 
 function setDisplayedIqps(totalIqps, multipliedTotalIqps){
 	document.getElementById("totalIqps").innerHTML = formatWithCommas(totalIqps);
 	document.getElementById("iqpsContent").innerHTML = formatWithCommas(multipliedTotalIqps);
+}
+
+function setDisplayedPower(rankBasePower, totalPepegaPower){
+	document.getElementById("powerContent").innerHTML = formatWithCommas((rankBasePower + totalPepegaPower).toFixed(2));
+	if(totalPepegaPower > 0){
+		document.getElementById("additionalPower").style.display = "inline";
+		document.getElementById("rankBasePower").innerHTML = formatWithCommas(Math.round(rankBasePower*100)/100); 
+		document.getElementById("totalPepegaPower").innerHTML = " + " + formatWithCommas(Math.round(totalPepegaPower*100)/100);
+	}else{
+		document.getElementById("additionalPower").style.display = "none";
+	}
+}
+
+var pepegaElements = [];
+var pepegaIndexToCheck = 0;
+var interval = setInterval(function() {
+	checkPepegas();
+}, 300);
+
+function checkPepegas(){
+	for(var i = 0; i < pepegaElements.length; i++){
+		var currentTime = new Date().getTime();
+		var pepegaElement = pepegaElements[i];
+
+		var healButtonElement = pepegaElement.getElementsByClassName("healButton")[0];
+
+		var pepegaAlive = pepegaElement.alive;
+		var pepegaTimeOfRecovery = pepegaElement.timeBeforeRecovery;
+		var pepegaImageTitle = pepegaElement.pepegaImageTitle;
+		var healCostMultiplier = pepegaElement.healCostMultiplier;
+
+		var pepegaImageElement = pepegaElement.getElementsByClassName("pepegaImage")[0];
+
+		var timeLeftSeconds = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000))
+
+		if(!pepegaAlive && timeLeftSeconds > 2){
+			console.log("time left seconds: " + Math.ceil((timeLeftSeconds / 10)));
+			var healCost = healCostMultiplier * Math.ceil((timeLeftSeconds / 10));
+			if(healCost != pepegaElement.healCost){
+				pepegaElement.healCost = healCost;
+
+				if(timeLeftSeconds > 10){
+					pepegaImageTitle += "\n\nEstimated time of recovery: " + ((timeLeftSeconds/10)*10) + "+ seconds";
+				}else{
+					pepegaImageTitle += "\n\nEstimated time of recovery: a few seconds";
+				}
+
+				pepegaImageElement.title = pepegaImageTitle;
+
+				healButtonElement.title = "Heal this Pepega. You will lose " + healCost + " IQ";
+
+				if(displayedIqCount >= healCost){
+					healButtonElement.style.webkitFilter = "grayscale(0%)";
+				}else{
+					healButtonElement.style.webkitFilter = "grayscale(100%)";
+				}
+			}
+		}else if (healButtonElement.style.display != "none"){
+			healButtonElement.style.display = "none";
+		}
+	}
 }
 
 function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
@@ -213,6 +521,7 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			}
 
 			var pepegaElement = pepegaElementTemplate.cloneNode(true);
+			var pepegaImageElement = pepegaElement.getElementsByClassName("pepegaImage")[0];
 
 			currentPepegaArmyRowElement.appendChild(pepegaElement);
 
@@ -220,7 +529,7 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			if(playerPepegas[index].fusioned){
 				caughtMessage = "Fusion summoned on";
 			}
-			pepegaElement.getElementsByClassName("pepegaImage")[0].src = playerPepegas[index].pepegaType.imageUrl;
+			pepegaImageElement.src = playerPepegas[index].pepegaType.imageUrl;
 			var pepegaDescription = "";
 			if(playerPepegas[index].pepegaType.description){
 				pepegaDescription = "\nDetails:\n\"" + playerPepegas[index].pepegaType.description + "\"\n";
@@ -229,15 +538,24 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			if(playerPepegas[index].date){
 				pepegaImageTitle += " at " + playerPepegas[index].date;
 			}
-			pepegaElement.getElementsByClassName("pepegaImage")[0].title = pepegaImageTitle;
-			pepegaElement.getElementsByClassName("pepegaIqContent")[0].innerHTML = formatWithCommas(playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
-			if(playerPepegas[index].pepegaType.additionalEncounterRate != 0){
-				pepegaElement.getElementsByClassName("pepegaEncounterRate")[0].style.display = "block";
-				pepegaElement.getElementsByClassName("pepegaEncounterRateContent")[0].innerHTML = (playerPepegas[index].pepegaType.additionalEncounterRate * playerPepegas[index].level);
-			}else{
-				pepegaElement.getElementsByClassName("pepegaEncounterRate")[0].style.display = "none";
+
+			pepegaElement.timeBeforeRecovery = playerPepegas[index].timeBeforeRecovery;
+			pepegaElement.alive = playerPepegas[index].alive;
+			pepegaElement.pepegaImageTitle = pepegaImageTitle;
+			pepegaElement.healCostMultiplier = playerPepegas[index].pepegaType.healCostMultiplier;
+
+			/*
+			var currentTime = new Date().getTime();
+			if(!playerPepegas[index].alive && currentTime < playerPepegas[index].timeBeforeRecovery){
+				pepegaImageTitle += "\nEstimated time of recovery: " + Math.round(((playerPepegas[index].timeBeforeRecovery - currentTime) / 1000)) + " seconds";
 			}
-			pepegaElement.getElementsByClassName("pepegaOrigin")[0].innerHTML = playerPepegas[index].origin;
+			*/
+
+			pepegaImageElement.title = pepegaImageTitle;
+
+			pepegaElement.getElementsByClassName("pepegaIqContent")[0].innerHTML = formatWithCommas(playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
+
+			pepegaElement.getElementsByClassName("pepegaPowerContent")[0].innerHTML = formatWithCommas(Math.round((playerPepegas[index].power * playerPepegas[index].level) * 100)/100);
 
 			if(playerPepegas[index].level <= 2){
 				pepegaElement.getElementsByClassName("pepegaStar3")[0].style.display = "none";
@@ -246,20 +564,36 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 				}
 			}
 
+			if(playerPepegas[index].alive){
+				pepegaImageElement.style.webkitFilter = "grayscale(0%)"
+			}else{
+				pepegaImageElement.style.webkitFilter = "grayscale(100%)"
+			}
+
+			pepegaElement.healCost = 0;
+			pepegaElement.getElementsByClassName("healButton")[0].healPepegaId = playerPepegas[index].id;
+			pepegaElement.getElementsByClassName("healButton")[0].index = index;
+			pepegaElement.getElementsByClassName("healButton")[0].addEventListener("click", function(){
+				healPlayerPepega(this.healPepegaId, this.index);
+			});
 			pepegaElement.getElementsByClassName("releaseButton")[0].releasePepegaId = playerPepegas[index].id;
 			pepegaElement.getElementsByClassName("releaseButton")[0].releasePepegaName = playerPepegas[index].pepegaType.name;
 			pepegaElement.getElementsByClassName("releaseButton")[0].releaseiqReleasePrice = (playerPepegas[index].pepegaType.iqReleasePrice * playerPepegas[index].level);
-			pepegaElement.getElementsByClassName("releaseButton")[0].title = "Release this Pepega for " + formatWithCommas((playerPepegas[index].pepegaType.iqReleasePrice * playerPepegas[index].level)) + " IQ";
+			pepegaElement.getElementsByClassName("releaseButton")[0].title = "Release this Pepega. You will get " + formatWithCommas((playerPepegas[index].pepegaType.iqReleasePrice * playerPepegas[index].level)) + " IQ";
 			pepegaElement.getElementsByClassName("releaseButton")[0].addEventListener("click", function(){
 				showReleaseConfirmationModal(this.releasePepegaId, this.releasePepegaName, this.releaseiqReleasePrice);
 			});
-			pepegaElement.getElementsByClassName("releaseButton")[0].parentNode.addEventListener("mouseover", function(){
+			pepegaElement.getElementsByClassName("pepegaDisplay")[0].addEventListener("mouseover", function(){
 				this.parentNode.getElementsByClassName("releaseButton")[0].style.visibility = "visible";
+				this.parentNode.getElementsByClassName("healButton")[0].style.visibility = "visible";
 			});
-			pepegaElement.getElementsByClassName("releaseButton")[0].parentNode.addEventListener("mouseout", function(){
+			pepegaElement.getElementsByClassName("pepegaDisplay")[0].addEventListener("mouseout", function(){
 				this.parentNode.getElementsByClassName("releaseButton")[0].style.visibility = "hidden";
+				this.parentNode.getElementsByClassName("healButton")[0].style.visibility = "hidden";
 			});
 		}
+
+		pepegaElements = document.getElementsByClassName("pepega");
 
 		pepegaArmyContentElement.appendChild(currentPepegaArmyRowElement);
 	}else{
@@ -267,10 +601,28 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 	}
 
 	if(uniquePepegaIqpsMultiplier != 1){
-		document.getElementById("uniquePepegaIqpsMultiplier").innerHTML = uniquePepegaIqpsMultiplier.toFixed(2) + "";
+		document.getElementById("uniquePepegaIqpsMultiplier").innerHTML = " x " + uniquePepegaIqpsMultiplier.toFixed(2) + "";
+		hasUniquePepegaIqpsMultiplier = true;
 	}else{
 		document.getElementById("uniquePepegaIqpsMultiplier").innerHTML = "";
+		hasUniquePepegaIqpsMultiplier = false;
 	}
+	checkForIqpsMultiplier();
+
+	checkPepegas();
+}
+
+function checkForIqpsMultiplier(){
+	if(hasRankIqpsMultiplier || hasUniquePepegaIqpsMultiplier){
+		document.getElementById("iqpsMultiplier").style.display = "inline";
+	}else{
+		document.getElementById("iqpsMultiplier").style.display = "none";
+	}
+}
+
+function healPlayerPepega(playerPepegaId, pepegaElementIndex){
+	var healCost = pepegaElements[pepegaElementIndex].healCost;
+	browserRuntime.sendMessage({"message": "heal-player-pepega", "playerPepegaId": playerPepegaId, "healCost": healCost});
 }
 
 var selectedPlayerPepegaId = null;
@@ -291,12 +643,14 @@ function showSiteFiltersModal(){
 }
 function showSettingsModal(){
 	document.getElementById("settingsModal").style.display = "block";
+	document.body.style.height = "520px";
 }
 function hideSiteFiltersModal(){
 	document.getElementById("siteFiltersModal").style.display = "none";
 }
 function hideSettingsModal(){
 	document.getElementById("settingsModal").style.display = "none";
+	document.body.style.height = "350px";
 }
 
 function showRenameArmyModal(){
@@ -311,43 +665,52 @@ function clearPepegaArmyContent(){
 }
 
 function releasePlayerPepega(){
-	chrome.runtime.sendMessage({"message": "release-player-pepega", "playerPepegaId": selectedPlayerPepegaId}, function(response) {
+	browserRuntime.sendMessage({"message": "release-player-pepega", "playerPepegaId": selectedPlayerPepegaId}, function() {
 		hideReleaseConfirmationModal();
 	});
 }
 
 function updateSettings(){
-	chrome.runtime.sendMessage({"message": "update-settings", 
+	browserRuntime.sendMessage({"message": "update-settings", 
 
 	"filteredSitesText": document.getElementById("siteFiltersModalTextArea").value, 
 	"enableSounds": document.getElementById('enableSoundsCheckmark').checked, 
 	"enablePepegaCatchReleaseNotifications": document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked, 
 	"enableRankUpNotifications": document.getElementById('enableRankUpNotificationsCheckmark').checked, 
+	"enablePepegaHealNotifications": document.getElementById('enablePepegaHealNotificationsCheckmark').checked, 
 	"recordOrigin": document.getElementById('recordOriginCheckmark').checked
 
-	}, function(response) {
+	}, function() {
 		hideSettingsModal();
 	});
 }
 
 function updateArmyName(){
-	chrome.runtime.sendMessage({"message": "update-player-army-name", "playerArmyName": document.getElementById("renameArmyInputBox").value}, function(response) {
+	browserRuntime.sendMessage({"message": "update-player-army-name", "playerArmyName": document.getElementById("renameArmyInputBox").value}, function() {
 		hideRenameArmyModal();
 	});
 }
 
 function updateEncounterMode(){
-	chrome.runtime.sendMessage({"message": "update-player-encounter-mode"}, function(response) {
-	});
+	browserRuntime.sendMessage({"message": "update-settings-encounter-mode"});
 }
 
 function buyPepegaSlot(){
-	chrome.runtime.sendMessage({"message": "buy-pepega-slot"}, function(response) {
-	});
+	browserRuntime.sendMessage({"message": "buy-pepega-slot"});
 }
 
 function openGameLink(){
-	chrome.tabs.create({ url: gameLink });
+	browserTabs.create({ url: gameLink });
+}
+
+function answerTutorialAskModal(isTutorialAnswerYes){
+	browserRuntime.sendMessage({"message": "answer-tutorial-ask", "tutorialAnswer": isTutorialAnswerYes});
+	document.getElementById("tutorialAskModal").style.display = "none";
+}
+
+function resetTutorial(){
+	hideSettingsModal();
+	browserRuntime.sendMessage({"message": "reset-tutorial"});
 }
 
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
@@ -363,3 +726,12 @@ document.getElementById("siteFilters").addEventListener("click", showSiteFilters
 document.getElementById("siteFiltersModalClose").addEventListener("click", hideSiteFiltersModal);
 document.getElementById("gameTitle").addEventListener("click", openGameLink);
 document.getElementById("encounterModeTitle").addEventListener("click", updateEncounterMode);
+
+document.getElementById("tutorialAskModalNo").addEventListener("click", function() { answerTutorialAskModal(false); } );
+document.getElementById("tutorialAskModalYes").addEventListener("click", function() { answerTutorialAskModal(true); } );
+
+document.getElementById("tutorialModalClose").addEventListener("click", function() { closeTutorialModal(); } );
+
+document.getElementById("randomTutorialModalClose").addEventListener("click", function() { closeRandomTutorialModal(); } );
+
+document.getElementById("resetTutorial").addEventListener("click", resetTutorial);

@@ -24,6 +24,10 @@
 					</div>
 				</div>
 
+				<div id="resetTutorial">
+					Reset Tutorial
+				</div>
+
 				<label class="checkmarkContainer">
 					Enable sounds
 					<input id="enableSoundsCheckmark" type="checkbox">
@@ -43,6 +47,12 @@
 				</label>
 
 				<label class="checkmarkContainer">
+					Enable Healing notifications
+					<input id="enablePepegaHealNotificationsCheckmark" type="checkbox">
+					<span class="checkmark"></span>
+				</label>
+
+				<label class="checkmarkContainer">
 					Record the site of where a Pepega was caught
 					<input id="recordOriginCheckmark" type="checkbox">
 					<span class="checkmark"></span>
@@ -51,6 +61,49 @@
 
 			<div class="modalButtons">
 				<button id="settingsModalClose" class="button grayButton">Save & Close</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="tutorialAskModal" class="modal">
+		<div class="modalContent">
+			<span class="modalTitle" id="tutorialAskModalTitle">
+				Would you like to play the tutorial?
+			</span>
+			<p id="tutorialAskModalDescription">
+				It's very short and easy!
+			</p>
+			<div class="modalButtons">
+				<button id="tutorialAskModalYes" class="button greenButton">Yes, I am Pepega.</button>
+				<button id="tutorialAskModalNo" class="button redButton">Skip the tutorial.</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="tutorialModal" class="modal">
+		<div class="modalContent">
+			<span class="modalTitle" id="tutorialModalTitle">
+				Tutorial Title
+			</span>
+			<p id="tutorialModalDescription">
+				Tutorial Description!
+			</p>
+			<div class="modalButtons">
+				<button id="tutorialModalClose" class="button grayButton">Okay :)</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="randomTutorialModal" class="modal">
+		<div class="modalContent">
+			<span class="modalTitle" id="randomTutorialModalTitle">
+				Random Tutorial Title
+			</span>
+			<p id="randomTutorialModalDescription">
+				Random Tutorial Description!
+			</p>
+			<div class="modalButtons">
+				<button id="randomTutorialModalClose" class="button grayButton">Okay :)</button>
 			</div>
 		</div>
 	</div>
@@ -75,7 +128,7 @@
 				Filter individual sites
 			</span>
 			<div class="modalDescription">
-				This will stop Pepegas from appearing on certain sites.<br>
+				This will stop Pepegas from spawning in certain websites.<br>
 				Make sure to separate each site with a new line.<br>
 				<span id="siteFilterExample">(example input: <span id="siteFilterExampleSite">twitch.tv</span>)</span>
 			</div>
@@ -133,7 +186,7 @@
 			50
 		</span>
 		<span id="iqpsMultiplier">
-			(<span id="totalIqps">50</span> x <span id="rankIqpsMultiplier" title="From your current rank!">1.0</span> x <span id="uniquePepegaIqpsMultiplier" title="From the number of unique Pepegas in your army!">1.0</span>)
+			(<span id="totalIqps">50</span><span id="rankIqpsMultiplier" title="From your current rank!"> x 1.0</span><span id="uniquePepegaIqpsMultiplier" title="From the number of unique Pepegas in your army!"> x 1.0</span>)
 		</span>
 	</div>
 
@@ -146,15 +199,28 @@
 		</span>
 	</div>
 
+	<div id="power" class="section">
+		<span id="powerTitle" title="This is a combination of your rank's base power and all of your Pepegas' powers.">
+			Estimated Power:
+		</span>
+		<span id="powerContent">
+			100
+		</span>
+		<span id="additionalPower">
+			(<span id="rankBasePower" title="Your rank's base power!"> + 25</span><span id="totalPepegaPower" title="Your Pepega Army's power!">50</span>)
+		</span>
+	</div>
+
 	<div id="encounterRate" class="section">
-		<span id="encounterRateTitle" title="Changing the Encounter Rate can stop Pepegas from appearing on sites!&#013;Use this setting if you don't want to be annoyed by them!">
+		<span id="encounterRateTitle" title="The Encounter Rate determines how often Pepegas spawn on websites!
+You may completely disable your Pepega encounters by changing your Encounter Mode in the settings.">
 			Encounter Rate:
 		</span>
 		<span id="encounterRateContent">
 			50%
 		</span>
 		<span id="encounterRateMultiplier">
-			(<span id="totalEncounterRate">50</span> x <span id="encounterModeMultiplier" title="From your currently set Encounter Mode. You may change this in the game's settings.">0.5</span>)
+			(<span id="totalEncounterRate">50</span><span id="encounterModeMultiplier" title="From your currently set Encounter Mode. You may change this in the game's settings."> x 0.5</span>)
 		</span>
 	</div>
 
@@ -177,29 +243,31 @@
 		</div>
 		<div id="pepegaArmyContent">
 			<div id="pepegaElementTemplate" class="pepega">
-				<div class="pepegaDisplay">
-					<img class="pepegaImage" src="../../images/pepegas/0_Pepega.png" title="Template">
+				<div class="pepegaDisplay" style="position: relative">
 					<img class="releaseButton" src="../../images/pepegas/0_Pepega.png" title="Release this Pepega">
-					<!--
-					<span class="releasePepegaId" style="display: none"> </span>
-					<span class="releasePepegaName" style="display: none"> </span>
-					<span class="releaseiqReleasePrice" style="display: none"> </span>
-					-->
-					<div class="pepegaOrigin"></div>
+					<img class="healButton" src="../../images/pepegas/0_Pepega.png" title="Heal this Pepega">
+
+					<img class="pepegaImage" src="../../images/pepegas/0_Pepega.png">
 				</div>
 				<div class="pepegaLevel">
-					<img class="pepegaStar" src="../../images/pepegaArmy/Star.png" title="Template">
-					<img class="pepegaStar pepegaStar2" src="../../images/pepegaArmy/Star.png" title="Template">
-					<img class="pepegaStar pepegaStar3" src="../../images/pepegaArmy/Star.png" title="Template">
+					<img class="pepegaStar" src="../../images/pepegaArmy/Star.png">
+					<img class="pepegaStar pepegaStar2" src="../../images/pepegaArmy/Star.png">
+					<img class="pepegaStar pepegaStar3" src="../../images/pepegaArmy/Star.png">
 				</div>
 				<div class="pepegaIq">
 					IQ/s: <span class="pepegaIqContent"> 10 </span>
 				</div>
-				<div class="pepegaEncounterRate">
-					ER: <span class="pepegaEncounterRateContent"> 10 </span>
+				<div class="pepegaPower">
+					Power: <span class="pepegaPowerContent"> 10 </span>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div id="tutorialDisplay" title="">
+		Tutorial Task:
+		<span id="tutorialDisplayContent">
+		</span>
 	</div>
 </body>
 
