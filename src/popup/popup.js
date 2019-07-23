@@ -24,6 +24,9 @@ pepegaElementTemplate.parentNode.removeChild(pepegaElementTemplate);
 var browser = chrome;
 var browserRuntime = browser.runtime;
 var browserTabs = browser.tabs;
+var browserStorage = browser.storage.local;
+
+var recentBattleBreakdown;
 
 updateGameTitle();
 
@@ -124,16 +127,8 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("A Pepega's Natural Habitat", 
 			"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
 			"<p>This means that, you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
-			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "hoverInfo"){
-
-		setTimeout(function() {
-			showTutorialModal("Hovering over stuff with your cursor lets you view their information!", 
-			"<p>You may hover over a Pepega with your cursor in your Pepega Army to view its information.</p>" + 
-			"<p>You may also release/sell a Pepega by hovering over it then clicking the Release button on its top left.</p>" +
-			"<p>Remember, If you don't know what something is, just hover over it!</p>");
+			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>"  +
+			"<p>Tip: If you find the Pepegas in a particular website too powerful, try strengthening your army first in other websites with less powerful Pepegas.</p>");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "levelUpPrompt"){
@@ -154,6 +149,24 @@ function setDisplayedTutorialPhase(tutorialPhase){
 
 		setTimeout(function() {
 			showTutorialModal("Amazing job! Your Pepega has leveled up!", "Now it's less stupid than before!");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "breakdownInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("How did the battle go against that Wild Pepega?", 
+			"<p>You may view the \"Battle Breakdown\" against the Wild Pepega you recently caught by clicking \"Show Breakdown of battle against Wild Pepega\"</p>" + 
+			"<p>You can use this to find out how you were able to catch the Wild Pepega, or how you lost to it.</p>" +
+			"<p>If any of your Pepegas died during the battle, take a look at the breakdown to find out what killed it!</p>");
+		}, tutorialModalDelay);
+
+	} else if(tutorialPhase == "hoverInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("Hovering over stuff with your cursor lets you view their information!", 
+			"<p>You may hover over a Pepega with your cursor in your Pepega Army to view its information.</p>" + 
+			"<p>You may also release/sell a Pepega by hovering over it then clicking the Release button on its top left.</p>" +
+			"<p>Remember, If you don't know what something is, just hover over it!</p>");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "buySlotPrompt"){
@@ -225,6 +238,35 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	shownTutorialPhase = tutorialPhase;
 }
 
+browserStorage.get(["recentBattleBreakdown"], function(result) {
+	if(result.recentBattleBreakdown != null){
+		recentBattleBreakdown = result.recentBattleBreakdown;
+		document.getElementById("battleBreakdownAlertShowWildPepegaName").innerHTML = "Wild " + recentBattleBreakdown.wildPepega.name;
+	}
+    if(result.recentBattleBreakdown != null && result.recentBattleBreakdown.new){
+		showBattleBreakdownAlert();
+	}else{
+		hideBattleBreakdownAlert();
+	}
+});
+
+function showBattleBreakdownAlert(){
+	document.getElementById("battleBreakdownAlert").style.display = "block";
+	document.getElementById("battleBreakdownAlertHide").style.display = "block";
+	document.getElementById("battleBreakdownSmallAlert").style.display = "none";
+}
+function hideBattleBreakdownAlert(){
+	document.getElementById("battleBreakdownAlert").style.display = "none";
+	document.getElementById("battleBreakdownAlertHide").style.display = "none";
+	if(recentBattleBreakdown != null){
+		document.getElementById("battleBreakdownSmallAlert").style.display = "block";
+		recentBattleBreakdown.new = false;
+        browserStorage.set({"recentBattleBreakdown": recentBattleBreakdown});
+	}else{
+		document.getElementById("battleBreakdownSmallAlert").style.display = "none";
+	}
+}
+
 function closeTutorialModal(){
 	var tutorialPhase = "end";
 	if(shownTutorialPhase == "catchPrompt"){
@@ -232,12 +274,14 @@ function closeTutorialModal(){
 	}else if(shownTutorialPhase == "catchDone"){
 		tutorialPhase = "exploreInfo";
 	}else if(shownTutorialPhase == "exploreInfo"){
-		tutorialPhase = "hoverInfo";
-	}else if(shownTutorialPhase == "hoverInfo"){
 		tutorialPhase = "levelUpPrompt";
 	}else if(shownTutorialPhase == "levelUpPrompt"){
 		tutorialPhase = "levelUp";
 	}else if(shownTutorialPhase == "levelUpDone"){
+		tutorialPhase = "breakdownInfo";
+	}else if(shownTutorialPhase == "breakdownInfo"){
+		tutorialPhase = "hoverInfo";
+	}else if(shownTutorialPhase == "hoverInfo"){
 		tutorialPhase = "buySlotPrompt";
 	}else if(shownTutorialPhase == "buySlotPrompt"){
 		tutorialPhase = "buySlot";
@@ -466,10 +510,12 @@ function setDisplayedIqps(totalIqps, multipliedTotalIqps){
 
 function setDisplayedPower(rankBasePower, totalPepegaPower){
 	document.getElementById("powerContent").innerHTML = formatWithCommas((rankBasePower + totalPepegaPower).toFixed(2));
+	console.log("how many power: " + totalPepegaPower);
 	if(totalPepegaPower > 0){
 		document.getElementById("additionalPower").style.display = "inline";
 		document.getElementById("rankBasePower").innerHTML = formatWithCommas(Math.round(rankBasePower*100)/100); 
 		document.getElementById("totalPepegaPower").innerHTML = " + " + formatWithCommas(Math.round(totalPepegaPower*100)/100);
+		console.log("how many power: " + totalPepegaPower + " with formatted: " + formatWithCommas(Math.round(totalPepegaPower*100)/100));
 	}else{
 		document.getElementById("additionalPower").style.display = "none";
 	}
@@ -601,8 +647,8 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			});
 			pepegaElement.getElementsByClassName("releaseButton")[0].releasePepegaId = playerPepegas[index].id;
 			pepegaElement.getElementsByClassName("releaseButton")[0].releasePepegaName = playerPepegas[index].pepegaType.name;
-			pepegaElement.getElementsByClassName("releaseButton")[0].releaseiqReleasePrice = (playerPepegas[index].pepegaType.iqReleasePrice * playerPepegas[index].level);
-			pepegaElement.getElementsByClassName("releaseButton")[0].title = "Release this Pepega. You will get " + formatWithCommas((playerPepegas[index].pepegaType.iqReleasePrice * playerPepegas[index].level)) + " IQ";
+			pepegaElement.getElementsByClassName("releaseButton")[0].releaseiqReleasePrice = (playerPepegas[index].pepegaType.iqReleasePriceMultiplier * playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
+			pepegaElement.getElementsByClassName("releaseButton")[0].title = "Release this Pepega. You will get " + formatWithCommas((playerPepegas[index].pepegaType.iqReleasePriceMultiplier * playerPepegas[index].pepegaType.iqps * playerPepegas[index].level)) + " IQ";
 			pepegaElement.getElementsByClassName("releaseButton")[0].addEventListener("click", function(){
 				showReleaseConfirmationModal(this.releasePepegaId, this.releasePepegaName, this.releaseiqReleasePrice);
 			});
@@ -791,4 +837,6 @@ document.getElementById("randomTutorialModalClose").addEventListener("click", fu
 
 document.getElementById("resetTutorial").addEventListener("click", resetTutorial);
 
-document.getElementById("battleBreakdown").addEventListener("click", showBattleBreakdown);
+document.getElementById("battleBreakdownAlertShow").addEventListener("click", showBattleBreakdown);
+document.getElementById("battleBreakdownAlertHide").addEventListener("click", hideBattleBreakdownAlert);
+document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);

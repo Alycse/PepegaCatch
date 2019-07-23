@@ -10,7 +10,7 @@ const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 70;
 const minimumCatchCountForMorePepegas = 4;
-const multiplierBeforePepegaRecovers = 30000;
+const multiplierBeforePepegaRecovers = 50000;
 
 var browser = chrome;
 var browserRuntime = browser.runtime;
@@ -730,7 +730,7 @@ const categories = [
             new Option(pepegaTypes[22], 2),
             new Option(pepegaTypes[23], 8),
             new Option(pepegaTypes[24], 6),
-            new Option(pepegaTypes[36], 2)
+            new Option(pepegaTypes[36], 100)
         ]
     ),
     new Category(9, true,
@@ -1352,7 +1352,7 @@ function isPepegaSlotsAvailable(playerPepegaCount){
 function releasePlayerPepega(id){
     var playerPepega = getPlayerPepega(id);
 
-    var iqReleasePrice = (playerPepega.pepegaType.iqReleasePriceMultiplier * playerPepega.pepegaType.iqCount * playerPepega.level);
+    var iqReleasePrice = (playerPepega.pepegaType.iqReleasePriceMultiplier * playerPepega.pepegaType.iqps * playerPepega.level);
 
     updatePlayerIqCount(iqReleasePrice);
 
@@ -1375,7 +1375,7 @@ function healPlayerPepega(id, healCost){
 
             playSound(pepegaHealSound);
 
-            setPepegaAlive(playerPepega.alive);
+            setPepegaAlive(playerPepega, true);
 
             updatePlayerPepegasPopupDisplay();
         }
@@ -1390,7 +1390,8 @@ function getArticle(word){
     return article;
 }
 
-function setPepegaAlive(pepega, alive){
+function setPepegaAlive(pepega, alive, save = true){
+    console.log("is pepega alive? " + pepega.alive + ", then set: " + alive);
     if(!pepega.alive && alive){
         totalIqps += pepega.pepegaType.iqps * pepega.level;
         totalPepegaPower += pepega.power * pepega.level;
@@ -1399,6 +1400,10 @@ function setPepegaAlive(pepega, alive){
         totalIqps -= pepega.pepegaType.iqps * pepega.level;
         totalPepegaPower -= pepega.power * pepega.level;
         pepega.alive = alive;
+    }
+
+    if(save){
+        browserStorage.set({playerPepegas: player.pepegas});
     }
 }
 
@@ -1481,11 +1486,14 @@ function fightWildPepega(wildPepega){
 
             var wildPepegaAttack = wildPepega.pepegaType.attacks[Math.min( i%2, wildPepega.pepegaType.attacks.length - 1 )];
 
+            var wildPepegaRolledPower = Math.round((wildPepegaTotalPower*((Math.random() * (1.3 - 1.0)) + 1.0)) * 100)/100;
+
             results.battleBreakdown.rounds[i].roundPlayerWon = false;
             results.battleBreakdown.rounds[i].wildPepega.remainingPower = wildPepegaRemainingPower;
             results.battleBreakdown.rounds[i].wildPepega.attack = wildPepegaAttack;
+            results.battleBreakdown.rounds[i].wildPepega.power = wildPepegaRolledPower;
 
-            setPepegaAlive(playerPepega, false);
+            setPepegaAlive(playerPepega, false, false);
             results.casualties++;
             playerPepega.timeBeforeRecovery = new Date().getTime() + 
             (playerPepega.power * playerPepega.level * multiplierBeforePepegaRecovers);
@@ -1510,6 +1518,8 @@ function fightWildPepega(wildPepega){
     }
 
     results.battleBreakdown.wildPepega.remainingPower = wildPepegaRemainingPower;
+
+    results.battleBreakdown.new = true;
     
     browserStorage.set({playerPepegas: player.pepegas});
     return results;
@@ -1522,6 +1532,8 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     var wildPepega = new Pepega(pepegaTypes[wildPepegaTypeId], "", "", false, wildPepegaPower, wildPepegaLevel, true, null);
 
     var fightResults = fightWildPepega(wildPepega);
+    updatePlayerPepegasPopupDisplay();
+    browserStorage.set({playerPepegas: player.pepegas});
 
     browserStorage.set({"recentBattleBreakdown": fightResults.battleBreakdown});
 
@@ -1531,7 +1543,6 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     if(!fightResults.won){
         notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "VI LOST!", "Your Pepegas lost to " + wildPepega.pepegaType.name + "!\n" +
         "You may instantly heal them by spending IQ, or you can just wait!", wildPepega.pepegaType.imageUrl);
-        updatePlayerPepegasPopupDisplay();
         playSound(pepegaLostSound);
         return;
     }

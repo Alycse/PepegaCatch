@@ -2,11 +2,12 @@ var browser = chrome;
 var browserRuntime = browser.runtime;
 var browserStorage = browser.storage.local;
 
-browserStorage.get(["recentBattleBreakdown"], function(results) {
-    console.log("is nulL?: " + results.recentBattleBreakdown);
-    
-    var battleBreakdown = results.recentBattleBreakdown;
+browserStorage.get(["recentBattleBreakdown"], function(result) {
+    var battleBreakdown = result.recentBattleBreakdown;
     if(battleBreakdown){
+        battleBreakdown.new = false;
+        browserStorage.set({"recentBattleBreakdown": battleBreakdown});
+
         var battleBreakdownTitleText = "";
         var battleBreakdownText = "";
 
@@ -31,7 +32,7 @@ browserStorage.get(["recentBattleBreakdown"], function(results) {
                 round.wildPepega.remainingPower + " remaining power</b>.</p>";
 
                 battleBreakdownText += "<p><b><span class=\"enemy\">Wild " + wildPepega.name + "</span></b> used <span class=\"attack\">" + round.wildPepega.attack + 
-                    "</span>!, dealing <b>" + wildPepega.totalPower + " damage</b> to <b><span class=\"ally\">" + round.playerPepega.name + "</span></b>!</p>";
+                    "</span>!, dealing <b>" + round.wildPepega.power + " damage</b> to <b><span class=\"ally\">" + round.playerPepega.name + "</span></b>!</p>";
 
                 battleBreakdownText += "<p><b><span class=\"ally\">" + round.playerPepega.name + "</span></b> fainted!</p>";
             }
