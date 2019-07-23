@@ -40,28 +40,39 @@ browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if(request.message == "player-iq-count-updated"){
 			setDisplayedPlayerIqCount(request.playerIqCount);
-			setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength);
+			setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength, request.isBeforeLastRank);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+			sendResponse();
 		}else if(request.message == "player-pepegas-updated"){
 			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
 			setDisplayedEncounterRate(request.baseEncounterRate, request.settingsEncounterMode);
 			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
 			setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
 			setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
+			sendResponse();
 		}else if(request.message == "settings-updated"){
 			setDisplayedSettings(request.settings);
+			sendResponse();
 		}else if(request.message == "player-army-name-updated"){
 			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
+			sendResponse();
 		}else if(request.message == "player-pepega-slots-updated"){
 			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+			sendResponse();
 		}else if(request.message == "settings-encounter-mode-updated"){
 			setDisplayedEncounterMode(request.settingsEncounterMode);
 			setDisplayedEncounterRate(request.baseEncounterRate, request.settingsEncounterMode);
+			sendResponse();
+		}else if(request.message == "settings-filtered-sites-updated"){
+			setDisplayedFilteredSites(request.settingsFilteredSites);
+			sendResponse();
 		}else if(request.message == "tutorial-phase-updated"){
 			setDisplayedTutorialPhase(request.tutorialPhase);
+			sendResponse();
 		}else if(request.message == "show-random-tutorial"){
 			setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
+			sendResponse();
 		}
 	}
 );
@@ -264,7 +275,6 @@ function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button.</p>");
 	
 	}
-	console.log("random tut: " + randomTutorialPhase);
 	shownRandomTutorialPhase = randomTutorialPhase;
 }
 
@@ -348,11 +358,25 @@ function setDisplayedArmyName(playerArmyName, isDefaultArmyName = false){
 	}
 }
 
-function setDisplayedSettings(settings){
-	if(settings.filteredSites != null){
-		var settingsFilteredSitesText = settings.filteredSites.join('\n');
+function setDisplayedFilteredSites(settingsFilteredSites){
+	if(settingsFilteredSites != null){
+		var settingsFilteredSitesText = settingsFilteredSites.join('\n');
 		document.getElementById("siteFiltersModalTextArea").value = settingsFilteredSitesText;
+
+		chrome.tabs.query({'active': true, currentWindow: true},
+			function(tabs){
+				var siteHostname = new URL(tabs[0].url).hostname;
+				if(settingsFilteredSitesText.includes(siteHostname)){
+					document.getElementById("quickFilterTitle").innerHTML = "Unfilter Current Site";
+				}else{
+					document.getElementById("quickFilterTitle").innerHTML = "Filter Current Site";
+				}
+			}
+		);
 	}
+}
+
+function setDisplayedSettings(settings){
 	if(settings.enableSounds != null){
 		document.getElementById('enableSoundsCheckmark').checked = settings.enableSounds;
 	}
@@ -365,7 +389,6 @@ function setDisplayedSettings(settings){
 	if(settings.enablePepegaHealNotifications != null){
 		document.getElementById('enablePepegaHealNotificationsCheckmark').checked = settings.enablePepegaHealNotifications;
 	}
-	console.log("display: " + settings.recordOrigin);
 	if(settings.recordOrigin != null){
 		document.getElementById('recordOriginCheckmark').checked = settings.recordOrigin;
 	}
@@ -391,14 +414,15 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 		document.getElementById("rankIqpsMultiplier").innerHTML = "";
 		hasRankIqpsMultiplier = false;
 	}
+
 	checkForIqpsMultiplier();
+
 	if(nextRank){
-		document.getElementById("nextRankContent").innerHTML =  formatWithCommas(nextRank.iqRequirement);
+		document.getElementById("nextRank").style.display = "inline";
+		document.getElementById("nextRankTitle").innerHTML =  "Prerequisite for ranking up:"
+		document.getElementById("nextRankContent").innerHTML =  nextRank.requirementDescription;
 	}else{
-		var nextRankElement = document.getElementById("nextRank");
-		if(nextRankElement){
-			nextRankElement.parentNode.removeChild(nextRankElement);
-		}
+		document.getElementById("nextRank").style.display = "none";
 	}
 }
 
@@ -474,7 +498,6 @@ function checkPepegas(){
 		var timeLeftSeconds = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000))
 
 		if(!pepegaAlive && timeLeftSeconds > 2){
-			console.log("time left seconds: " + Math.ceil((timeLeftSeconds / 10)));
 			var healCost = healCostMultiplier * Math.ceil((timeLeftSeconds / 10));
 			if(healCost != pepegaElement.healCost){
 				pepegaElement.healCost = healCost;
@@ -647,6 +670,7 @@ function showSettingsModal(){
 }
 function hideSiteFiltersModal(){
 	document.getElementById("siteFiltersModal").style.display = "none";
+	updateFilteredSites();
 }
 function hideSettingsModal(){
 	document.getElementById("settingsModal").style.display = "none";
@@ -673,7 +697,6 @@ function releasePlayerPepega(){
 function updateSettings(){
 	browserRuntime.sendMessage({"message": "update-settings", 
 
-	"filteredSitesText": document.getElementById("siteFiltersModalTextArea").value, 
 	"enableSounds": document.getElementById('enableSoundsCheckmark').checked, 
 	"enablePepegaCatchReleaseNotifications": document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked, 
 	"enableRankUpNotifications": document.getElementById('enableRankUpNotificationsCheckmark').checked, 
@@ -685,6 +708,28 @@ function updateSettings(){
 	});
 }
 
+function quickFilterSite(){
+	chrome.tabs.query({'active': true, currentWindow: true},
+		function(tabs){
+			var siteFiltersModalTextAreaValue = document.getElementById("siteFiltersModalTextArea").value;
+
+			var siteHostname = new URL(tabs[0].url).hostname;
+
+			if(siteFiltersModalTextAreaValue.includes(siteHostname)){
+				document.getElementById("siteFiltersModalTextArea").value = siteFiltersModalTextAreaValue.replace(new RegExp(siteHostname, 'g'), "");
+			}else{
+				if(siteFiltersModalTextAreaValue == ""){
+					document.getElementById("siteFiltersModalTextArea").value += siteHostname;
+				}else{
+					document.getElementById("siteFiltersModalTextArea").value += "\n" + siteHostname;
+				}
+			}
+
+			updateFilteredSites();
+		}
+	);
+}
+
 function updateArmyName(){
 	browserRuntime.sendMessage({"message": "update-player-army-name", "playerArmyName": document.getElementById("renameArmyInputBox").value}, function() {
 		hideRenameArmyModal();
@@ -693,6 +738,10 @@ function updateArmyName(){
 
 function updateEncounterMode(){
 	browserRuntime.sendMessage({"message": "update-settings-encounter-mode"});
+}
+
+function updateFilteredSites(){
+	browserRuntime.sendMessage({"message": "update-settings-filtered-sites", "filteredSitesText": document.getElementById("siteFiltersModalTextArea").value});
 }
 
 function buyPepegaSlot(){
@@ -713,6 +762,10 @@ function resetTutorial(){
 	browserRuntime.sendMessage({"message": "reset-tutorial"});
 }
 
+function showBattleBreakdown(){
+	window.location.href=browserRuntime.getURL("src/popup/battleBreakdown/battleBreakdown.html");
+}
+
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
@@ -726,6 +779,8 @@ document.getElementById("siteFilters").addEventListener("click", showSiteFilters
 document.getElementById("siteFiltersModalClose").addEventListener("click", hideSiteFiltersModal);
 document.getElementById("gameTitle").addEventListener("click", openGameLink);
 document.getElementById("encounterModeTitle").addEventListener("click", updateEncounterMode);
+document.getElementById("encounterRateTitle").addEventListener("click", updateEncounterMode);
+document.getElementById("quickFilterTitle").addEventListener("click", quickFilterSite);
 
 document.getElementById("tutorialAskModalNo").addEventListener("click", function() { answerTutorialAskModal(false); } );
 document.getElementById("tutorialAskModalYes").addEventListener("click", function() { answerTutorialAskModal(true); } );
@@ -735,3 +790,5 @@ document.getElementById("tutorialModalClose").addEventListener("click", function
 document.getElementById("randomTutorialModalClose").addEventListener("click", function() { closeRandomTutorialModal(); } );
 
 document.getElementById("resetTutorial").addEventListener("click", resetTutorial);
+
+document.getElementById("battleBreakdown").addEventListener("click", showBattleBreakdown);

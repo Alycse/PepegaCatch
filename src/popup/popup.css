@@ -1,6 +1,6 @@
 @font-face {
     font-family: orange-kid;
-    src: url(./fonts/orange-kid.ttf);
+    src: url(../../fonts/orange-kid.ttf);
 }
 body{
     font-family: orange-kid;
@@ -26,19 +26,6 @@ body{
 #gameTitle:hover{
     color: rgb(230, 230, 230);
     cursor: pointer;
-}
-
-#tutorialDisplay{
-    color: rgb(150, 150, 150);
-    font-size: 15px;
-
-    padding-top: 5px;
-    padding-bottom: 12px;
-
-    float: right;
-}
-#tutorialDisplayContent{
-    color: rgb(200, 200, 200);
 }
 
 .modal {
@@ -198,23 +185,54 @@ body{
     margin-left: 5px;
 }
 
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#quickSettings{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#quickFilter{
+    margin-top: 7px;
+}
+#quickFilterTitle{
+    font-size: 17px;
+
+    color:  rgb(196, 184, 133);
+}
+#quickFilterTitle:hover{
+    cursor: pointer;
+    color:  rgb(255, 226, 98);
+}
+
 #encounterRate{
     margin-top: 5px;
 }
 #encounterRateTitle{
-    font-size: 18px;
+    font-size: 17px;
 
-    color:  rgb(215, 175, 0);
+    color:  rgb(196, 184, 133);
+}
+#encounterRateTitle:hover{
+    cursor: pointer;
+    color:   rgb(255, 226, 98);
 }
 #encounterRateContent{
-    font-size: 18px;
+    font-size: 17px;
     
     color: rgb(200, 200, 200);
 }
 #encounterRateMultiplier{
     color: rgb(240, 210, 110);
 
-    font-size: 16px;
+    font-size: 17px;
 
     margin-left: 5px;
 }
@@ -234,17 +252,17 @@ body{
 }
 
 #settings{
-    font-size: 18px;
+    font-size: 20px;
 
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 20px;
 
-    color: rgb(235, 195, 40);
+    color: rgb(196, 184, 133);
 }
 #settings:hover{
     cursor: pointer;
 
-    color: rgb(255, 245, 150);
+    color: rgb(231, 201, 65);
 }
 #settingsModalClose{
     margin-top: 20px;
@@ -380,7 +398,7 @@ body{
     margin-top: 10px;
 }
 .pepegaDisplay{
-    width: 48px;
+    width: 58px;
 }
 .releaseButton{
     float: right;
@@ -456,4 +474,34 @@ textarea{
 #renameArmyInputBox{
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+#tutorialDisplay{
+    color: rgb(150, 150, 150);
+    font-size: 15px;
+
+    padding-top: 3px;
+    padding-bottom: 11px;
+}
+#tutorialDisplayContent{
+    color: rgb(200, 200, 200);
+}
+
+#battleBreakdown{
+    color: rgb(158, 140, 82);
+    font-size: 15px;
+
+    padding-top: 12px;
+    margin-bottom: -12px;
+
+    text-align: right;
+
+    opacity: 0.8;
+}
+#battleBreakdown:hover{
+    cursor: pointer;
+
+    color: rgb(221, 181, 49);
+
+    opacity: 1.0;
 }

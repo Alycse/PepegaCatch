@@ -1,10 +1,9 @@
-document.getElementById("wildPepega").addEventListener("click", catchWildPepega);
+document.getElementById("wildPepega").addEventListener("click",  function(event){
+	var wildPepegaImage = event.target || event.srcElement;
 
-function catchWildPepega() {
-	var wildPepega = document.getElementById("wildPepega");
-	wildPepega.parentNode.removeChild(wildPepega);
+	var wildPepegaInfo = wildPepegaImage.name.split(" ");
 
-	var wildPepegaInfo = wildPepega.name.split(" ");
-	
-	window.postMessage({ "message": "catch-wild-pepega", "wildPepegaTypeId": wildPepegaInfo[0], "wildPepegaPower": wildPepegaInfo[1] }, "*");
-}
+	window.postMessage({ "message": "catch-wild-pepega", "wildPepegaTypeId":  wildPepegaInfo[0], "wildPepegaPower": wildPepegaInfo[1], "wildPepegaLevel": wildPepegaInfo[2] }, "*");
+
+	wildPepegaImage.parentNode.removeChild(wildPepegaImage);
+});

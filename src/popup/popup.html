@@ -8,23 +8,23 @@
 <body>
 	<div id="settingsModal" class="modal">
 		<div id="settingsModalContent" class="modalContent">
-			<span class="modalTitle">
+			<span class="modalTitle unselectable">
 				Settings
 			</span>
 
 			<div id="settingsModalOptions">
-				<div id="siteFilters">
+				<div class="unselectable" id="siteFilters">
 					Filter individual sites
 				</div>
 
 				<div id="encounterMode">
-					<div id="encounterModeTitle">Switch Encounter Mode</div>
+					<div class="unselectable" id="encounterModeTitle">Switch Encounter Mode</div>
 					<div id="encounterModeContent">
 						Maximum Encounters
 					</div>
 				</div>
 
-				<div id="resetTutorial">
+				<div class="unselectable" id="resetTutorial">
 					Reset Tutorial
 				</div>
 
@@ -161,7 +161,7 @@
 	</div>
 
 	<div id="rank" class="section">
-		<span id="rankTitle">
+		<span class="unselectable" id="rankTitle">
 			Rank:
 		</span>
 		<span id="rankContent" title="You're the captain now!">
@@ -170,7 +170,7 @@
 	</div>
 
 	<div id="iqCount" class="section">
-		<span id="iqCountTitle">
+		<span class="unselectable" id="iqCountTitle">
 			IQ Count:
 		</span>
 		<span id="iqCountContent">
@@ -179,7 +179,7 @@
 	</div>
 
 	<div id="iqps" class="section">
-		<span id="iqpsTitle">
+		<span class="unselectable" id="iqpsTitle">
 			IQ per second:
 		</span>
 		<span id="iqpsContent">
@@ -191,16 +191,16 @@
 	</div>
 
 	<div id="nextRank" class="section">
-		<span id="nextRankTitle">
+		<span class="unselectable" id="nextRankTitle">
 			IQ needed to rank up:
 		</span>
 		<span id="nextRankContent">
 			2000
 		</span>
 	</div>
-
+	
 	<div id="power" class="section">
-		<span id="powerTitle" title="This is a combination of your rank's base power and all of your Pepegas' powers.">
+		<span class="unselectable" id="powerTitle" title="This is a combination of your rank's base power and all of your Pepegas' powers.">
 			Estimated Power:
 		</span>
 		<span id="powerContent">
@@ -211,30 +211,40 @@
 		</span>
 	</div>
 
-	<div id="encounterRate" class="section">
-		<span id="encounterRateTitle" title="The Encounter Rate determines how often Pepegas spawn on websites!
-You may completely disable your Pepega encounters by changing your Encounter Mode in the settings.">
-			Encounter Rate:
-		</span>
-		<span id="encounterRateContent">
-			50%
-		</span>
-		<span id="encounterRateMultiplier">
-			(<span id="totalEncounterRate">50</span><span id="encounterModeMultiplier" title="From your currently set Encounter Mode. You may change this in the game's settings."> x 0.5</span>)
-		</span>
+	<div id="quickSettings">
+
+		<div id="encounterRate" class="section">
+			<span class="unselectable" id="encounterRateTitle" title="The Encounter Rate determines how often Pepegas spawn on websites!
+	You may completely disable your Pepega encounters by changing your Encounter Mode in the settings (or by clicking 'Encounter Rate' in the home screen!).">
+				Encounter Rate:
+			</span>
+			<span id="encounterRateContent">
+				50%
+			</span>
+			<span id="encounterRateMultiplier">
+				(<span id="totalEncounterRate">50</span><span id="encounterModeMultiplier" title="From your currently set Encounter Mode. You may change this in the game's settings."> x 0.5</span>)
+			</span>
+		</div>
+
+		<div id="quickFilter" class="section">
+			<div id="quickFilterTitle" class="unselectable">
+				Filter Current Site
+			</div>
+		</div>
+
 	</div>
 
-	<div id="settings" class="section">
+	<div id="settings" class="section unselectable">
 		Settings
 	</div>
 
 	<div id="pepegaArmy" class="section">
-		<div id="pepegaArmyTitle">
+		<div class="unselectable" id="pepegaArmyTitle">
 			My Pepega Army
 		</div>
-		<div id="pepegaArmyCount">
+		<div class="unselectable" id="pepegaArmyCount">
 			Pepega Count: <span id="pepegaArmyCountContent">0/5</span>
-			<div id="buyPepegaSlot">
+			<div class="unselectable" id="buyPepegaSlot">
 				Buy a slot for <span id="buyPepegaSlotCost">1000 IQ</span>
 			</div>
 		</div>
@@ -262,6 +272,10 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 				</div>
 			</div>
 		</div>
+		<div class="unselectable" id="battleBreakdown">
+			Show Recent Battle Breakdown
+		</div>
+		
 	</div>
 
 	<div id="tutorialDisplay" title="">
