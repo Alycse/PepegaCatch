@@ -19,7 +19,6 @@ browserStorage.get(["recentBattleBreakdown"], function(result) {
         battleBreakdownTitleText += "<p><span id=\"wildPepegaTitlePower\">Wild " + wildPepega.name + "'s Power: </span>" + wildPepega.totalPower + "</p>";
 
         for(var i = 0; i < rounds.length; i++){
-
             var round = rounds[i];
 
             battleBreakdownText += 
@@ -36,7 +35,6 @@ browserStorage.get(["recentBattleBreakdown"], function(result) {
 
                 battleBreakdownText += "<p><b><span class=\"ally\">" + round.playerPepega.name + "</span></b> fainted!</p>";
             }
-
         }
         
         if(rounds.length == 0 || !rounds[rounds.length - 1].roundPlayerWon){
