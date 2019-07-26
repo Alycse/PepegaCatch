@@ -30,9 +30,9 @@ body{
 
 .modal {
     display: none;
-    position: fixed;
+    position: absolute;
     z-index: 1;
-    padding-top: 20px;
+    padding-top: 17px;
     left: 0;
     top: 0;
     width: 100%;
@@ -269,7 +269,7 @@ body{
 }
 
 #settingsModalOptions{
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 
@@ -391,8 +391,8 @@ body{
     overflow: hidden;
 }
 .pepegaImage{
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
 }
 .pepega{
     margin-top: 10px;
@@ -489,7 +489,7 @@ textarea{
 
 #battleBreakdownSmallAlert{
     color: rgb(158, 140, 82);
-    font-size: 15px;
+    font-size: 14px;
 
     padding-top: 12px;
     margin-bottom: -12px;
@@ -507,53 +507,38 @@ textarea{
 }
 
 #battleBreakdownAlert{
-    background-color: rgb(15, 15, 15);
-
+    background-color: rgb(30, 30, 30);
     margin-left: -25px;
     margin-right: -25px;
-    padding-top: 1px;
-    padding-bottom: 24px;
-
+    padding-top: 8px;
+    padding-bottom: 7px;
     margin-top: -5px;
 }
 #battleBreakdownAlertShow{
-    color: rgb(238, 201, 79);
-    font-size: 18px;
-
-    margin-top: 25px;
-
+    color: rgb(236, 203, 95);
+    font-size: 16px;
     text-align: center;
-
     opacity: 0.8;
 }
 #battleBreakdownAlertShow:hover{
     cursor: pointer;
-
-    color: rgb(255, 228, 140);
-
+    color: rgb(255, 238, 181);
     opacity: 1.0;
 }
-#battleBreakdownAlertShowWildPepegaName{
-    color: rgb(255, 183, 75);
-
-    font-size: 21px;
+.battleBreakdownAlertShowHighlight{
+    font-weight: 120;
+    font-size: 17px;
 }
-
 #battleBreakdownAlertHide{
     color: rgb(160, 159, 156);
-    font-size: 16px;
-
+    font-size: 14px;
     margin-top: 2px;
     margin-bottom: 3px;
-
     text-align: center;
-
     opacity: 0.8;
 }
 #battleBreakdownAlertHide:hover{
     cursor: pointer;
-
     color: rgb(207, 206, 203);
-
     opacity: 1.0;
 }
