@@ -10,7 +10,7 @@ const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 70;
 const minimumCatchCountForMorePepegas = 4;
-const multiplierBeforePepegaRecovers = 50000;
+const multiplierBeforePepegaRecovers = 60000;
 
 var browser = chrome;
 var browserRuntime = browser.runtime;
@@ -135,8 +135,8 @@ const ranks = [
     new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(100000000); }, "100,000,000 IQ", 2.0, 45),
     new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(165000000); }, "165,000,000 IQ", 2.2, 50),
     new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 2.4, 60),
-    new Rank(13, ["a", "the", "a"], ["Pepega Legend II", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(650000000); }, "650,000,000 IQ", 2.6, 70),
-    new Rank(14, ["a", "the", "the"], ["Pepega Legend III", "President of the Pepega States", "Emperor of Pepegan"], 
+    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(650000000); }, "650,000,000 IQ", 2.6, 70),
+    new Rank(14, ["a", "the", "the"], ["Pepega Legend Gold", "President of the Pepega States", "Emperor of Pepegan"], 
     ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(1250000000); }, "1,250,000,000 IQ", 2.8, 80),
     new Rank(15, ["the", "the", "the"], ["True Pepega", "PepeGOD", "Gaijinga"], 
     ["Your IQ is less than 100... you are the truest of all Pepegas!", "Pepegas across the globe bow down to your presence.", "You are the ultimate weeb. AYAYA Clap"], 
@@ -216,12 +216,12 @@ const pepegaTypes = [
         10, 10, ["Hail", "Stage", "Freeze"],
         browserRuntime.getURL("images/pepegas/5_Icega.png")),
 
-    new PepegaType(6, [], "Pepega Knight", "Pepega Knights will defend their idol with their lives. When their idol is involved in a controversy, these Pepega Knights will protect them no matter what, as if they are their idol's friends. In reality, these idols couldn't care less about them. These Pepegas are also a master of mental gymnastics.", 
+    new PepegaType(6, [], "Pepega Knight", "Pepega Knights are protectors of the weak. They will defend anyone who is in peril or under scrutiny by the public, as long as it is attractive.", 
         380, 300, 
         495, 10, ["Donate", "Permaban", "Defend"],
         browserRuntime.getURL("images/pepegas/6_Pepega-Knight.png")),
 
-    new PepegaType(7, [], "Pepega Hunter", "Pepega Hunters are deadly snipers who can find anyone easily no matter where one is. They enjoy listening to loud, deafening music and remixes, and it is their duty to make their victims hear it as well.", 
+    new PepegaType(7, [], "Pepega Hunter", "Pepega Hunters can't actually shoot arrows with bows, instead it just bashes the bow against its enemies.", 
         438, 300, 
         438, 10, ["Snipe", "Remix", "Stream Save"],
         browserRuntime.getURL("images/pepegas/7_Pepega-Hunter.png")),
@@ -231,7 +231,7 @@ const pepegaTypes = [
         380, 10, ["Old Age", "Thrust", "Time Compression"],
         browserRuntime.getURL("images/pepegas/8_Pepega-Wizard.png")),
 
-    new PepegaType(9, [], "Baby Pepega", "Aww, it's so cute! So stupidly cute! :3", 
+    new PepegaType(9, [], "Baby Pepega", "Aww, it's so cute! :3", 
         10, 30, 
         10, 10, ["Cry", "Time Out", "Complain"],
         browserRuntime.getURL("images/pepegas/9_Baby-Pepega.png")),
@@ -261,12 +261,12 @@ const pepegaTypes = [
         50, 10, ["Backseat", "Throw Controller", "Release Mobile Game"],
         browserRuntime.getURL("images/pepegas/14_Bitga.png")),
 
-    new PepegaType(15, [], "Broga", "These Pepegas love the use of platforms that connect to the other side, and if anyone is standing in their way, Brogas are capable of taking them down confidently with ease", 
+    new PepegaType(15, [], "Broga", "These Pepegas love the use of platforms that connect to the other side, and if anyone is standing in their way, Brogas are more than capable of taking them down with ease.", 
         685, 300, 
         350, 10, ["Cross", "Review", "Call Swedish"],
         browserRuntime.getURL("images/pepegas/15_Broga.png")),
 
-    new PepegaType(16, [], "Orange Pepega", "Orange Pepegas are carpenters who specializes in walls. They are capable of building multiple kinds of walls, no matter how high, and it is their obligation to make sure no one is able to go through those walls.", 
+    new PepegaType(16, [], "Orange Pepega", "Orange Pepegas are carpenters who specializes in walls. They are capable of building multiple kinds of walls, no matter how high, and it is their duty to make sure no one is able to go through those walls.", 
         2870, 600, 
         1300, 10, ["Construct Wall", "Weebs Out", "Electrocute"],
         browserRuntime.getURL("images/pepegas/16_Orange-Pepega.png")),
@@ -387,58 +387,58 @@ const pepegaTypes = [
         browserRuntime.getURL("images/pepegas/39_Kappaga.png")),
 
     new PepegaType(40, [], "Ninjaga", "This Pepega keeps telling you to click the Subscribe button, but also making sure you don't smash it.", 
-        150, 300, 
-        290, 10, ["Ligma", "Sugma", "Subscribe to Pepega Prime (without smashing)"],
+        130, 300, 
+        275, 10, ["Ligma", "Sugma", "Subscribe to Pepega Prime (without smashing)"],
         browserRuntime.getURL("images/pepegas/40_Ninjaga.png")),
 
     new PepegaType(41, [], "Xqga", "A streamer with a fanbase.", 
-        155, 300, 
-        285, 10, ["React", "Play", "Slam Desk"],
+        135, 300, 
+        270, 10, ["React", "Play", "Slam Desk"],
         browserRuntime.getURL("images/pepegas/41_Xqga.png")),
 
-    new PepegaType(42, [], "Shroudga", "Shroudgas are the paragon of skill. They have near-perfect dexterity and they can kill you in less than a microsecond from a mile away. Despite their greatness, however, they have lost to a certain Mald Pepega before.", 
-        160, 300, 
-        280, 10, ["Slay", "Execute", "Assassinate"],
+    new PepegaType(42, [], "Shroudga", "Shroudgas are the paragon of skill. They are natural born hunters and they can easily kill you from a mile away. Despite their greatness, however, they have lost to a certain Mald Pepega before.", 
+        140, 300, 
+        265, 10, ["Slay", "Execute", "Assassinate"],
         browserRuntime.getURL("images/pepegas/42_Shroudga.png")),
 
     new PepegaType(43, [], "Tylerga", "Tylergas are recognized for their intense, boisterous screaming and desk slamming. It has weirdly big and disproportionate biceps, and its head looks like a marshmallow. They were tormented in the past by the nefarious Pepegas known as Tannergas.", 
-        165, 300, 
-        275, 10, ["SCREAM", "SLAM KEYBOARD", "OUTBREAK"],
+        145, 300, 
+        260, 10, ["SCREAM", "SLAM KEYBOARD", "OUTBREAK"],
         browserRuntime.getURL("images/pepegas/43_Tylerga.png")),
 
     new PepegaType(44, [], "GreekGaX", "This Pepega has a habit of sticking to other Pepegas in hopes of stealing their IQ. It enjoys eating excessive amounts of food even though it has swore, many times in the past, to do the complete opposite.", 
-        170, 300, 
-        270, 10, ["Devour", "Explode", "Send to Vacation City"],
+        150, 300, 
+        255, 10, ["Devour", "Explode", "Send to Vacation City"],
         browserRuntime.getURL("images/pepegas/44_GreekGaX.png")),
 
     new PepegaType(45, [], "Triga", "Trigas are very popular for their immense skill in the game called Maldio. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
-        175, 300, 
-        265, 10, ["World Record", "Speedrun", "7"],
+        155, 300, 
+        250, 10, ["World Record", "Speedrun", "7"],
         browserRuntime.getURL("images/pepegas/45_Triga.png")),
 
     new PepegaType(46, [], "Forsenga", "A professional children's card player that gets mad and bald when it loses. Although, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever. Perhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
-        180, 300, 
-        260, 10, ["Steal Posture", "Bottom Snus", "Google"],
+        160, 300, 
+        245, 10, ["Steal Posture", "Bottom Snus", "Google"],
         browserRuntime.getURL("images/pepegas/46_Forsenga.png")),
 
     new PepegaType(47, [], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega. For some reason, you can see through its body.", 
-        185, 300, 
-        255, 10, ["Two-Time", "Invisibility", "Punk Kids"],
+        165, 300, 
+        240, 10, ["Two-Time", "Invisibility", "Punk Kids"],
         browserRuntime.getURL("images/pepegas/47_Doctor-Pepega.png")),
 
     new PepegaType(48, [], "Repliga", "", 
         -2500, 10, 
-        1000, 10, ["t0rm3nt"],
+        1600, 10, ["t0rm3nt"],
         browserRuntime.getURL("images/pepegas/48_Repliga.png")),
 
     new PepegaType(49, [], "Luciga", "", 
-        -40000, 5, 
+        1000, 5, 
         30000, 10, ["Torment"],
         browserRuntime.getURL("images/pepegas/49_Luciga.png")),
 
     new PepegaType(50, [], "Final Luciga", "", 
-        -100000, -10, 
-        200000, 10, ["Massacre"],
+        150000, -10, 
+        180000, 10, ["Massacre"],
         browserRuntime.getURL("images/pepegas/50_Final-Luciga.png")),
 ]
 
@@ -446,52 +446,28 @@ const categories = [
     new Category(0, false, [],
         [
             new Option(pepegaTypes[1], 3),
-            new Option(pepegaTypes[2], 0),
             new Option(pepegaTypes[3], 5),
             new Option(pepegaTypes[4], 5),
             new Option(pepegaTypes[5], 5),
             new Option(pepegaTypes[6], 0.2),
             new Option(pepegaTypes[7], 0.2),
             new Option(pepegaTypes[8], 0.2),
-            new Option(pepegaTypes[9], 0),
             new Option(pepegaTypes[10], 0.1),
             new Option(pepegaTypes[11], 0.01),
             new Option(pepegaTypes[12], 5),
             new Option(pepegaTypes[13], 3),
             new Option(pepegaTypes[14], 1),
-            new Option(pepegaTypes[15], 0),
-            new Option(pepegaTypes[16], 0),
             new Option(pepegaTypes[17], 5),
             new Option(pepegaTypes[18], 3),
-            new Option(pepegaTypes[19], 0),
-            new Option(pepegaTypes[20], 0),
-            new Option(pepegaTypes[21], 0),
             new Option(pepegaTypes[22], 1),
             new Option(pepegaTypes[23], 1),
-            new Option(pepegaTypes[24], 0),
-            new Option(pepegaTypes[25], 0),
-            new Option(pepegaTypes[26], 0),
             new Option(pepegaTypes[27], 3),
             new Option(pepegaTypes[28], 0.25),
             new Option(pepegaTypes[29], 0.15),
-            new Option(pepegaTypes[30], 0),
-            new Option(pepegaTypes[31], 0),
-            new Option(pepegaTypes[32], 0),
-            new Option(pepegaTypes[33], 0),
-            new Option(pepegaTypes[34], 0),
             new Option(pepegaTypes[35], 3),
             new Option(pepegaTypes[36], 3),
             new Option(pepegaTypes[37], 3),
             new Option(pepegaTypes[38], 3),
-            new Option(pepegaTypes[39], 0),
-            new Option(pepegaTypes[40], 0),
-            new Option(pepegaTypes[41], 0),
-            new Option(pepegaTypes[42], 0),
-            new Option(pepegaTypes[43], 0),
-            new Option(pepegaTypes[44], 0),
-            new Option(pepegaTypes[45], 0),
-            new Option(pepegaTypes[46], 0),
-            new Option(pepegaTypes[47], 0),
             new Option(pepegaTypes[48], 0.05),
             new Option(pepegaTypes[49], 0.005),
             new Option(pepegaTypes[50], 0.0005)
@@ -677,7 +653,7 @@ const categories = [
             new Option(pepegaTypes[47], 0.5)
         ]
     ),
-    new Category(7, true,
+    new Category(7, false,
         [
             new Site("google"),
             new Site("bing"),
@@ -707,7 +683,7 @@ const categories = [
             new Option(pepegaTypes[46], 2.5)
         ]
     ),
-    new Category(8, true,
+    new Category(8, false,
         [
             new Site("wikipedia"),
             new Site("wikihow"),
@@ -733,7 +709,7 @@ const categories = [
             new Option(pepegaTypes[36], 100)
         ]
     ),
-    new Category(9, true,
+    new Category(9, false,
         [
             new Site("amazon"),
             new Site("ebay"),
@@ -765,7 +741,7 @@ const categories = [
             new Option(pepegaTypes[46], 1)
         ]
     ),
-    new Category(10, true,
+    new Category(10, false,
         [
             new Site("xvideos"),
             new Site("porn"),
@@ -802,7 +778,7 @@ const categories = [
             new Option(pepegaTypes[47], 2.5)
         ]
     ),
-    new Category(11, true,
+    new Category(11, false,
         [
             new Site("hentai"),
             new Site("fakku"),
@@ -832,7 +808,7 @@ const categories = [
             new Option(pepegaTypes[45], 2.5)
         ]
     ),
-    new Category(12, true,
+    new Category(12, false,
         [
             new Site("4chan"),
             new Site("8chan"),
@@ -913,13 +889,17 @@ var player = {
 }
 
 var settings = {
-    filteredSites: [],
     enableSounds: true,
     enablePepegaCatchReleaseNotifications: true,
     enableRankUpNotifications: true,
     enableTutorialNotifications: true,
     enablePepegaHealNotifications: true,
     recordOrigin: true,
+    showBattleBreakdown: true
+}
+
+var config = {
+    filteredSites: [],
     encounterMode: encounterModes[0],
 }
 
@@ -1023,40 +1003,22 @@ browserStorage.get(["playerArmyName"], function(result) {
     }
 });
 
-browserStorage.get(["settingsEncounterMode"], function(result) {
-    if(result.settingsEncounterMode != null){
-        settings.encounterMode = result.settingsEncounterMode;
+browserStorage.get(["configEncounterMode"], function(result) {
+    if(result.configEncounterMode != null){
+        config.encounterMode = result.configEncounterMode;
         updateIconFromSelectedTab();
     }
 });
 
-browserStorage.get(["settingsFilteredSites"], function(result) {
-    if(result.settingsFilteredSites != null){
-        settings.filteredSites = result.settingsFilteredSites;
+browserStorage.get(["configFilteredSites"], function(result) {
+    if(result.configFilteredSites != null){
+        config.filteredSites = result.configFilteredSites;
     }
 });
 
-browserStorage.get(["settingsEnableSounds", 
-"settingsEnablePepegaCatchReleaseNotifications", "settingsEnableRankUpNotifications", "settingsEnablePepegaHealNotifications", 
-"settingsRecordOrigin", "settingsEncounterMode"], function(result) {
-    if(result.settingsEnableSounds != null){
-        settings.enableSounds = result.settingsEnableSounds;
-    }
-
-    if(result.settingsEnablePepegaCatchReleaseNotifications != null){
-        settings.enablePepegaCatchReleaseNotifications = result.settingsEnablePepegaCatchReleaseNotifications;
-    }
-
-    if(result.settingsEnableRankUpNotifications != null){
-        settings.enableRankUpNotifications = result.settingsEnableRankUpNotifications;
-    }
-
-    if(result.settingsEnablePepegaHealNotifications != null){
-        settings.enablePepegaHealNotifications = result.settingsEnablePepegaHealNotifications;
-    }
-
-    if(result.settingsRecordOrigin != null){
-        settings.recordOrigin = result.settingsRecordOrigin;
+browserStorage.get(["settings"], function(result) {
+    if(result.settings != null){
+        settings = result.settings;
     }
 });
 
@@ -1202,20 +1164,37 @@ function rollWildPepega(category){
     var specialEventOccured = false;
 
     if(!category.isSpecial){
-        if(player.catchCount < minimumCatchCountForMorePepegas){
-            if(player.catchCount == 1){
-                var roll = Math.floor(Math.random() * (3));
-                if(roll == 0){
-                    wildPepegaType = pepegaTypes[3];
-                }else if(roll == 1){
-                    wildPepegaType = pepegaTypes[4];
-                }else{
-                    wildPepegaType = pepegaTypes[5];
-                }
-                specialEventOccured = true;
+        if(player.catchCount == 1){
+            var roll = Math.floor(Math.random() * (3));
+            if(roll == 0){
+                wildPepegaType = pepegaTypes[3];
+            }else if(roll == 1){
+                wildPepegaType = pepegaTypes[4];
+            }else{
+                wildPepegaType = pepegaTypes[5];
             }
+            specialEventOccured = true;
+        } else if(player.successfulCatchCount < minimumCatchCountForMorePepegas){
+            specialEventOccured = true;
         } else if(player.catchCount == 5){
-            wildPepegaType = pepegaTypes[24];
+            var roll = Math.floor(Math.random() * (8));
+            if(roll == 0){
+                wildPepegaType = pepegaTypes[40];
+            }else if(roll == 1){
+                wildPepegaType = pepegaTypes[41];
+            }else if(roll == 2){
+                wildPepegaType = pepegaTypes[42];
+            }else if(roll == 3){
+                wildPepegaType = pepegaTypes[43];
+            }else if(roll == 4){
+                wildPepegaType = pepegaTypes[44];
+            }else if(roll == 5){
+                wildPepegaType = pepegaTypes[45];
+            }else if(roll == 6){
+                wildPepegaType = pepegaTypes[46];
+            }else {
+                wildPepegaType = pepegaTypes[47];
+            }
             specialEventOccured = true;
         } else if(player.catchCount < 19 && player.catchCount % 3 == 0){
             wildPepegaType = pepegaTypes[0];
@@ -1250,8 +1229,8 @@ function rollWildPepega(category){
 
 function rollEncounter(){
     var roll = (Math.random() * (100 - 0.1)) + 0.1;
-    console.log("Encounter Roll: " + roll + " must be less than " +(baseEncounterRate) * (settings.encounterMode.multiplier/100));
-    return roll <= ((baseEncounterRate) * (settings.encounterMode.multiplier/100));
+    console.log("Encounter Roll: " + roll + " must be less than " +(baseEncounterRate) * (config.encounterMode.multiplier/100));
+    return roll <= ((baseEncounterRate) * (config.encounterMode.multiplier/100));
 }
 
 function rollTimeBeforeNextWildPepegaSpawn(){
@@ -1298,9 +1277,9 @@ function getWildPepega(location){
 
 function isSiteFiltered(location){
     if(location.hostname){
-        for (var i = 0; i < settings.filteredSites.length; ++i) {
-            if(settings.filteredSites[i] && settings.filteredSites[i] != "" && 
-                (location.hostname.includes(settings.filteredSites[i]) || settings.filteredSites[i].includes(location.hostname))){
+        for (var i = 0; i < config.filteredSites.length; ++i) {
+            if(config.filteredSites[i] && config.filteredSites[i] != "" && 
+                (location.hostname.includes(config.filteredSites[i]) || config.filteredSites[i].includes(location.hostname))){
                 browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconDisabled128.png")});
                 return true;
             }
@@ -1311,9 +1290,9 @@ function isSiteFiltered(location){
 
 function updateIcon(location){
     var siteFiltered = isSiteFiltered(location);
-    if(siteFiltered || settings.encounterMode.multiplier == 0){
+    if(siteFiltered || config.encounterMode.multiplier == 0){
         browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconDisabled128.png")});
-    }else if(settings.encounterMode.multiplier == 100){
+    }else if(config.encounterMode.multiplier == 100){
         browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIcon128.png")});
     }else{
         browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconLess128.png")});
@@ -1391,7 +1370,6 @@ function getArticle(word){
 }
 
 function setPepegaAlive(pepega, alive, save = true){
-    console.log("is pepega alive? " + pepega.alive + ", then set: " + alive);
     if(!pepega.alive && alive){
         totalIqps += pepega.pepegaType.iqps * pepega.level;
         totalPepegaPower += pepega.power * pepega.level;
@@ -1785,31 +1763,13 @@ function checkPepegaFusioning(addedPepega = null){
     }
 }
 
-function updateSettings(enableSounds, enablePepegaCatchReleaseNotifications, enableRankUpNotifications, enablePepegaHealNotifications, recordOrigin){
-    if(enableSounds){
-        settings.enableSounds = enableSounds;
-    }
-    if(enablePepegaCatchReleaseNotifications){
-        settings.enablePepegaCatchReleaseNotifications = enablePepegaCatchReleaseNotifications;
-    }
-    if(enableRankUpNotifications){
-        settings.enableRankUpNotifications = enableRankUpNotifications;
-    }
-    if(enablePepegaHealNotifications){
-        settings.enablePepegaHealNotifications = enablePepegaHealNotifications;
-    }
-    if(recordOrigin){
-        settings.recordOrigin = recordOrigin;
-    }
+function updateSettings(updatedSettings){
+    settings = updatedSettings;
 
     updateSettingsPopupDisplay();
 
     browserStorage.set({
-        settingsEnableSounds: settings.enableSounds, 
-        settingsEnablePepegaCatchReleaseNotifications: settings.enablePepegaCatchReleaseNotifications, 
-        settingsEnableRankUpNotifications: settings.enableRankUpNotifications, 
-        settingsEnablePepegaHealNotifications: settings.enablePepegaHealNotifications,
-        settingsRecordOrigin: settings.recordOrigin
+        "settings": settings
     });
 }
 
@@ -1822,26 +1782,26 @@ function stripHtmlTags(value) {
 	}
 }
 
-function updateSettingsFilteredSites(filteredSitesText){
-    settings.filteredSites = filteredSitesText.split('\n');
+function updateConfigFilteredSites(filteredSitesText){
+    config.filteredSites = filteredSitesText.split('\n');
 
-    updateSettingsFilteredSitesPopupDisplay();
+    updateConfigFilteredSitesPopupDisplay();
     updateIconFromSelectedTab();
 
-    browserStorage.set({settingsFilteredSites: settings.filteredSites});
+    browserStorage.set({configFilteredSites: config.filteredSites});
 }
 
-function updateSettingsEncounterMode(){
+function updateConfigEncounterMode(){
     var newEncounterMode = encounterModes[0];
-    if(settings.encounterMode.id < encounterModes.length-1){
-        newEncounterMode = encounterModes[settings.encounterMode.id + 1];
+    if(config.encounterMode.id < encounterModes.length-1){
+        newEncounterMode = encounterModes[config.encounterMode.id + 1];
     }
-    settings.encounterMode = newEncounterMode;
+    config.encounterMode = newEncounterMode;
 
-    updateSettingsEncounterModePopupDisplay();
+    updateConfigEncounterModePopupDisplay();
     updateIconFromSelectedTab();
 
-    browserStorage.set({settingsEncounterMode: settings.encounterMode});
+    browserStorage.set({configEncounterMode: config.encounterMode});
 }
 
 function updatePlayerArmyName(playerArmyName){
@@ -1920,7 +1880,7 @@ function analyzeRank(isNotifyIfRankUp = true){
                     rankDescription =  ranks[i].description[0];
                 }
                 notify(NotificationPurposeEnum.rankUp, "basic", "You are now " + rankTitleArticle + " " + rankTitle + "!",
-                rankDescription, browserRuntime.getURL("images/rank-up.png"));
+                "You've ranked up!\n" + rankDescription, browserRuntime.getURL("images/rank-up.png"));
 
                 if(tutorial.phase != "disabled" && tutorial.enableRankUpRandomTutorial){
                     updateRandomTutorialPhase("rankUp");
@@ -1961,8 +1921,8 @@ function updateAllPopupDisplays(){
     updateSettingsPopupDisplay();
     updatePlayerArmyNamePopupDisplay();
     updatePlayerPepegaSlotsPopupDisplay();
-    updateSettingsEncounterModePopupDisplay();
-    updateSettingsFilteredSitesPopupDisplay();
+    updateConfigEncounterModePopupDisplay();
+    updateConfigFilteredSitesPopupDisplay();
     updateTutorialPhasePopupDisplay();
     updateRandomTutorialPopupDisplay();
 }
@@ -1979,7 +1939,7 @@ function updatePlayerIqCountPopupDisplay(){
 function updatePlayerPepegasPopupDisplay(){
     if(popup.isOpened){
         browserRuntime.sendMessage({"message": "player-pepegas-updated", "playerPepegas": player.pepegas, "totalIqps": totalIqps, "totalPepegaPower": totalPepegaPower, "rankBasePower": rank.basePower,
-        "multipliedTotalIqps": Math.round((totalIqps * rank.iqpsMultiplier) * uniquePepegaIqpsMultiplier), "playerPepegaSlots": player.pepegaSlots, "uniquePepegaIqpsMultiplier": uniquePepegaIqpsMultiplier, "baseEncounterRate": baseEncounterRate, "settingsEncounterMode": settings.encounterMode});
+        "multipliedTotalIqps": Math.round((totalIqps * rank.iqpsMultiplier) * uniquePepegaIqpsMultiplier), "playerPepegaSlots": player.pepegaSlots, "uniquePepegaIqpsMultiplier": uniquePepegaIqpsMultiplier, "baseEncounterRate": baseEncounterRate, "configEncounterMode": config.encounterMode});
     }
 }
 function updateSettingsPopupDisplay(){
@@ -1992,14 +1952,14 @@ function updatePlayerArmyNamePopupDisplay(){
         browserRuntime.sendMessage({"message": "player-army-name-updated", "playerArmyName": player.armyName, "isDefaultArmyName": (player.armyName == defaultArmyName)});
     }
 }
-function updateSettingsEncounterModePopupDisplay(){
+function updateConfigEncounterModePopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "settings-encounter-mode-updated", "settingsEncounterMode": settings.encounterMode, "baseEncounterRate": baseEncounterRate});
+        browserRuntime.sendMessage({"message": "config-encounter-mode-updated", "configEncounterMode": config.encounterMode, "baseEncounterRate": baseEncounterRate});
     }
 }
-function updateSettingsFilteredSitesPopupDisplay(){
+function updateConfigFilteredSitesPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "settings-filtered-sites-updated", "settingsFilteredSites": settings.filteredSites});
+        browserRuntime.sendMessage({"message": "config-filtered-sites-updated", "configFilteredSites": config.filteredSites});
     }
 }
 function updateTutorialPhasePopupDisplay(){
@@ -2027,14 +1987,13 @@ browserRuntime.onMessage.addListener(
             releasePlayerPepega(request.playerPepegaId);
             sendResponse();
 		}else if(request.message == "update-settings"){
-			updateSettings(request.enableSounds, 
-                request.enablePepegaCatchReleaseNotifications, request.enableRankUpNotifications, request.enablePepegaHealNotifications, request.recordOrigin);
+			updateSettings(request.settings);
             sendResponse();
-		}else if(request.message == "update-settings-encounter-mode"){
-            updateSettingsEncounterMode();
+		}else if(request.message == "update-config-encounter-mode"){
+            updateConfigEncounterMode();
             sendResponse();
-		}else if(request.message == "update-settings-filtered-sites"){
-            updateSettingsFilteredSites(request.filteredSitesText);
+		}else if(request.message == "update-config-filtered-sites"){
+            updateConfigFilteredSites(request.filteredSitesText);
             sendResponse();
 		}else if(request.message == "update-player-army-name"){
             updatePlayerArmyName(request.playerArmyName);
