@@ -2,15 +2,16 @@ const isBeta = true;
 const gameLink = "https://github.com/Alycse/PepegaCatch";
 const gameTitle = "Pepega Catch!";
 
+const popupHeightDefault = "350px";
+const popupHeightWithSettings = "560px";
+
 const pepegasPerRow = 5;
 const defaultInputBoxArmyName = "My Pepega Army";
 
+const allowedPepegaHealingTime = 2;
+
 const tutorialModalDelay = 200;
 var displayedIqCount = 0;
-
-var mouseEnterBuyPepegaSlotColor;
-var mouseLeaveBuyPepegaSlotColor;
-var mouseEnteredBuyPepegaSlot;
 
 var shownTutorialPhase;
 var shownRandomTutorialPhase;
@@ -48,7 +49,7 @@ browserRuntime.onMessage.addListener(
 			sendResponse();
 		}else if(request.message == "player-pepegas-updated"){
 			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
-			setDisplayedEncounterRate(request.baseEncounterRate, request.settingsEncounterMode);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
 			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
 			setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
 			setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
@@ -63,12 +64,12 @@ browserRuntime.onMessage.addListener(
 			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
 			sendResponse();
-		}else if(request.message == "settings-encounter-mode-updated"){
-			setDisplayedEncounterMode(request.settingsEncounterMode);
-			setDisplayedEncounterRate(request.baseEncounterRate, request.settingsEncounterMode);
+		}else if(request.message == "config-encounter-mode-updated"){
+			setDisplayedEncounterMode(request.configEncounterMode);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
 			sendResponse();
-		}else if(request.message == "settings-filtered-sites-updated"){
-			setDisplayedFilteredSites(request.settingsFilteredSites);
+		}else if(request.message == "config-filtered-sites-updated"){
+			setDisplayedFilteredSites(request.configFilteredSites);
 			sendResponse();
 		}else if(request.message == "tutorial-phase-updated"){
 			setDisplayedTutorialPhase(request.tutorialPhase);
@@ -126,9 +127,9 @@ function setDisplayedTutorialPhase(tutorialPhase){
 		setTimeout(function() {
 			showTutorialModal("A Pepega's Natural Habitat", 
 			"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
-			"<p>This means that, you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
+			"<p>This means that: you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
 			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>"  +
-			"<p>Tip: If you find the Pepegas in a particular website too powerful, try strengthening your army first in other websites with less powerful Pepegas.</p>");
+			"<p>Tip: If you find the Pepegas in a particular website too powerful, you may Filter that site for now and try strengthening your army first in other websites with less powerful Pepegas.</p>");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "levelUpPrompt"){
@@ -137,7 +138,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("Now, let's try leveling up your Pepega!", 
 			"<p>Three Pepegas of the same type and level will combine into a Pepega which is one level higher.</p>" + 
 			"<p>So three Level 1 Pepegas will combine into a Level 2 Pepega, and three Level 2 Pepegas will combine into a Level 3 Pepega!</p>" + 
-			"<p>The maximum level is Level 3! Go ahead and try leveling up your Pepega now!</p>");
+			"<p>The highest level is Level 3! Go ahead and try leveling up your Pepega now!</p>");
 		}, tutorialModalDelay);
 
 	}else if(tutorialPhase == "levelUp"){
@@ -151,7 +152,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("Amazing job! Your Pepega has leveled up!", "Now it's less stupid than before!");
 		}, tutorialModalDelay);
 
-	} else if(tutorialPhase == "breakdownInfo"){
+	} /*else if(tutorialPhase == "breakdownInfo"){
 
 		setTimeout(function() {
 			showTutorialModal("How did the battle go against that Wild Pepega?", 
@@ -160,7 +161,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			"<p>If any of your Pepegas died during the battle, take a look at the breakdown to find out what killed it!</p>");
 		}, tutorialModalDelay);
 
-	} else if(tutorialPhase == "hoverInfo"){
+	} */else if(tutorialPhase == "hoverInfo"){
 
 		setTimeout(function() {
 			showTutorialModal("Hovering over stuff with your cursor lets you view their information!", 
@@ -201,7 +202,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 		setTimeout(function() {
 			showTutorialModal("You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!", 
 			"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!</p>" +
-			"<p>To make a Peppahga, you need to fuse a Baby Pepega and a Grassga. That means a Level 3 Baby Pepega, and a Level 3 Grassga!</p>" +
+			"<p>To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!</p>" +
 			"<p>Good luck! This might take you a while to complete.</p>");
 		}, tutorialModalDelay);
 
@@ -210,7 +211,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 		tutorialDisplayContent = "Make a Fusion Pepega";
 		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!\n" + 
 			"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!\n" +
-			"To make a Peppahga, you need to fuse a Baby Pepega and a Grassga. That means a Level 3 Baby Pepega, and a Level 3 Grassga!\n"+
+			"To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!\n"+
 			"Good luck! This might take you a while to complete.";
 
 	} else if(tutorialPhase == "fusionDone"){
@@ -249,7 +250,6 @@ browserStorage.get(["recentBattleBreakdown"], function(result) {
 		hideBattleBreakdownAlert();
 	}
 });
-
 function showBattleBreakdownAlert(){
 	document.getElementById("battleBreakdownAlert").style.display = "block";
 	document.getElementById("battleBreakdownAlertHide").style.display = "block";
@@ -278,8 +278,6 @@ function closeTutorialModal(){
 	}else if(shownTutorialPhase == "levelUpPrompt"){
 		tutorialPhase = "levelUp";
 	}else if(shownTutorialPhase == "levelUpDone"){
-		tutorialPhase = "breakdownInfo";
-	}else if(shownTutorialPhase == "breakdownInfo"){
 		tutorialPhase = "hoverInfo";
 	}else if(shownTutorialPhase == "hoverInfo"){
 		tutorialPhase = "buySlotPrompt";
@@ -316,7 +314,7 @@ function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 		showRandomTutorialModal("deadPepega", "Oh no! One of your Pepegas died while fighting the Wild Pepega!", 
 		"<p>When a Pepega dies, it won't produce any IQ and it won't fight for you.</p>"+
 		"<p>To bring it back to life, you can either wait for it to be ressurected (you can see how long this will take by hovering over the dead Pepega with your cursor)...</p>" +
-		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button.</p>");
+		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button. You also can't heal Pepegas that are close to being fully healed!</p>");
 	
 	}
 	shownRandomTutorialPhase = randomTutorialPhase;
@@ -357,16 +355,17 @@ function setDisplayedPepegaSlots(playerPepegaCount, playerPepegaSlots, pepegaSlo
 	}
 }
 
+var mouseEnterBuyPepegaSlotColor;
+var mouseLeaveBuyPepegaSlotColor;
+var mouseEnteredBuyPepegaSlot;
 function mouseEntertDisplayedPepegaSlots(){
 	document.getElementById("buyPepegaSlot").style.color = mouseEnterBuyPepegaSlotColor;
 	mouseEnteredBuyPepegaSlot = true;
 }
-
 function mouseLeavetDisplayedPepegaSlots(){
 	document.getElementById("buyPepegaSlot").style.color = mouseLeaveBuyPepegaSlotColor;
 	mouseEnteredBuyPepegaSlot = false;
 }
-
 function setDisplayedPepegaSlotCostAvailability(playerIqCount, pepegaSlotCost){
 	if(playerIqCount >= pepegaSlotCost){
 		mouseEnterBuyPepegaSlotColor = "rgb(245, 230, 35)";
@@ -420,6 +419,7 @@ function setDisplayedFilteredSites(settingsFilteredSites){
 	}
 }
 
+var showBattleBreakdownInitialized = false;
 function setDisplayedSettings(settings){
 	if(settings.enableSounds != null){
 		document.getElementById('enableSoundsCheckmark').checked = settings.enableSounds;
@@ -435,6 +435,17 @@ function setDisplayedSettings(settings){
 	}
 	if(settings.recordOrigin != null){
 		document.getElementById('recordOriginCheckmark').checked = settings.recordOrigin;
+	}
+	if(settings.showBattleBreakdown != null){
+		document.getElementById('showBattleBreakdownCheckmark').checked = settings.showBattleBreakdown;
+		if(!showBattleBreakdownInitialized && settings.showBattleBreakdown){
+			browserStorage.get(["recentBattleBreakdown"], function(result) {
+				if(result.recentBattleBreakdown != null && result.recentBattleBreakdown.new){
+					showBattleBreakdown();
+				}
+			});
+		}
+		showBattleBreakdownInitialized = true;
 	}
 }
 
@@ -510,12 +521,10 @@ function setDisplayedIqps(totalIqps, multipliedTotalIqps){
 
 function setDisplayedPower(rankBasePower, totalPepegaPower){
 	document.getElementById("powerContent").innerHTML = formatWithCommas((rankBasePower + totalPepegaPower).toFixed(2));
-	console.log("how many power: " + totalPepegaPower);
 	if(totalPepegaPower > 0){
 		document.getElementById("additionalPower").style.display = "inline";
 		document.getElementById("rankBasePower").innerHTML = formatWithCommas(Math.round(rankBasePower*100)/100); 
 		document.getElementById("totalPepegaPower").innerHTML = " + " + formatWithCommas(Math.round(totalPepegaPower*100)/100);
-		console.log("how many power: " + totalPepegaPower + " with formatted: " + formatWithCommas(Math.round(totalPepegaPower*100)/100));
 	}else{
 		document.getElementById("additionalPower").style.display = "none";
 	}
@@ -541,15 +550,15 @@ function checkPepegas(){
 
 		var pepegaImageElement = pepegaElement.getElementsByClassName("pepegaImage")[0];
 
-		var timeLeftSeconds = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000))
+		var secondsLeft = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000))
 
-		if(!pepegaAlive && timeLeftSeconds > 2){
-			var healCost = healCostMultiplier * Math.ceil((timeLeftSeconds / 10));
+		if(!pepegaAlive && secondsLeft > allowedPepegaHealingTime){
+			var healCost = healCostMultiplier * Math.ceil((secondsLeft / 10));
 			if(healCost != pepegaElement.healCost){
 				pepegaElement.healCost = healCost;
 
-				if(timeLeftSeconds > 10){
-					pepegaImageTitle += "\n\nEstimated time of recovery: " + ((timeLeftSeconds/10)*10) + "+ seconds";
+				if(secondsLeft > 10){
+					pepegaImageTitle += "\n\nEstimated time of recovery: " + ((secondsLeft/10)*10) + "+ seconds";
 				}else{
 					pepegaImageTitle += "\n\nEstimated time of recovery: a few seconds";
 				}
@@ -712,7 +721,7 @@ function showSiteFiltersModal(){
 }
 function showSettingsModal(){
 	document.getElementById("settingsModal").style.display = "block";
-	document.body.style.height = "520px";
+	document.body.style.height = popupHeightWithSettings;
 }
 function hideSiteFiltersModal(){
 	document.getElementById("siteFiltersModal").style.display = "none";
@@ -720,7 +729,7 @@ function hideSiteFiltersModal(){
 }
 function hideSettingsModal(){
 	document.getElementById("settingsModal").style.display = "none";
-	document.body.style.height = "350px";
+	document.body.style.height = popupHeightDefault;
 }
 
 function showRenameArmyModal(){
@@ -741,15 +750,15 @@ function releasePlayerPepega(){
 }
 
 function updateSettings(){
-	browserRuntime.sendMessage({"message": "update-settings", 
+	var settings = {};
+	settings.enableSounds = document.getElementById('enableSoundsCheckmark').checked;
+	settings.enablePepegaCatchReleaseNotifications = document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked;
+	settings.enableRankUpNotifications = document.getElementById('enableRankUpNotificationsCheckmark').checked;
+	settings.enablePepegaHealNotifications = document.getElementById('enablePepegaHealNotificationsCheckmark').checked;
+	settings.recordOrigin = document.getElementById('recordOriginCheckmark').checked;
+	settings.showBattleBreakdown = document.getElementById('showBattleBreakdownCheckmark').checked;
 
-	"enableSounds": document.getElementById('enableSoundsCheckmark').checked, 
-	"enablePepegaCatchReleaseNotifications": document.getElementById('enablePepegaCatchReleaseNotificationsCheckmark').checked, 
-	"enableRankUpNotifications": document.getElementById('enableRankUpNotificationsCheckmark').checked, 
-	"enablePepegaHealNotifications": document.getElementById('enablePepegaHealNotificationsCheckmark').checked, 
-	"recordOrigin": document.getElementById('recordOriginCheckmark').checked
-
-	}, function() {
+	browserRuntime.sendMessage({"message": "update-settings", "settings": settings}, function() {
 		hideSettingsModal();
 	});
 }
@@ -783,11 +792,11 @@ function updateArmyName(){
 }
 
 function updateEncounterMode(){
-	browserRuntime.sendMessage({"message": "update-settings-encounter-mode"});
+	browserRuntime.sendMessage({"message": "update-config-encounter-mode"});
 }
 
 function updateFilteredSites(){
-	browserRuntime.sendMessage({"message": "update-settings-filtered-sites", "filteredSitesText": document.getElementById("siteFiltersModalTextArea").value});
+	browserRuntime.sendMessage({"message": "update-config-filtered-sites", "filteredSitesText": document.getElementById("siteFiltersModalTextArea").value});
 }
 
 function buyPepegaSlot(){
@@ -827,16 +836,11 @@ document.getElementById("gameTitle").addEventListener("click", openGameLink);
 document.getElementById("encounterModeTitle").addEventListener("click", updateEncounterMode);
 document.getElementById("encounterRateTitle").addEventListener("click", updateEncounterMode);
 document.getElementById("quickFilterTitle").addEventListener("click", quickFilterSite);
-
 document.getElementById("tutorialAskModalNo").addEventListener("click", function() { answerTutorialAskModal(false); } );
 document.getElementById("tutorialAskModalYes").addEventListener("click", function() { answerTutorialAskModal(true); } );
-
 document.getElementById("tutorialModalClose").addEventListener("click", function() { closeTutorialModal(); } );
-
 document.getElementById("randomTutorialModalClose").addEventListener("click", function() { closeRandomTutorialModal(); } );
-
 document.getElementById("resetTutorial").addEventListener("click", resetTutorial);
-
 document.getElementById("battleBreakdownAlertShow").addEventListener("click", showBattleBreakdown);
 document.getElementById("battleBreakdownAlertHide").addEventListener("click", hideBattleBreakdownAlert);
 document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);
