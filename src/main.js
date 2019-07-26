@@ -125,19 +125,19 @@ const ranks = [
     new Rank(0, ["a"], ["Pepega Trainer"], ["Gotta take em all!"], function iqRankRequirement(){ return isPlayerIqHigher(0); }, "0 IQ",1.0, 10),
     new Rank(1, ["a"], ["Pepega Shepherd"], [""], function iqRankRequirement(){ return isPlayerIqHigher(4000); }, "4,000 IQ", 1.1, 12),
     new Rank(2, ["a"], ["Pepega Whisperer"], [""], function iqRankRequirement(){ return isPlayerIqHigher(35000); }, "35,000 IQ", 1.2, 14),
-    new Rank(3, ["a"], ["Pepega Researcher"], [""], function iqRankRequirement(){ return isPlayerIqHigher(125000); }, "125,000 IQ", 1.3, 16),
-    new Rank(4, ["a"], ["Pepega Scientist"], [""], function iqRankRequirement(){ return isPlayerIqHigher(500000); }, "500,000 IQ", 1.4, 18),
-    new Rank(5, ["a"], ["Pepega Guru"], [""], function iqRankRequirement(){ return isPlayerIqHigher(2000000); }, "2,000,000 IQ", 1.5, 20),
-    new Rank(6, ["a"], ["Professor Pepega"], [""], function iqRankRequirement(){ return isPlayerIqHigher(6500000); }, "6,500,000 IQ", 1.6, 25),
-    new Rank(7, ["a"], ["Pepega Leader"], [""], function iqRankRequirement(){ return isPlayerIqHigher(14000000); }, "14,000,000 IQ", 1.7, 30),
-    new Rank(8, ["a"], ["Pepega Commander"], [""], function iqRankRequirement(){ return isPlayerIqHigher(30000000); }, "30,000,000IQ", 1.8, 35),
-    new Rank(9, [""], ["Captain Pepega"], ["You're the captain now!"], function iqRankRequirement(){ return isPlayerIqHigher(50000000); }, "50,000,000 IQ", 1.9, 40),
-    new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(100000000); }, "100,000,000 IQ", 2.0, 45),
-    new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(165000000); }, "165,000,000 IQ", 2.2, 50),
-    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 2.4, 60),
-    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(650000000); }, "650,000,000 IQ", 2.6, 70),
+    new Rank(3, ["a"], ["Pepega Researcher"], [""], function iqRankRequirement(){ return isPlayerIqHigher(250000); }, "250,000 IQ", 1.3, 16),
+    new Rank(4, ["a"], ["Pepega Scientist"], [""], function iqRankRequirement(){ return isPlayerIqHigher(1000000); }, "1,000,000 IQ", 1.4, 18),
+    new Rank(5, ["a"], ["Pepega Guru"], [""], function iqRankRequirement(){ return isPlayerIqHigher(4000000); }, "4,000,000 IQ", 1.5, 20),
+    new Rank(6, ["a"], ["Professor Pepega"], [""], function iqRankRequirement(){ return isPlayerIqHigher(15000000); }, "15,000,000 IQ", 1.6, 25),
+    new Rank(7, ["a"], ["Pepega Leader"], [""], function iqRankRequirement(){ return isPlayerIqHigher(40000000); }, "40,000,000 IQ", 1.7, 30),
+    new Rank(8, ["a"], ["Pepega Commander"], [""], function iqRankRequirement(){ return isPlayerIqHigher(120000000); }, "120,000,000 IQ", 1.8, 35),
+    new Rank(9, [""], ["Captain Pepega"], ["You're the captain now!"], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 1.9, 40),
+    new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(600000000); }, "600,000,000 IQ", 2.0, 45),
+    new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(1000000000); }, "1,000,000,000 IQ", 2.2, 50),
+    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(2500000000); }, "2,500,000,000 IQ IQ", 2.4, 60),
+    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(5000000000); }, "5,000,000,000 IQ", 2.6, 70),
     new Rank(14, ["a", "the", "the"], ["Pepega Legend Gold", "President of the Pepega States", "Emperor of Pepegan"], 
-    ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(1250000000); }, "1,250,000,000 IQ", 2.8, 80),
+    ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(10000000000); }, "10,000,000,000 IQ IQ", 2.8, 80),
     new Rank(15, ["the", "the", "the"], ["True Pepega", "PepeGOD", "Gaijinga"], 
     ["Your IQ is less than 100... you are the truest of all Pepegas!", "Pepegas across the globe bow down to your presence.", "You are the ultimate weeb. AYAYA Clap"], 
     function iqRankRequirement(){  return finalRankRequirement(); }, "Every. Single. Pepega.", 3.0, 100),
@@ -313,7 +313,7 @@ const pepegaTypes = [
 
     new PepegaType(25, [], "Amazga", "One of the smartest Pepegas known to Pepegakind. Legend has it that this Pepega has already beaten this game.", 
         21500, 600,
-        6950, 10, ["Ragnaros", "Blindfold", "1st Place"],
+        6950, 10, ["Ragnaros", "Blindfold", "Scam"],
         browserRuntime.getURL("images/pepegas/25_Amazga.png")),
 
     new PepegaType(26, [], "Scamazga", "SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE THERE'S NOTHING YOU CAN DO HAHAHAHAHAHAHAHAHAHAHAHAHAHA", 
@@ -348,12 +348,12 @@ const pepegaTypes = [
 
     new PepegaType(32, [], "Vanga", "Vangas are infamous for owning their very own dungeon where they party with their friends. They are also commonly referred to as Leathergas, due to the outfit that they wear.", 
         1550, 600, 
-        2200, 10, ["300 Bucks", "Mermaid Splash", "Leatherwhip"],
+        2200, 10, ["Tie Up", "Leatherwhip", "Mermaid Splash"],
         browserRuntime.getURL("images/pepegas/32_Vanga.png")),
 
     new PepegaType(33, [], "Gachiga", "Gachigas are considered to be the strongest and simultaneously the most beautiful Pepegas known to Pepegakind. It greatly excels in performance art, music, and bodybuilding.", 
         16070, 600, 
-        27500, 10, ["Manly Rave", "Thunder Remix", "Strength"],
+        27500, 10, ["Manly Rave", "Thunder Remix", "AAAAAAAHHHHHHHH!"],
         browserRuntime.getURL("images/pepegas/33_Gachiga.png")),
 
     new PepegaType(34, [], "Hypergachiga", "A Pepega Abomination. What have you done?", 
@@ -383,7 +383,7 @@ const pepegaTypes = [
 
     new PepegaType(39, [], "Kappaga", "An incredibly popular and beloved Pepega... Kapp.", 
         15, 30, 
-        30, 10, ["Jebait", "Account Suspension", "A killing blow... Kapp"],
+        30, 10, ["Jebait", "Account Suspension", "Banhammer"],
         browserRuntime.getURL("images/pepegas/39_Kappaga.png")),
 
     new PepegaType(40, [], "Ninjaga", "This Pepega keeps telling you to click the Subscribe button, but also making sure you don't smash it.", 
@@ -393,12 +393,12 @@ const pepegaTypes = [
 
     new PepegaType(41, [], "Xqga", "A streamer with a fanbase.", 
         135, 300, 
-        270, 10, ["React", "Play", "Slam Desk"],
+        270, 10, ["React", "Slam Desk", "Freak Out"],
         browserRuntime.getURL("images/pepegas/41_Xqga.png")),
 
     new PepegaType(42, [], "Shroudga", "Shroudgas are the paragon of skill. They are natural born hunters and they can easily kill you from a mile away. Despite their greatness, however, they have lost to a certain Mald Pepega before.", 
         140, 300, 
-        265, 10, ["Slay", "Execute", "Assassinate"],
+        265, 10, ["Slay", "Dominate", "Execute"],
         browserRuntime.getURL("images/pepegas/42_Shroudga.png")),
 
     new PepegaType(43, [], "Tylerga", "Tylergas are recognized for their intense, boisterous screaming and desk slamming. It has weirdly big and disproportionate biceps, and its head looks like a marshmallow. They were tormented in the past by the nefarious Pepegas known as Tannergas.", 
@@ -411,9 +411,9 @@ const pepegaTypes = [
         255, 10, ["Devour", "Explode", "Send to Vacation City"],
         browserRuntime.getURL("images/pepegas/44_GreekGaX.png")),
 
-    new PepegaType(45, [], "Triga", "Trigas are very popular for their immense skill in the game called Maldio. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
+    new PepegaType(45, [], "Triga", "Trigas are very popular for their immense skill in the game called Maldio and Mald Island. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
         155, 300, 
-        250, 10, ["World Record", "Speedrun", "7"],
+        250, 10, ["Try Hard", "Speedrun", "7"],
         browserRuntime.getURL("images/pepegas/45_Triga.png")),
 
     new PepegaType(46, [], "Forsenga", "A professional children's card player that gets mad and bald when it loses. Although, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever. Perhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
@@ -1519,7 +1519,7 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     browserStorage.set({playerCatchCount: player.catchCount});
 
     if(!fightResults.won){
-        notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "VI LOST!", "Your Pepegas lost to " + wildPepega.pepegaType.name + "!\n" +
+        notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "VI LOST!", "Your Pepegas lost to a Wild " + wildPepega.pepegaType.name + "!\n" +
         "You may instantly heal them by spending IQ, or you can just wait!", wildPepega.pepegaType.imageUrl);
         playSound(pepegaLostSound);
         return;
@@ -1538,9 +1538,9 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successSingle){
         var notificationMessage = "You caught " + getArticle(pepegaAdd[1].pepegaType.name[0]) + " " + pepegaAdd[1].pepegaType.name + "!";
         if(fightResults.casualties == 1){
-            notificationMessage += "\nOne of your Pepegas died in the process. :(";
+            notificationMessage += "\nOne of your Pepegas died during the battle. :(";
         }else if(fightResults.casualties > 1){
-            notificationMessage += "\n" + fightResults.casualties + " Pepegas died in the process. :(";
+            notificationMessage += "\n" + fightResults.casualties + " Pepegas died during the battle. :(";
         }
 
         notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", pepegaAdd[1].pepegaType.name + " caught!", 
@@ -1581,7 +1581,7 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
 
         playSound(pepegaFusionSound);
     } else{
-        var iqReleasePrice = pepegaAdd[1].pepegaType.iqReleasePriceMultiplier * pepegaAdd[1].pepegaType.iqCount * pepegaAdd[1].level;
+        var iqReleasePrice = pepegaAdd[1].pepegaType.iqReleasePriceMultiplier * pepegaAdd[1].pepegaType.iqps * pepegaAdd[1].level;
         updatePlayerIqCount(iqReleasePrice);
         var notificationMessage = pepegaAdd[1].pepegaType.name + " was released, earning you " + iqReleasePrice + " IQ.";
 

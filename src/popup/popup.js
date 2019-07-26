@@ -1,5 +1,6 @@
 const isBeta = true;
 const gameLink = "https://github.com/Alycse/PepegaCatch";
+const gameIssuesLink = "https://github.com/Alycse/PepegaCatch/issues/new/choose";
 const gameTitle = "Pepega Catch!";
 
 const popupHeightDefault = "350px";
@@ -806,6 +807,9 @@ function buyPepegaSlot(){
 function openGameLink(){
 	browserTabs.create({ url: gameLink });
 }
+function openGameIssuesLink(){
+	browserTabs.create({ url: gameIssuesLink });
+}
 
 function answerTutorialAskModal(isTutorialAnswerYes){
 	browserRuntime.sendMessage({"message": "answer-tutorial-ask", "tutorialAnswer": isTutorialAnswerYes});
@@ -833,6 +837,7 @@ document.getElementById("settingsModalClose").addEventListener("click", updateSe
 document.getElementById("siteFilters").addEventListener("click", showSiteFiltersModal);
 document.getElementById("siteFiltersModalClose").addEventListener("click", hideSiteFiltersModal);
 document.getElementById("gameTitle").addEventListener("click", openGameLink);
+document.getElementById("gameFeedback").addEventListener("click", openGameIssuesLink);
 document.getElementById("encounterModeTitle").addEventListener("click", updateEncounterMode);
 document.getElementById("encounterRateTitle").addEventListener("click", updateEncounterMode);
 document.getElementById("quickFilterTitle").addEventListener("click", quickFilterSite);

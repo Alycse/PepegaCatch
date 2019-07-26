@@ -28,6 +28,17 @@ body{
     cursor: pointer;
 }
 
+#gameFeedback{
+    color: rgb(158, 158, 158);
+    font-size: 13px;
+    margin-top: -12px;
+    float: right;
+}
+#gameFeedback:hover{
+    color: rgb(209, 209, 209);
+    cursor: pointer;
+}
+
 .modal {
     display: none;
     position: absolute;

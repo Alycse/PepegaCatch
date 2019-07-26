@@ -67,4 +67,5 @@ function returnToHomeScreen(){
 	window.location.href=browserRuntime.getURL("src/popup/popup.html");
 }
 
-document.getElementById("returnToHome").addEventListener("click", returnToHomeScreen);
+document.getElementsByClassName("returnToHome")[0].addEventListener("click", returnToHomeScreen);
+document.getElementsByClassName("returnToHome")[1].addEventListener("click", returnToHomeScreen);

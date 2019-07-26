@@ -37,7 +37,7 @@ body{
     padding-top: 5px;
     padding-bottom: 15px;
 }
-#returnToHome{
+.returnToHome{
     color: rgb(194, 171, 44);
     font-size: 22px;
 
@@ -46,7 +46,7 @@ body{
     margin-top: 20px;
     margin-bottom: 25px;
 }
-#returnToHome:hover{
+.returnToHome:hover{
     color: rgb(236, 208, 44);
     cursor: pointer;
 }
@@ -72,4 +72,20 @@ b{
 }
 #wildPepegaTitlePower{
     font-size: 20px;
+}
+
+.tip{
+    margin-top: 16px;
+    font-size: 14px;
+    color: rgb(133, 133, 133);
+    text-align: center;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
