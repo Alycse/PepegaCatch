@@ -13,56 +13,60 @@
 			</span>
 
 			<div id="settingsModalOptions">
-				<div class="unselectable" id="siteFilters">
+				<div class="unselectable setting" id="siteFilters">
 					Filter individual sites
 				</div>
 
 				<div id="encounterMode">
-					<div class="unselectable" id="encounterModeTitle">Switch Encounter Mode</div>
+					<div class="unselectable setting" id="encounterModeTitle">Switch Encounter Mode</div>
 					<div id="encounterModeContent">
 						Maximum Encounters
 					</div>
 				</div>
 
-				<div class="unselectable" id="resetTutorial">
+				<div class="unselectable setting" id="resetTutorial">
 					Reset Tutorial
 				</div>
 
-				<label class="checkmarkContainer">
-					Enable sounds
-					<input id="enableSoundsCheckmark" type="checkbox">
-					<span class="checkmark"></span>
-				</label>
+				<div id="toggleSection">
 
-				<label class="checkmarkContainer">
-					Enable Pepega Catch/Release notifications
-					<input id="enablePepegaCatchReleaseNotificationsCheckmark" type="checkbox">
-					<span class="checkmark"></span>
-				</label>
+					<label class="checkmarkContainer">
+						Enable sounds
+						<input id="enableSoundsCheckmark" type="checkbox">
+						<span class="checkmark"></span>
+					</label>
 
-				<label class="checkmarkContainer">
-					Enable Rank Up notifications
-					<input id="enableRankUpNotificationsCheckmark" type="checkbox">
-					<span class="checkmark"></span>
-				</label>
+					<label class="checkmarkContainer">
+						Enable Pepega Catch/Release notifications
+						<input id="enablePepegaCatchReleaseNotificationsCheckmark" type="checkbox">
+						<span class="checkmark"></span>
+					</label>
 
-				<label class="checkmarkContainer">
-					Enable Healing notifications
-					<input id="enablePepegaHealNotificationsCheckmark" type="checkbox">
-					<span class="checkmark"></span>
-				</label>
+					<label class="checkmarkContainer">
+						Enable Rank Up notifications
+						<input id="enableRankUpNotificationsCheckmark" type="checkbox">
+						<span class="checkmark"></span>
+					</label>
 
-				<label class="checkmarkContainer">
-					Record the site of where a Pepega was caught
-					<input id="recordOriginCheckmark" type="checkbox">
-					<span class="checkmark"></span>
-				</label>
+					<label class="checkmarkContainer">
+						Enable Healing notifications
+						<input id="enablePepegaHealNotificationsCheckmark" type="checkbox">
+						<span class="checkmark"></span>
+					</label>
 
-				<label class="checkmarkContainer">
-					Automatically show the breakdown of the most recent battle
-					<input id="showBattleBreakdownCheckmark" type="checkbox">
-					<span class="checkmark"></span>
-				</label>
+					<label class="checkmarkContainer">
+						Record the site of where a Pepega was caught
+						<input id="recordOriginCheckmark" type="checkbox">
+						<span class="checkmark"></span>
+					</label>
+
+					<label class="checkmarkContainer">
+						Automatically show the breakdown of the most recent battle
+						<input id="showBattleBreakdownCheckmark" type="checkbox">
+						<span class="checkmark"></span>
+					</label>
+
+				</div>
 			</div>
 
 			<div class="modalButtons">
@@ -167,7 +171,7 @@
 	</div>
 
 	<div id="rank" class="section">
-		<span class="unselectable" id="rankTitle">
+		<span class="unselectable mainInfo" id="rankTitle">
 			Rank:
 		</span>
 		<span id="rankContent" title="You're the captain now!">
@@ -180,7 +184,7 @@
 	</div>
 
 	<div id="iqCount" class="section">
-		<span class="unselectable" id="iqCountTitle">
+		<span class="unselectable mainInfo" id="iqCountTitle">
 			IQ Count:
 		</span>
 		<span id="iqCountContent">
@@ -189,7 +193,7 @@
 	</div>
 
 	<div id="iqps" class="section">
-		<span class="unselectable" id="iqpsTitle">
+		<span class="unselectable mainInfo" id="iqpsTitle">
 			IQ per second:
 		</span>
 		<span id="iqpsContent">
@@ -201,7 +205,7 @@
 	</div>
 
 	<div id="nextRank" class="section">
-		<span class="unselectable" id="nextRankTitle">
+		<span class="unselectable mainInfo" id="nextRankTitle">
 			IQ needed to rank up:
 		</span>
 		<span id="nextRankContent">
@@ -210,7 +214,7 @@
 	</div>
 	
 	<div id="power" class="section">
-		<span class="unselectable" id="powerTitle" title="This is a combination of your rank's base power and all of your Pepegas' powers.">
+		<span class="unselectable mainInfo" id="powerTitle" title="This is a combination of your rank's base power and all of your Pepegas' powers.">
 			Estimated Power:
 		</span>
 		<span id="powerContent">
@@ -224,7 +228,7 @@
 	<div id="quickSettings">
 
 		<div id="encounterRate" class="section">
-			<span class="unselectable" id="encounterRateTitle" title="The Encounter Rate determines how often Pepegas spawn on websites!
+			<span class="unselectable subInfo" id="encounterRateTitle" title="The Encounter Rate determines how often Pepegas spawn on websites!
 	You may completely disable your Pepega encounters by changing your Encounter Mode in the settings (or by clicking 'Encounter Rate' in the home screen!).">
 				Encounter Rate:
 			</span>
@@ -237,9 +241,15 @@
 		</div>
 
 		<div id="quickFilter" class="section">
-			<div id="quickFilterTitle" class="unselectable">
+			<div id="quickFilterTitle" class="unselectable subInfo">
 				Filter Current Site
 			</div>
+		</div>
+
+		<div id="fusionRecipes" class="section">
+			<span class="unselectable subInfo" id="fusionRecipesTitle" title="View possible Pepega fusions.">
+				View Fusion Recipes
+			</span>
 		</div>
 
 	</div>

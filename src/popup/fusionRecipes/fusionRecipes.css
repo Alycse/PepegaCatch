@@ -1,0 +1,98 @@
+@font-face {
+    font-family: orange-kid;
+    src: url(../../../fonts/orange-kid.ttf);
+}
+body{
+    font-family: orange-kid;
+
+    background-color:rgb(40, 40, 40);
+    color: white;
+
+    width: 390px;
+    height: 370px;
+
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+#fusionRecipesContent{
+    color: rgb(240, 240, 240);
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+#fusionRecipesTitle{
+    color: rgb(168, 168, 168);
+    font-size: 24px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    margin-left: 12px;
+}
+.returnToHome{
+    color: rgb(194, 171, 44);
+    font-size: 22px;
+
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+.returnToHome:hover{
+    color: rgb(236, 208, 44);
+    cursor: pointer;
+}
+b{
+    font-weight: 120;
+    color: rgb(236, 217, 110);
+}
+
+.pepegasEqual{
+    margin-right: 8px;
+
+    font-size: 38px;
+}
+
+.tip{
+    font-size: 14px;
+    color: rgb(133, 133, 133);
+    margin-top: -10px;
+    margin-left: 12px;
+}
+
+.fusionPepegaContainer{
+    width: 100%;
+    height: 80px;
+    padding-top: 18px;
+    padding-bottom: 27px;
+    color: rgb(216, 216, 216);
+    text-align: left;
+}
+.fusionPepegaContainerA{
+    background-color: rgb(50, 50, 50);
+}
+.fusionPepegaContainerB{
+    background-color: rgb(40, 40, 40);
+}
+.fusionPepegaContainerContent{
+    margin-left: 20px;
+}
+.pepegasContainer{
+    margin-top: 10px;
+
+    margin-left: 3px;
+}
+.pepegaImage{
+    height: 42px;
+    width: 42px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

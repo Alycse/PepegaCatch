@@ -302,7 +302,8 @@ function closeTutorialModal(){
 function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 	if(randomTutorialPhase.includes("uniquePepega")){
 
-		showRandomTutorialModal("uniquePepega", "Unique!", "So unique!");
+		showRandomTutorialModal("uniquePepega", "You've caught a new type of Pepega!", 
+		"<p>For every unique type of Pepega you have in your army, your IQ/s multiplier increases!</p>");
 
 	}else if(randomTutorialPhase.includes("rankUp")){
 
@@ -824,6 +825,9 @@ function resetTutorial(){
 function showBattleBreakdown(){
 	window.location.href=browserRuntime.getURL("src/popup/battleBreakdown/battleBreakdown.html");
 }
+function showFusionRecipes(){
+	window.location.href=browserRuntime.getURL("src/popup/fusionRecipes/fusionRecipes.html");
+}
 
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
@@ -849,3 +853,4 @@ document.getElementById("resetTutorial").addEventListener("click", resetTutorial
 document.getElementById("battleBreakdownAlertShow").addEventListener("click", showBattleBreakdown);
 document.getElementById("battleBreakdownAlertHide").addEventListener("click", hideBattleBreakdownAlert);
 document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);
+document.getElementById("fusionRecipesTitle").addEventListener("click", showFusionRecipes);

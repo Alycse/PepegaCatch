@@ -1,11 +1,11 @@
 .checkmarkContainer {
     display: block;
     position: relative;
-    padding-left: 30px;
+    padding-left: 25px;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

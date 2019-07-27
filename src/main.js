@@ -191,19 +191,19 @@ const pepegaTypes = [
         1, 10, ["Shout", "Push", "Scream"],
         browserRuntime.getURL("images/pepegas/0_Pepega.png")),
 
-    new PepegaType(1, [], "Okayga", "These Pepegas are only capable of staring and looking deep into someone's eyes, but they do it very skillfully.", 
+    new PepegaType(1, [0, 0, 0], "Okayga", "These Pepegas are only capable of staring and looking deep into someone's eyes, but they do it very skillfully.", 
         10, 60, 
         10, 10, ["Smile", "Slap", "Dazzle"],
         browserRuntime.getURL("images/pepegas/1_Okayga.png")),
 
-    new PepegaType(2, [], "Pepege", "This Pepega is incapable of reading, writing, or doing anything that involves the use of more than one brain cell, but at least it's smart enough to be aware of this.", 
+    new PepegaType(2, [1, 1, 1], "Pepege", "This Pepega is incapable of reading, writing, or doing anything that involves the use of more than one brain cell, but at least it's smart enough to be aware of this.", 
         100, 120, 
         100, 10, ["Bite", "Confusion", "Charge"],
         browserRuntime.getURL("images/pepegas/2_Pepege.png")),
 
     new PepegaType(3, [], "Firega", "This Pepega leaves behind gasoline cans, gasoline-soaked rags, and lighters on websites it roams on.", 
         10, 60, 
-        20, 10, ["Sun With Face Clap", "Starfire", "Overheat"],
+        20, 10, ["Sun with Face Clap", "Starfire", "Overheat"],
         browserRuntime.getURL("images/pepegas/3_Firega.png")),
 
     new PepegaType(4, [], "Grassga", "Grassgas devote their lives into protecting and preserving nature. They are against the consumption of plants, animals, and water. In other words, they only eat Pepegas.", 
@@ -216,17 +216,17 @@ const pepegaTypes = [
         10, 10, ["Hail", "Stage", "Freeze"],
         browserRuntime.getURL("images/pepegas/5_Icega.png")),
 
-    new PepegaType(6, [], "Pepega Knight", "Pepega Knights are protectors of the weak. They will defend anyone who is in peril or under scrutiny by the public, as long as it is attractive.", 
+    new PepegaType(6, [2, 3, 3], "Pepega Knight", "Pepega Knights are protectors of the weak. They will defend anyone who is in peril or under scrutiny by the public, as long as it is attractive.", 
         380, 300, 
         495, 10, ["Donate", "Permaban", "Defend"],
         browserRuntime.getURL("images/pepegas/6_Pepega-Knight.png")),
 
-    new PepegaType(7, [], "Pepega Hunter", "Pepega Hunters can't actually shoot arrows with bows, instead it just bashes the bow against its enemies.", 
+    new PepegaType(7, [2, 4, 4], "Pepega Hunter", "Pepega Hunters can't actually shoot arrows with bows, instead it just bashes the bow against its enemies.", 
         438, 300, 
-        438, 10, ["Snipe", "Remix", "Stream Save"],
+        438, 10, ["Snipe", "Remix", "Save Stream"],
         browserRuntime.getURL("images/pepegas/7_Pepega-Hunter.png")),
 
-    new PepegaType(8, [], "Pepega Wizard", "This Pepega is very fond of Time Travel and a bit of risque dancing. It has a habit of screaming its own name.", 
+    new PepegaType(8, [2, 5, 5], "Pepega Wizard", "This Pepega is very fond of Time Travel and a bit of risque dancing. It has a habit of screaming its own name.", 
         495, 300, 
         380, 10, ["Old Age", "Thrust", "Time Compression"],
         browserRuntime.getURL("images/pepegas/8_Pepega-Wizard.png")),
@@ -243,7 +243,7 @@ const pepegaTypes = [
 
     new PepegaType(11, [], "Golden Pepega", "", 
         25500, 3600, 
-        8000, 10, ["Illuminate", "Divine Judgement", "Cheat"],
+        8000, 10, ["Illuminate", "Divine Judgement", "Holy War"],
         browserRuntime.getURL("images/pepegas/11_Golden-Pepega.png")),
 
     new PepegaType(12, [], "Joyga", "These Pepegas are very young and have an awfully low standard for entertainment. They are easily attracted to Pepegas who are loud and obnoxious.", 
@@ -261,12 +261,12 @@ const pepegaTypes = [
         50, 10, ["Backseat", "Throw Controller", "Release Mobile Game"],
         browserRuntime.getURL("images/pepegas/14_Bitga.png")),
 
-    new PepegaType(15, [], "Broga", "These Pepegas love the use of platforms that connect to the other side, and if anyone is standing in their way, Brogas are more than capable of taking them down with ease.", 
+    new PepegaType(15, [12, 12, 14, 14], "Broga", "These Pepegas love the use of platforms that connect to the other side, and if anyone is standing in their way, Brogas are more than capable of taking them down with ease.", 
         685, 300, 
         350, 10, ["Cross", "Review", "Call Swedish"],
         browserRuntime.getURL("images/pepegas/15_Broga.png")),
 
-    new PepegaType(16, [], "Orange Pepega", "Orange Pepegas are carpenters who specializes in walls. They are capable of building multiple kinds of walls, no matter how high, and it is their duty to make sure no one is able to go through those walls.", 
+    new PepegaType(16, [13, 13, 13, 15], "Orange Pepega", "Orange Pepegas are carpenters who specializes in walls. They are capable of building multiple kinds of walls, no matter how high, and it is their duty to make sure no one is able to go through those walls.", 
         2870, 600, 
         1300, 10, ["Construct Wall", "Weebs Out", "Electrocute"],
         browserRuntime.getURL("images/pepegas/16_Orange-Pepega.png")),
@@ -278,22 +278,22 @@ const pepegaTypes = [
 
     new PepegaType(18, [], "Pastorga", "This pepega tells you that by simply catching it, it has won.", 
         15, 15, 
-        25, 10, ["Shout", "Push", "Scream"],
+        25, 10, ["Sing", "Preach", "Evangelize"],
         browserRuntime.getURL("images/pepegas/18_Pastorga.png")),
 
-    new PepegaType(19, [], "Red Fastga", "This Pepega keeps asking you if you know the destination.", 
+    new PepegaType(19, [17, 17, 18], "Red Fastga", "This Pepega keeps asking you if you know the destination.", 
         85, 30, 
         165, 10, ["Click", "Show the Way", "Raid"],
         browserRuntime.getURL("images/pepegas/19_Red-Fastga.png")),
 
-    new PepegaType(20, [], "Supa Pepega", "This Pepega is on a mission to defeat and destroy the Pepega Mafia.", 
+    new PepegaType(20, [19, 19], "Supa Pepega", "This Pepega is on a mission to defeat and destroy the Pepega Mafia.", 
         475, 300, 
-        1100, 10, ["Supa Kicker", "Supa Striker", "Slow-mo"],
+        1100, 10, ["Supa Kicker", "Rapid Gunfire", "Slow-mo"],
         browserRuntime.getURL("images/pepegas/20_Supa-Pepega.png")),
 
-    new PepegaType(21, [], "Pepega U", "This Pepega dedicates its life to avenging its Pepega brother that was assassinated by who it thinks are the Pepega Mafia. It is a master of Martial Arts and Wingless Flying. They call it... Pepega U!", 
+    new PepegaType(21, [20, 20], "Pepega U", "This Pepega dedicates its life to avenging its Pepega brother that was assassinated by who it thinks are the Pepega Mafia. It is a master of Martial Arts and Wingless Flying. They call it... Pepega U!", 
         2550, 1800, 
-        7100, 10, ["Ugandan Kiss", "Tiger Claw", "Dragon Claw"],
+        7100, 10, ["Ugandan Kiss", "Ugandan Kick", "Ugandan Strike"],
         browserRuntime.getURL("images/pepegas/21_Pepega-U.png")),
 
     new PepegaType(22, [], "Peppahga", "In spite of its appearance, it is not a rat, but is in fact just another Pepega.", 
@@ -306,17 +306,17 @@ const pepegaTypes = [
         200, 10, ["Freak Out", "Superiority Complex", "Snob"],
         browserRuntime.getURL("images/pepegas/23_200-IQ-Pepega.png")),
 
-    new PepegaType(24, [], "400 IQ Pepega", "No one knows why, but these Pepegas keep yelling the word \"Pickle\" and a guy named \"Richard\".", 
+    new PepegaType(24, [23, 23], "400 IQ Pepega", "No one knows why, but these Pepegas keep yelling the word \"Pickle\" and a guy named \"Richard\".", 
         2800, 300, 
-        1180, 10, ["Yell", "Outsmart", "Destroy"],
+        1180, 10, ["Yell", "Outsmart", "Checkmate"],
         browserRuntime.getURL("images/pepegas/24_400-IQ-Pepega.png")),
 
-    new PepegaType(25, [], "Amazga", "One of the smartest Pepegas known to Pepegakind. Legend has it that this Pepega has already beaten this game.", 
+    new PepegaType(25, [24, 24], "Amazga", "One of the smartest Pepegas known to Pepegakind. Legend has it that this Pepega has already beaten this game.", 
         21500, 600,
         6950, 10, ["Ragnaros", "Blindfold", "Scam"],
         browserRuntime.getURL("images/pepegas/25_Amazga.png")),
 
-    new PepegaType(26, [], "Scamazga", "SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE THERE'S NOTHING YOU CAN DO HAHAHAHAHAHAHAHAHAHAHAHAHAHA", 
+    new PepegaType(26, [25, 25], "Scamazga", "SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE SCAMAZ IS HERE THERE'S NOTHING YOU CAN DO HAHAHAHAHAHAHAHAHAHAHAHAHAHA", 
         135000, -10, 
         -68000, 10, ["Curse", "Possess", "Backstab"],
         browserRuntime.getURL("images/pepegas/26_Scamazga.png")),
@@ -336,34 +336,34 @@ const pepegaTypes = [
         750, 10, ["Hyperjam", "Hop", "AHHHHH"],
         browserRuntime.getURL("images/pepegas/29_Jamga.png")),
 
-    new PepegaType(30, [], "Rigardo", "An expert in what is known as romantic dancing, Rigardo can dance to almost every type of music.", 
+    new PepegaType(30, [27, 28, 3, 3], "Rigardo", "An expert in what is known as romantic dancing, Rigardo can dance to almost every type of music.", 
         1250, 600, 
         2600, 10, ["Ram", "Hump", "Lunge"],
         browserRuntime.getURL("images/pepegas/30_Rigardo.png")),
 
-    new PepegaType(31, [], "Billiga", "Billiga is highly respected for its service in the Pepega Armed Forces. It is a tough, but loving Pepega, and it only wants what's best for you. After its retirement, it has become a prominent figure in the wresling community.", 
+    new PepegaType(31, [27, 28, 4, 4], "Billiga", "Billiga is highly respected for its service in the Pepega Armed Forces. It is a tough, but loving Pepega, and it only wants what's best for you. After its retirement, it has become a prominent figure in the wresling community.", 
         1400, 600, 
         2400, 10, ["Headscissor", "Armlock", "Kiss"],
         browserRuntime.getURL("images/pepegas/31_Billiga.png")),
 
-    new PepegaType(32, [], "Vanga", "Vangas are infamous for owning their very own dungeon where they party with their friends. They are also commonly referred to as Leathergas, due to the outfit that they wear.", 
+    new PepegaType(32, [27, 28, 5, 5], "Vanga", "Vangas are infamous for owning their very own dungeon where they party with their friends. They are also commonly referred to as Leathergas, due to the outfit that they wear.", 
         1550, 600, 
         2200, 10, ["Tie Up", "Leatherwhip", "Mermaid Splash"],
         browserRuntime.getURL("images/pepegas/32_Vanga.png")),
 
-    new PepegaType(33, [], "Gachiga", "Gachigas are considered to be the strongest and simultaneously the most beautiful Pepegas known to Pepegakind. It greatly excels in performance art, music, and bodybuilding.", 
+    new PepegaType(33, [30, 31, 32, 29, 29], "Gachiga", "Gachigas are considered to be the strongest and simultaneously the most beautiful Pepegas known to Pepegakind. It greatly excels in performance art, music, and bodybuilding.", 
         16070, 600, 
         27500, 10, ["Manly Rave", "Thunder Remix", "AAAAAAAHHHHHHHH!"],
         browserRuntime.getURL("images/pepegas/33_Gachiga.png")),
 
-    new PepegaType(34, [], "Hypergachiga", "A Pepega Abomination. What have you done?", 
+    new PepegaType(34, [33, 33], "Hypergachiga", "A Pepega Abomination. What have you done?", 
         -103200, 600, 
         172000, 10, ["Annihilate", "Obliterate", "DEATH"],
         browserRuntime.getURL("images/pepegas/34_Hypergachiga.png")),
 
     new PepegaType(35, [], "Weebga", "These Pepegas are obsessed with children's cartoons to the point where they will dress up as their favorite character, and in some cases, even fall in love with a character, not realizing that these are mere drawings with no actual feeling or thought.", 
         10, 30, 
-        5, 10, ["AYAYA", "Cute Dance", "Cute Costume"],
+        5, 10, ["NyanPls", "MikuStare", "Gasp!"],
         browserRuntime.getURL("images/pepegas/35_Weebga.png")),
 
     new PepegaType(36, [], "Mald Pepega", "This Pepega somehow manages to not only be mald, but also bald at the same time.", 
@@ -378,7 +378,7 @@ const pepegaTypes = [
 
     new PepegaType(38, [], "Pokketga", "", 
         10, 30,  
-        5, 10, ["Trigger"],
+        5, 10, ["Attack"],
         browserRuntime.getURL("images/pepegas/38_Pokketga.png")),
 
     new PepegaType(39, [], "Kappaga", "An incredibly popular and beloved Pepega... Kapp.", 
@@ -386,44 +386,44 @@ const pepegaTypes = [
         30, 10, ["Jebait", "Account Suspension", "Banhammer"],
         browserRuntime.getURL("images/pepegas/39_Kappaga.png")),
 
-    new PepegaType(40, [], "Ninjaga", "This Pepega keeps telling you to click the Subscribe button, but also making sure you don't smash it.", 
+    new PepegaType(40, [39, 39, 17], "Ninjaga", "This Pepega keeps telling you to click the Subscribe button, but also making sure you don't smash it.", 
         130, 300, 
         275, 10, ["Ligma", "Sugma", "Subscribe to Pepega Prime (without smashing)"],
         browserRuntime.getURL("images/pepegas/40_Ninjaga.png")),
 
-    new PepegaType(41, [], "Xqga", "A streamer with a fanbase.", 
+    new PepegaType(41, [39, 39, 12], "Xqga", "A streamer with a fanbase.", 
         135, 300, 
         270, 10, ["React", "Slam Desk", "Freak Out"],
         browserRuntime.getURL("images/pepegas/41_Xqga.png")),
 
-    new PepegaType(42, [], "Shroudga", "Shroudgas are the paragon of skill. They are natural born hunters and they can easily kill you from a mile away. Despite their greatness, however, they have lost to a certain Mald Pepega before.", 
+    new PepegaType(42, [39, 39, 37], "Shroudga", "Shroudgas are the paragon of skill. They are natural born hunters and they can easily kill you from a mile away. Despite their greatness, however, they have lost to a certain Mald Pepega before.", 
         140, 300, 
         265, 10, ["Slay", "Dominate", "Execute"],
         browserRuntime.getURL("images/pepegas/42_Shroudga.png")),
 
-    new PepegaType(43, [], "Tylerga", "Tylergas are recognized for their intense, boisterous screaming and desk slamming. It has weirdly big and disproportionate biceps, and its head looks like a marshmallow. They were tormented in the past by the nefarious Pepegas known as Tannergas.", 
+    new PepegaType(43, [39, 39, 27], "Tylerga", "Tylergas are recognized for their intense, boisterous screaming and desk slamming. It has weirdly big and disproportionate biceps, and its head looks like a marshmallow. They were tormented in the past by the nefarious Pepegas known as Tannergas.", 
         145, 300, 
         260, 10, ["SCREAM", "SLAM KEYBOARD", "OUTBREAK"],
         browserRuntime.getURL("images/pepegas/43_Tylerga.png")),
 
-    new PepegaType(44, [], "GreekGaX", "This Pepega has a habit of sticking to other Pepegas in hopes of stealing their IQ. It enjoys eating excessive amounts of food even though it has swore, many times in the past, to do the complete opposite.", 
+    new PepegaType(44, [39, 39, 9], "GreekGaX", "This Pepega has a habit of sticking to other Pepegas in hopes of stealing their IQ. It enjoys eating excessive amounts of food even though it has swore, many times in the past, to do the complete opposite.", 
         150, 300, 
         255, 10, ["Devour", "Explode", "Send to Vacation City"],
         browserRuntime.getURL("images/pepegas/44_GreekGaX.png")),
 
-    new PepegaType(45, [], "Triga", "Trigas are very popular for their immense skill in the game called Maldio and Mald Island. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
+    new PepegaType(45, [39, 39, 35], "Triga", "Trigas are very popular for their immense skill in the game called Maldio and Mald Island. They are considered to be the best at this genre, and they don't mald very easily unlike some other Pepegas.", 
         155, 300, 
         250, 10, ["Try Hard", "Speedrun", "7"],
         browserRuntime.getURL("images/pepegas/45_Triga.png")),
 
-    new PepegaType(46, [], "Forsenga", "A professional children's card player that gets mad and bald when it loses. Although, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever. Perhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
+    new PepegaType(46, [39, 39, 36], "Forsenga", "A professional children's card player that gets mad and bald when it loses. Although, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever. Perhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
         160, 300, 
         245, 10, ["Steal Posture", "Bottom Snus", "Google"],
         browserRuntime.getURL("images/pepegas/46_Forsenga.png")),
 
-    new PepegaType(47, [], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega. For some reason, you can see through its body.", 
+    new PepegaType(47, [39, 39, 38, 38], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega. For some reason, you can see through its body.", 
         165, 300, 
-        240, 10, ["Two-Time", "Invisibility", "Punk Kids"],
+        240, 10, ["Two-Time", "Invisibility", "Become Champion"],
         browserRuntime.getURL("images/pepegas/47_Doctor-Pepega.png")),
 
     new PepegaType(48, [], "Repliga", "", 
@@ -438,7 +438,7 @@ const pepegaTypes = [
 
     new PepegaType(50, [], "Final Luciga", "", 
         150000, -10, 
-        180000, 10, ["Massacre"],
+        180000, 10, ["Massacre", "Slaughter", "Summon the Pepedra"],
         browserRuntime.getURL("images/pepegas/50_Final-Luciga.png")),
 ]
 
@@ -885,7 +885,8 @@ var player = {
     armyName: defaultArmyName,
     pepegaSlots: startingPlayerPepegaSlots,
     catchCount: 0,
-    successfulCatchCount: 0
+    successfulCatchCount: 0,
+    pepegaTypeStatuses: []
 }
 
 var settings = {
@@ -948,17 +949,31 @@ function resetTutorial(){
     updateRandomTutorialPopupDisplay();
 }
 
-browserStorage.get(["playerIqCount"], function(result) {
+browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", "playerArmyName", "playerPepegaTypeStatuses"], function(result) {
     if(parseInt(result.playerIqCount)){
         player.iqCount = result.playerIqCount;
     }
-});
 
-browserStorage.get(["playerPepegaSlots"], function(result) {
     if(result.playerPepegaSlots != null){
         player.pepegaSlots = result.playerPepegaSlots;
     }
     analyzePepegaSlotCost();
+
+    if(result.playerCatchCount != null){
+        player.catchCount = result.playerCatchCount;
+    }
+
+    if(result.playerSuccessfulCatchCount != null){
+        player.successfulCatchCount = result.playerSuccessfulCatchCount;
+    }
+
+    if(result.playerArmyName != null){
+        player.armyName = result.playerArmyName;
+    }
+
+    if(result.playerPepegaTypeStatuses != null){
+        player.pepegaTypeStatuses = result.playerPepegaTypeStatuses;
+    }
 });
 
 browserStorage.get(["playerPepegas"], function(result) {
@@ -982,24 +997,6 @@ browserStorage.get(["playerPepegas"], function(result) {
         analyzeBranch();
         analyzeUniquePepegas();
         analyzeRank(false);
-    }
-});
-
-browserStorage.get(["playerCatchCount"], function(result) {
-    if(result.playerCatchCount != null){
-        player.catchCount = result.playerCatchCount;
-    }
-});
-
-browserStorage.get(["playerSuccessfulCatchCount"], function(result) {
-    if(result.playerSuccessfulCatchCount != null){
-        player.successfulCatchCount = result.playerSuccessfulCatchCount;
-    }
-});
-
-browserStorage.get(["playerArmyName"], function(result) {
-    if(result.playerArmyName != null){
-        player.armyName = result.playerArmyName;
     }
 });
 
@@ -1131,11 +1128,9 @@ function analyzeUniquePepegas(){
 
     uniquePepegaIqpsMultiplier = 1 + ((uniquePepegaCount-1) * iqpsMultiplierForEachUniquePepega);
 
-    /*
     if(uniquePepegaIqpsMultiplier != 1 && tutorial.phase != "disabled" && tutorial.enableUniquePepegaRandomTutorial){
         updateRandomTutorialPhase("uniquePepega");
     }
-    */
 }
 
 function getCategory(hostname){
@@ -1363,7 +1358,7 @@ function healPlayerPepega(id, healCost){
 
 function getArticle(word){
     var article = "a";
-    if(isStringAVowel(word)){
+    if(isStringAVowel(word[0])){
         article = "an";
     }
     return article;
@@ -1386,25 +1381,23 @@ function setPepegaAlive(pepega, alive, save = true){
 }
 
 var shuffle = function (array) {
-
 	var currentIndex = array.length;
 	var temporaryValue, randomIndex;
-
-	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
-		// Pick a remaining element...
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex -= 1;
-
-		// And swap it with the current element.
 		temporaryValue = array[currentIndex];
 		array[currentIndex] = array[randomIndex];
 		array[randomIndex] = temporaryValue;
 	}
-
 	return array;
-
 };
+
+function acquirePepegaType(pepegaTypeId){
+    player.pepegaTypeStatuses[pepegaTypeId] = {};
+    player.pepegaTypeStatuses[pepegaTypeId].acquired = true;
+    browserStorage.set({"playerPepegaTypeStatuses": player.pepegaTypeStatuses});
+}
 
 function fightWildPepega(wildPepega){
     var wildPepegaTotalPower = wildPepega.power * wildPepega.level;
@@ -1445,11 +1438,7 @@ function fightWildPepega(wildPepega){
         var playerPepegaRolledPower = Math.round((playerPepegaPower*((Math.random() * (1.3 - 0.7)) + 0.7)) * 100)/100;
         var playerPepegaName = playerPepega.pepegaType.name;
         var playerPepegaAttack;
-        if(playerPepega.level < 3){
-            playerPepegaAttack = playerPepega.pepegaType.attacks[Math.min( i%2, playerPepega.pepegaType.attacks.length - 1 )];
-        }else{
-            playerPepegaAttack = playerPepega.pepegaType.attacks[Math.min( i%3, playerPepega.pepegaType.attacks.length - 1 )];
-        }
+        playerPepegaAttack = playerPepega.pepegaType.attacks[Math.min( i%3, playerPepega.pepegaType.attacks.length - 1 )];
 
         results.battleBreakdown.rounds[i] = {};
         results.battleBreakdown.rounds[i].playerPepega = {};
@@ -1462,7 +1451,7 @@ function fightWildPepega(wildPepega){
         if(playerPepegaRolledPower < wildPepegaRemainingPower){
             wildPepegaRemainingPower = Math.round((wildPepegaRemainingPower - playerPepegaRolledPower) * 100) / 100;
 
-            var wildPepegaAttack = wildPepega.pepegaType.attacks[Math.min( i%2, wildPepega.pepegaType.attacks.length - 1 )];
+            var wildPepegaAttack = wildPepega.pepegaType.attacks[Math.min( i%3, wildPepega.pepegaType.attacks.length - 1 )];
 
             var wildPepegaRolledPower = Math.round((wildPepegaTotalPower*((Math.random() * (1.3 - 1.0)) + 1.0)) * 100)/100;
 
@@ -1536,7 +1525,7 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     var pepegaAdd = addPlayerPepega(wildPepega);
 
     if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successSingle){
-        var notificationMessage = "You caught " + getArticle(pepegaAdd[1].pepegaType.name[0]) + " " + pepegaAdd[1].pepegaType.name + "!";
+        var notificationMessage = "You caught " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!";
         if(fightResults.casualties == 1){
             notificationMessage += "\nOne of your Pepegas died during the battle. :(";
         }else if(fightResults.casualties > 1){
@@ -1568,7 +1557,7 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
 
         playSound(pepegaLevelSound);
     } else if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successFusioned){
-        notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "You fusion summoned " + getArticle() + " " + pepegaAdd[1].pepegaType.name + "!",
+        notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "You fusion summoned " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!",
             wildPepega.pepegaType.name + " fusioned with other Pepegas into " + article + " " + pepegaAdd[1].pepegaType.name + "!\nPogChamp!",
             pepegaAdd[1].pepegaType.imageUrl);
 
@@ -1596,6 +1585,8 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
 }
 
 function addPlayerPepega(pepega, save = true, displayForPopup = true){
+    acquirePepegaType(pepega.pepegaType.id);
+
     var pepegaLevelingUp = checkPepegaLevelingUp(pepega);
     var pepegaFusioning = checkPepegaFusioning(pepega);
 
@@ -1976,7 +1967,7 @@ function updateRandomTutorialPopupDisplay(){
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if(request.message == "get-wild-pepega"){
-            sendResponse({ isSiteFiltered: isSiteFiltered(request.location), wildPepega: getWildPepega(request.location) });
+            sendResponse({ "isSiteFiltered": isSiteFiltered(request.location), "wildPepega": getWildPepega(request.location) });
 		}else if(request.message == "catch-wild-pepega"){
             catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.location);
             sendResponse();
@@ -2019,6 +2010,8 @@ browserRuntime.onMessage.addListener(
         }else if(request.message == "heal-player-pepega"){
             healPlayerPepega(request.playerPepegaId, request.healCost);
             sendResponse();
+        }else if(request.message == "get-pepega-types"){
+            sendResponse({ "pepegaTypes": pepegaTypes, "playerPepegaTypeStatuses": player.pepegaTypeStatuses });
         }
 	}
 );
