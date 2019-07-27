@@ -3,9 +3,6 @@ const gameLink = "https://github.com/Alycse/PepegaCatch";
 const gameIssuesLink = "https://github.com/Alycse/PepegaCatch/issues/new/choose";
 const gameTitle = "Pepega Catch!";
 
-const popupHeightDefault = "350px";
-const popupHeightWithSettings = "560px";
-
 const pepegasPerRow = 5;
 const defaultInputBoxArmyName = "My Pepega Army";
 
@@ -723,7 +720,6 @@ function showSiteFiltersModal(){
 }
 function showSettingsModal(){
 	document.getElementById("settingsModal").style.display = "block";
-	document.body.style.height = popupHeightWithSettings;
 }
 function hideSiteFiltersModal(){
 	document.getElementById("siteFiltersModal").style.display = "none";
@@ -731,7 +727,6 @@ function hideSiteFiltersModal(){
 }
 function hideSettingsModal(){
 	document.getElementById("settingsModal").style.display = "none";
-	document.body.style.height = popupHeightDefault;
 }
 
 function showRenameArmyModal(){
@@ -768,20 +763,25 @@ function updateSettings(){
 function quickFilterSite(){
 	chrome.tabs.query({'active': true, currentWindow: true},
 		function(tabs){
-			var siteFiltersModalTextAreaValue = document.getElementById("siteFiltersModalTextArea").value;
-
-			var siteHostname = new URL(tabs[0].url).hostname;
-
-			if(siteFiltersModalTextAreaValue.includes(siteHostname)){
-				document.getElementById("siteFiltersModalTextArea").value = siteFiltersModalTextAreaValue.replace(new RegExp(siteHostname, 'g'), "");
-			}else{
-				if(siteFiltersModalTextAreaValue == ""){
-					document.getElementById("siteFiltersModalTextArea").value += siteHostname;
-				}else{
-					document.getElementById("siteFiltersModalTextArea").value += "\n" + siteHostname;
+			var site = new URL(tabs[0].url);
+			var siteFilterLines = document.getElementById("siteFiltersModalTextArea").value.split("\n");
+			var included = false;
+			for(var i = 0; i < siteFilterLines.length; i++){
+				if(siteFilterLines[i] != "" && site.href.includes(siteFilterLines[i])){
+					siteFilterLines[i] = "";
+					included = true;
+					break;
 				}
 			}
-
+			if(!included){
+				siteFilterLines.push(site.hostname);
+			}
+			document.getElementById("siteFiltersModalTextArea").value = "";
+			for(var i = 0; i < siteFilterLines.length; i++){
+				if(siteFilterLines[i] != ""){
+					document.getElementById("siteFiltersModalTextArea").value += siteFilterLines[i] + "\n";
+				}
+			}
 			updateFilteredSites();
 		}
 	);

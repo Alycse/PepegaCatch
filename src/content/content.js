@@ -6,7 +6,7 @@ var browserRuntime = browser.runtime;
 var readyStateCheckInterval = setInterval(function() {
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
-		insertWildPepega();
+		getWildPepega();
 	}
 }, 10);
 
@@ -17,16 +17,16 @@ function rollPagePosition() {
 	return pagePosition;
 }
 
-function insertWildPepega() {
-	browserRuntime.sendMessage({"message": "get-wild-pepega", "location": window.location}, function(response) {
+function getWildPepega() {
+	browserRuntime.sendMessage({"message": "get-wild-pepega", "locationHref": window.location.href}, function(result) {
 		var divs = document.getElementsByTagName("div");
-		console.log("Site has " + divs.length + " divs, minimum requirement is " + wildPepegaSpawnMinimumDiv + " divs");
-		if(!response.isSiteFiltered && response.wildPepega != null && divs.length >= wildPepegaSpawnMinimumDiv){
+		if(!result.isSiteFiltered && result.wildPepega != null && divs.length >= wildPepegaSpawnMinimumDiv){
 			var divElement = document.getElementsByTagName("body")[0];
 			if(divElement == null){
 				return;
 			}
-			insertWildPepegaImage(divElement, response.wildPepega.pepegaType.imageUrl, response.wildPepega.pepegaType.id, response.wildPepega.power, response.wildPepega.level);
+			console.log("Inserting pepega: " + result.wildPepega.pepegaType.name);
+			insertWildPepegaImage(divElement, result.wildPepega.pepegaType.imageUrl, result.wildPepega.pepegaType.id, result.wildPepega.power, result.wildPepega.level);
 			insertWildPepegaJs();
 			insertWildPepegaCss();
 		}
@@ -64,7 +64,7 @@ window.addEventListener("message", function(event) {
     }
     if (event.data.message && event.data.message == "catch-wild-pepega") {
 		try{
-			browserRuntime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, "wildPepegaLevel": event.data.wildPepegaLevel, "location": window.location});
+			browserRuntime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, "wildPepegaLevel": event.data.wildPepegaLevel, "locationHref": window.location.href});
 		}catch(e){}
     }
 }, false);

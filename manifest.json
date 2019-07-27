@@ -8,7 +8,7 @@
     "128": "icons/pepegaIcon128.png"
   },
   "background": {
-    "page": "src/background/background.html",
+    "scripts": ["src/main.js"],
     "persistent": true
   },
   "permissions": [

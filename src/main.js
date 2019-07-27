@@ -43,10 +43,10 @@ browser.tabs.onActivated.addListener(function() {
 });
 
 function updateIconFromSelectedTab(){
-    browser.tabs.getSelected(function(tab) {
-        var location = new URL(tab.url);
-		updateIcon(location);
-	});
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        var activeTab = tabs[0];
+        updateIcon(activeTab.url);
+    });
 }
 
 class PepegaType {
@@ -1245,7 +1245,9 @@ browserStorage.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"],
     }
 });
 
-function getWildPepega(location){
+function getWildPepega(locationHref){
+    var location = new URL(locationHref);
+
     var currentTime = new Date().getTime();
     console.log(((lastWildPepegaSpawnTime - (currentTime - timeBeforeNextWildPepegaSpawn))/1000.0) + " seconds before the next Wild Pepega spawns.");
     if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && rollEncounter()){
@@ -1270,21 +1272,27 @@ function getWildPepega(location){
     }
 }
 
-function isSiteFiltered(location){
-    if(location.hostname){
+function isSiteFiltered(locationHref){
+    console.log("test suite filter");
+    console.log("testing: " + locationHref);
+    if(locationHref){
         for (var i = 0; i < config.filteredSites.length; ++i) {
             if(config.filteredSites[i] && config.filteredSites[i] != "" && 
-                (location.hostname.includes(config.filteredSites[i]) || config.filteredSites[i].includes(location.hostname))){
+                (locationHref.includes(config.filteredSites[i]))){
                 browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconDisabled128.png")});
+                
+            console.log("testing a");
                 return true;
             }
         }
     }
+    
+    console.log("testing b");
 	return false;
 }
 
-function updateIcon(location){
-    var siteFiltered = isSiteFiltered(location);
+function updateIcon(locationHref){
+    var siteFiltered = isSiteFiltered(locationHref);
     if(siteFiltered || config.encounterMode.multiplier == 0){
         browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconDisabled128.png")});
     }else if(config.encounterMode.multiplier == 100){
@@ -1427,7 +1435,7 @@ function fightWildPepega(wildPepega){
     }
     indexArray = shuffle(indexArray);
 
-    for(var i = 0; i < indexArray.length; i++){
+    for(var i = 0, j = 0; i < indexArray.length; i++){
         var playerPepega = player.pepegas[indexArray[i]];
 
         if(!playerPepega.alive){
@@ -1438,27 +1446,27 @@ function fightWildPepega(wildPepega){
         var playerPepegaRolledPower = Math.round((playerPepegaPower*((Math.random() * (1.3 - 0.7)) + 0.7)) * 100)/100;
         var playerPepegaName = playerPepega.pepegaType.name;
         var playerPepegaAttack;
-        playerPepegaAttack = playerPepega.pepegaType.attacks[Math.min( i%3, playerPepega.pepegaType.attacks.length - 1 )];
+        playerPepegaAttack = playerPepega.pepegaType.attacks[Math.min( j%3, playerPepega.pepegaType.attacks.length - 1 )];
 
-        results.battleBreakdown.rounds[i] = {};
-        results.battleBreakdown.rounds[i].playerPepega = {};
-        results.battleBreakdown.rounds[i].wildPepega = {};
+        results.battleBreakdown.rounds[j] = {};
+        results.battleBreakdown.rounds[j].playerPepega = {};
+        results.battleBreakdown.rounds[j].wildPepega = {};
 
-        results.battleBreakdown.rounds[i].playerPepega.name = playerPepegaName;
-        results.battleBreakdown.rounds[i].playerPepega.attack = playerPepegaAttack;
-        results.battleBreakdown.rounds[i].playerPepega.power = playerPepegaRolledPower;
+        results.battleBreakdown.rounds[j].playerPepega.name = playerPepegaName;
+        results.battleBreakdown.rounds[j].playerPepega.attack = playerPepegaAttack;
+        results.battleBreakdown.rounds[j].playerPepega.power = playerPepegaRolledPower;
 
         if(playerPepegaRolledPower < wildPepegaRemainingPower){
             wildPepegaRemainingPower = Math.round((wildPepegaRemainingPower - playerPepegaRolledPower) * 100) / 100;
 
-            var wildPepegaAttack = wildPepega.pepegaType.attacks[Math.min( i%3, wildPepega.pepegaType.attacks.length - 1 )];
+            var wildPepegaAttack = wildPepega.pepegaType.attacks[Math.min( j%3, wildPepega.pepegaType.attacks.length - 1 )];
 
             var wildPepegaRolledPower = Math.round((wildPepegaTotalPower*((Math.random() * (1.3 - 1.0)) + 1.0)) * 100)/100;
 
-            results.battleBreakdown.rounds[i].roundPlayerWon = false;
-            results.battleBreakdown.rounds[i].wildPepega.remainingPower = wildPepegaRemainingPower;
-            results.battleBreakdown.rounds[i].wildPepega.attack = wildPepegaAttack;
-            results.battleBreakdown.rounds[i].wildPepega.power = wildPepegaRolledPower;
+            results.battleBreakdown.rounds[j].roundPlayerWon = false;
+            results.battleBreakdown.rounds[j].wildPepega.remainingPower = wildPepegaRemainingPower;
+            results.battleBreakdown.rounds[j].wildPepega.attack = wildPepegaAttack;
+            results.battleBreakdown.rounds[j].wildPepega.power = wildPepegaRolledPower;
 
             setPepegaAlive(playerPepega, false, false);
             results.casualties++;
@@ -1469,12 +1477,14 @@ function fightWildPepega(wildPepega){
                 updateRandomTutorialPhase("deadPepega");
             }
         }else{
-            results.battleBreakdown.rounds[i].roundPlayerWon = true;
+            results.battleBreakdown.rounds[j].roundPlayerWon = true;
             results.battleBreakdown.playerWon = true;
             browserStorage.set({playerPepegas: player.pepegas});
             results.won = true;
             break;
         }
+
+        j++;
     }
 
     var rolledRankPower = Math.round((rank.basePower*((Math.random() * (1.3 - 0.7)) + 0.7)) * 100) / 100;
@@ -1495,13 +1505,14 @@ function fightWildPepega(wildPepega){
 const AddingPlayerPepegaResultEnum = {"successSingle":1, "successLeveledUp":2, "successFusioned":2, "noPepegaSlots":3}
 const CombiningPlayerPepegaResultEnum = {"combined":1, "noCombination":2, "noPepegaSlots":3}
 
-function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, location){
+function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, locationHref){
+    var location = new URL(locationHref);
+
     var wildPepega = new Pepega(pepegaTypes[wildPepegaTypeId], "", "", false, wildPepegaPower, wildPepegaLevel, true, null);
 
     var fightResults = fightWildPepega(wildPepega);
     updatePlayerPepegasPopupDisplay();
     browserStorage.set({playerPepegas: player.pepegas});
-
     browserStorage.set({"recentBattleBreakdown": fightResults.battleBreakdown});
 
     player.catchCount++;
@@ -1924,7 +1935,26 @@ function updatePlayerPepegaSlotsPopupDisplay(){
 }
 function updatePlayerIqCountPopupDisplay(){
     if(popup.isOpened){
-		browserRuntime.sendMessage({"message": "player-iq-count-updated", "playerIqCount": player.iqCount, "rank": rank, "branch": branch, "nextRank": ranks[rank.id+1], "pepegaSlotCost": pepegaSlotCost, "ranksLength": ranks.length});
+        var tempBranch = {}
+        tempBranch.id = branch.id;
+        tempBranch.name = branch.name;
+        var tempRank = {}
+        tempRank.id = rank.id;
+        tempRank.titleArticle = rank.titleArticle;
+        tempRank.title = rank.title;
+        tempRank.description = rank.description;
+        tempRank.requirementDescription = rank.requirementDescription;
+        tempRank.iqpsMultiplier = rank.iqpsMultiplier;
+        tempRank.basePower = rank.basePower;
+        var tempNextRank = {}
+        tempNextRank.id = ranks[rank.id+1].id;
+        tempNextRank.titleArticle = ranks[rank.id+1].titleArticle;
+        tempNextRank.title = ranks[rank.id+1].title;
+        tempNextRank.description = ranks[rank.id+1].description;
+        tempNextRank.requirementDescription = ranks[rank.id+1].requirementDescription;
+        tempNextRank.iqpsMultiplier = ranks[rank.id+1].iqpsMultiplier;
+        tempNextRank.basePower = ranks[rank.id+1].basePower;
+		browserRuntime.sendMessage({"message": "player-iq-count-updated", "playerIqCount": player.iqCount, "rank": tempRank, "branch": tempBranch, "nextRank": tempNextRank, "pepegaSlotCost": pepegaSlotCost, "ranksLength": ranks.length});
     }
 }
 function updatePlayerPepegasPopupDisplay(){
@@ -1967,9 +1997,10 @@ function updateRandomTutorialPopupDisplay(){
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if(request.message == "get-wild-pepega"){
-            sendResponse({ "isSiteFiltered": isSiteFiltered(request.location), "wildPepega": getWildPepega(request.location) });
+            console.log("is checked? ");
+            sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref) });
 		}else if(request.message == "catch-wild-pepega"){
-            catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.location);
+            catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.locationHref);
             sendResponse();
 		}else if(request.message == "update-all-popup-displays"){
             updateAllPopupDisplays();
