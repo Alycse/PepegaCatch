@@ -131,21 +131,34 @@ body{
 }
 
 .mainInfo{
-    font-size: 24px;
+    font-size: 28px;
 
     margin-top: 20px;
     margin-bottom: 20px;
 
     color: gold;
 }
-.subInfo{
-    font-size: 17px;
+.mainSubInfo{
+    font-size: 19px;
 
-    color:  rgb(196, 184, 133);
+    color:  rgb(228, 203, 91);
 }
+.subInfo{
+    font-size: 19px;
+
+    color:  rgb(235, 221, 163);
+}
+
 .subInfo:hover{
     cursor: pointer;
     color:  rgb(255, 226, 98);
+}
+
+#fusionRecipes{
+    margin-top: 20px;
+}
+#settings{
+    margin-top: 20px;
 }
 
 #rankContent{
@@ -194,8 +207,18 @@ body{
 }
 
 #quickSettings{
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-top: 25px;
+    margin-bottom: -5px;
+
+    background-color: rgb(30, 30, 30);
+
+    margin-left: -25px;
+    margin-right: -25px;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #quickFilter{
@@ -206,9 +229,9 @@ body{
     margin-top: 5px;
 }
 #encounterRateContent{
-    font-size: 17px;
+    font-size: 21px;
     
-    color: rgb(200, 200, 200);
+    color: rgb(230, 230, 230);
 }
 #encounterRateMultiplier{
     color: rgb(240, 210, 110);
@@ -223,20 +246,21 @@ body{
 
     color: rgb(200, 200, 200);
 }
-
+/*
 #settings{
     font-size: 20px;
 
     margin-top: 14px;
     margin-bottom: 20px;
 
-    color: rgb(240, 210, 110);
+    color:  rgb(235, 221, 163);
 }
 #settings:hover{
     cursor: pointer;
 
-    color: rgb(175, 151, 45);
+    color: rgb(255, 223, 79);
 }
+*/
 #settingsModalClose{
     margin-top: 20px;
 }

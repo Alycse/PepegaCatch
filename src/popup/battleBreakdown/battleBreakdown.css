@@ -70,8 +70,9 @@ b{
     color: rgb(255, 73, 73);
     font-size: 23px;
 }
-#wildPepegaTitlePower{
-    font-size: 20px;
+#wildPepegaPower{
+    font-size: 28px;
+    color: rgb(245, 143, 143);
 }
 
 .tip{

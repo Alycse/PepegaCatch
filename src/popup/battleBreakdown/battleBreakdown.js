@@ -16,13 +16,13 @@ browserStorage.get(["recentBattleBreakdown"], function(result) {
         var rounds = battleBreakdown.rounds;
 
         battleBreakdownTitleText += "<p>" + player.armyName + " <span id=\"versus\">VS.</span> Wild " + wildPepega.name + "</p>";
-        battleBreakdownTitleText += "<p><span id=\"wildPepegaTitlePower\">Wild " + wildPepega.name + "'s Power: </span>" + wildPepega.totalPower + "</p>";
+        battleBreakdownTitleText += "<p>Wild " + wildPepega.name + "'s Power: <span id=\"wildPepegaPower\">" + wildPepega.totalPower + "</span></p>";
 
         for(var i = 0; i < rounds.length; i++){
             var round = rounds[i];
 
             battleBreakdownText += 
-                "<p><b><span class=\"ally\">" + round.playerPepega.name + "</span></b> used <span class=\"attack\">" + 
+                "<p><b><span class=\"ally\">Level " + round.playerPepega.level + " " + round.playerPepega.name + "</span></b> used <span class=\"attack\">" + 
                 round.playerPepega.attack + "</span>!, dealing <b>" + round.playerPepega.power + " damage</b> to <b><span class=\"enemy\">Wild " + 
                 wildPepega.name + "</span></b>!</p>";
 

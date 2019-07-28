@@ -26,7 +26,6 @@ browserRuntime.sendMessage({"message": "get-pepega-types"}, function(result) {
             var fusionPepegaType = result.pepegaTypes[i];
 
             var fusionPepegaContainerElement = document.createElement("div");
-            console.log("j: " + i + ", i%2=" + (i%2));
             if(j%2==0){
                 fusionPepegaContainerElement.className = "fusionPepegaContainer fusionPepegaContainerA";
             }else{

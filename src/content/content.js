@@ -25,7 +25,6 @@ function getWildPepega() {
 			if(divElement == null){
 				return;
 			}
-			console.log("Inserting pepega: " + result.wildPepega.pepegaType.name);
 			insertWildPepegaImage(divElement, result.wildPepega.pepegaType.imageUrl, result.wildPepega.pepegaType.id, result.wildPepega.power, result.wildPepega.level);
 			insertWildPepegaJs();
 			insertWildPepegaCss();

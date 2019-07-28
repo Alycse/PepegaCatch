@@ -201,7 +201,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!", 
 			"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!</p>" +
 			"<p>To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!</p>" +
-			"<p>Good luck! This might take you a while to complete.</p>");
+			"<p>Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.</p>");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "fusion"){
@@ -210,7 +210,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!\n" + 
 			"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!\n" +
 			"To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!\n"+
-			"Good luck! This might take you a while to complete.";
+			"Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.";
 
 	} else if(tutorialPhase == "fusionDone"){
 
@@ -299,7 +299,7 @@ function closeTutorialModal(){
 function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 	if(randomTutorialPhase.includes("uniquePepega")){
 
-		showRandomTutorialModal("uniquePepega", "You've caught a new type of Pepega!", 
+		showRandomTutorialModal("uniquePepega", "You've acquired a new type of Pepega!", 
 		"<p>For every unique type of Pepega you have in your army, your IQ/s multiplier increases!</p>");
 
 	}else if(randomTutorialPhase.includes("rankUp")){
@@ -460,7 +460,7 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 	}
 
 	document.getElementById("rankContent").innerHTML = rankTitle;
-	document.getElementById("rankContent").title = "Rank " + (ranksLength - rank.id) + "\n" + rankDescription;
+	document.getElementById("rankContent").title = "Rank " + (ranksLength - rank.id) + " / " + ranksLength + "\n" + rankDescription;
 	if(rank.iqpsMultiplier != 1){
 		document.getElementById("rankIqpsMultiplier").innerHTML = " x " + rank.iqpsMultiplier.toFixed(2) + "";
 		hasRankIqpsMultiplier = true;
@@ -836,7 +836,7 @@ document.getElementById("renameArmyModalClose").addEventListener("click", update
 document.getElementById("buyPepegaSlot").addEventListener("click", buyPepegaSlot);
 document.getElementById("buyPepegaSlot").addEventListener("mouseenter", mouseEntertDisplayedPepegaSlots);
 document.getElementById("buyPepegaSlot").addEventListener("mouseleave", mouseLeavetDisplayedPepegaSlots);
-document.getElementById("settings").addEventListener("click", showSettingsModal);
+document.getElementById("settingsTitle").addEventListener("click", showSettingsModal);
 document.getElementById("settingsModalClose").addEventListener("click", updateSettings);
 document.getElementById("siteFilters").addEventListener("click", showSiteFiltersModal);
 document.getElementById("siteFiltersModalClose").addEventListener("click", hideSiteFiltersModal);
