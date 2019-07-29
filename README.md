@@ -67,5 +67,5 @@ The game is still in beta so the balance won't be 100% perfect yet, and there mi
 
 If you find a bug, please post them on the [Issues section](https://github.com/Alycse/PepegaCatch/issues/new/choose) and I'll fix them as soon as I can!
 
-I'd also love to hear your feedback and/or [suggestions](https://github.com/Alycse/PepegaCatch/issues/new/choose) about the game!
+If you have any feedback and/or suggestions, [I'd love to hear them](https://github.com/Alycse/PepegaCatch/issues/new/choose) as well!
 
