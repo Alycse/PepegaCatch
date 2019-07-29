@@ -160,13 +160,17 @@ body{
     color: whitesmoke;
 }
 #iqpsContent{
-    font-size: 20px;
-    color: rgb(230, 230, 230);
+    font-size: 22px;
+    color: rgb(248, 248, 248);
 }
 #iqpsMultiplier{
     color: rgb(240, 210, 110);
     font-size: 16px;
     margin-left: 5px;
+}
+#powerContent{
+    font-size: 22px;
+    color: rgb(248, 248, 248);
 }
 #additionalPower{
     color: rgb(240, 210, 110);
@@ -279,14 +283,6 @@ body{
 }
 #power{
     margin-top: 5px;
-}
-#powerTitle{
-    font-size: 16px;
-    color:rgb(200, 200, 200);
-}
-#powerContent{
-    font-size: 20px;
-    color: rgb(230, 230, 230);
 }
 #buyPepegaSlot{
     margin-top: 2px;
