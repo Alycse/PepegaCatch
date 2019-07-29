@@ -31,9 +31,9 @@ browserStorage.get(["recentBattleBreakdown"], function(result) {
                 round.wildPepega.remainingPower + " remaining power</b>.</p>";
 
                 battleBreakdownText += "<p><b><span class=\"enemy\">Wild " + wildPepega.name + "</span></b> used <span class=\"attack\">" + round.wildPepega.attack + 
-                    "</span>!, dealing <b>" + round.wildPepega.power + " damage</b> to <b><span class=\"ally\">" + round.playerPepega.name + "</span></b>!</p>";
+                    "</span>!, dealing <b>" + round.wildPepega.power + " damage</b> to <b><span class=\"ally\">Level " + round.playerPepega.level + " " + round.playerPepega.name + "</span></b>!</p>";
 
-                battleBreakdownText += "<p><b><span class=\"ally\">" + round.playerPepega.name + "</span></b> fainted!</p>";
+                battleBreakdownText += "<p><b><span class=\"ally\">Level " + round.playerPepega.level + " " + round.playerPepega.name + "</span></b> fainted!</p>";
             }
         }
         

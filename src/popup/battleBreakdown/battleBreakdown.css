@@ -4,13 +4,10 @@
 }
 body{
     font-family: orange-kid;
-
     background-color:rgb(40, 40, 40);
     color: white;
-
     width: 390px;
     height: 100%;
-
     margin-top: 15px;
     margin-left: 25px;
     margin-right: 25px;
@@ -20,7 +17,6 @@ body{
     background-color: rgb(45, 45, 45);
     color: rgb(240, 240, 240);
     font-size: 21px;
-
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
@@ -29,20 +25,15 @@ body{
 #battleBreakdownTitle{
     color: gold;
     font-size: 24px;
-
     background-color: rgb(55, 55, 55);
-
     text-align: center;
-
     padding-top: 5px;
     padding-bottom: 15px;
 }
 .returnToHome{
     color: rgb(194, 171, 44);
     font-size: 22px;
-
     text-align: center;
-
     margin-top: 20px;
     margin-bottom: 25px;
 }

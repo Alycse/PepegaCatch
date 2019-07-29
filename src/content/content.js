@@ -25,16 +25,17 @@ function getWildPepega() {
 			if(divElement == null){
 				return;
 			}
-			insertWildPepegaImage(divElement, result.wildPepega.pepegaType.imageUrl, result.wildPepega.pepegaType.id, result.wildPepega.power, result.wildPepega.level);
+			insertWildPepegaImage(divElement, result.wildPepega.pepegaType.name, result.wildPepega.pepegaType.imageUrl, result.wildPepega.pepegaType.id, result.wildPepega.power, result.wildPepega.level);
 			insertWildPepegaJs();
 			insertWildPepegaCss();
 		}
 	});
 }
 
-function insertWildPepegaImage(divElement, wildPepegaImageUrl, wildPepegaTypeId, wildPepegaPower, wildPepegaLevel){
+function insertWildPepegaImage(divElement, wildPepegaTypeName, wildPepegaImageUrl, wildPepegaTypeId, wildPepegaPower, wildPepegaLevel){
 	var wildPepegaImage = document.createElement("img");
 	wildPepegaImage.id = "wildPepega";
+	wildPepegaImage.title = "Type: " + wildPepegaTypeName + "\nPower: " + wildPepegaPower + "\n\nLeft Click: Battle & Catch\nShift+Left Click: Repel";
 	wildPepegaImage.name = wildPepegaTypeId + " " + wildPepegaPower + " " + wildPepegaLevel;
 	wildPepegaImage.src = wildPepegaImageUrl;
 	var pagePosition = rollPagePosition();
@@ -61,9 +62,16 @@ window.addEventListener("message", function(event) {
     if (event.source != window){
         return;
     }
-    if (event.data.message && event.data.message == "catch-wild-pepega") {
-		try{
-			browserRuntime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, "wildPepegaLevel": event.data.wildPepegaLevel, "locationHref": window.location.href});
-		}catch(e){}
+    if (event.data.message) {
+		if(event.data.message == "catch-wild-pepega"){
+			try{
+				browserRuntime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, "wildPepegaLevel": event.data.wildPepegaLevel, "locationHref": window.location.href});
+			}catch(e){}
+		}else if(event.data.message == "repel-wild-pepega"){
+			try{
+				browserRuntime.sendMessage({"message": "repel-wild-pepega"});
+			}catch(e){}
+		}
     }
 }, false);
+

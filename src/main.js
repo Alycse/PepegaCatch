@@ -31,6 +31,8 @@ var pepegaHealSound = new Audio(browserRuntime.getURL("sounds/pepega-heal.wav"))
 pepegaHealSound.volume = 0.2;
 var pepegaLostSound = new Audio(browserRuntime.getURL("sounds/pepega-lost.wav"));
 pepegaLostSound.volume = 0.2;
+var pepegaRepelSound = new Audio(browserRuntime.getURL("sounds/pepega-repel.wav"));
+pepegaRepelSound.volume = 0.2;
 
 var popup = {
 	get isOpened (){
@@ -401,7 +403,7 @@ const pepegaTypes = [
         265, 10, ["Slay", "Dominate", "Execute"],
         browserRuntime.getURL("images/pepegas/42_Shroudga.png")),
 
-    new PepegaType(43, [39, 39, 27], "Tylerga", "Tylergas are recognized for their intense, boisterous screaming and desk slamming.\nThey have weirdly big and disproportionate biceps, and their heads look like marshmallows.\nThey were tormented in the past by the nefarious Pepegas known as Tannergas.", 
+    new PepegaType(43, [39, 39, 27], "Tylerga", "Tylergas are recognized for their intense, boisterous screaming and desk slamming.\nThey were tormented in the past by the nefarious Pepegas known as Tannergas.", 
         145, 300, 
         260, 10, ["SCREAM", "SLAM KEYBOARD", "OUTBREAK"],
         browserRuntime.getURL("images/pepegas/43_Tylerga.png")),
@@ -1127,7 +1129,7 @@ function analyzeUniquePepegas(){
 
     uniquePepegaIqpsMultiplier = 1 + ((uniquePepegaCount-1) * iqpsMultiplierForEachUniquePepega);
 
-    if(uniquePepegaIqpsMultiplier != 1 && tutorial.phase != "disabled" && tutorial.enableUniquePepegaRandomTutorial){
+    if(uniquePepegaCount > 1 && tutorial.phase != "disabled" && tutorial.enableUniquePepegaRandomTutorial){
         updateRandomTutorialPhase("uniquePepega");
     }
 }
@@ -1232,9 +1234,9 @@ function rollTimeBeforeNextWildPepegaSpawn(){
     return roll;
 }
 
-const minTimeBeforeNextWildPepegaSpawn = 0;
-const maxTimeBeforeNextWildPepegaSpawn = 0;
-const beginnerTimeBeforeNextWildPepegaSpawn = 0;
+const minTimeBeforeNextWildPepegaSpawn = 7500;
+const maxTimeBeforeNextWildPepegaSpawn = 25000;
+const beginnerTimeBeforeNextWildPepegaSpawn = 1000;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
 browserStorage.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"], function(result) {
@@ -1989,6 +1991,10 @@ function updateRandomTutorialPopupDisplay(){
     }
 }
 
+function repelWildPepega(){
+    pepegaRepelSound.play();
+}
+
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if(request.message == "get-wild-pepega"){
@@ -2037,6 +2043,9 @@ browserRuntime.onMessage.addListener(
             sendResponse();
         }else if(request.message == "get-pepega-types"){
             sendResponse({ "pepegaTypes": pepegaTypes, "playerPepegaTypeStatuses": player.pepegaTypeStatuses });
+        }else if(request.message == "repel-wild-pepega"){
+            repelWildPepega();
+            sendResponse();
         }
 	}
 );

@@ -97,18 +97,18 @@ function setDisplayedTutorialPhase(tutorialPhase){
 		setTimeout(function() {
 			showTutorialModal("Let's catch your first Pepega!", 
 			"<p>Go to any website, find the Wild Pepega hiding within the page, then click it!</p>" + 
-			"<p>In order to successfully catch it, you need to \"overpower\" it.</p>" + 
-			"<p>This means using your all of your Pepegas' power and your own power to catch the Wild Pepega.</p>" +
-			"<p>But since you don't have any Pepegas yet, you're gonna have to rely on your own Power! Don't worry, this is all done automatically!</p>");
+			"<p>You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)</p>" +
+			"<p>But since you don't have any Pepegas yet, you're gonna have to defeat it yourself!</p>" +
+			"<p>Try catching one now! You may hover over the Wild Pepega to see its name and power.</p>");
 		}, tutorialModalDelay);
 		
 	} else if(tutorialPhase == "catch"){
 
 		tutorialDisplayContent = "Catch your first Pepega!";
 		tutorialDisplayDescription = "Go to any website, find the Wild Pepega hiding within the page, then click it!\n" + 
-		"In order to successfully catch it, you need to \"overpower\" it.\n" + 
-		"This means using your Pepegas' power and your own power to catch the Wild Pepega.\n"+
-		"But since you don't have any Pepegas yet, you're gonna have to rely on your own Power! Don't worry, this is all done automatically!";
+		"You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)\n" + 
+		"But since you don't have any Pepegas yet, you're gonna have to defeat it yourself!\n"+
+		"Try catching one now! You may hover over the Wild Pepega to see its name and power.";
 
 	} else if(tutorialPhase == "catchDone"){
 
@@ -116,20 +116,16 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("Great! You caught your first Pepega!", 
 			"<p>This Pepega will increase the amount of IQ you get per second, " +
 			"and it will also fight for you when you're catching more Wild Pepegas!</p>" +
-			"<p>Your Total Estimated Power is your power combined with your Pepegas' power, which you can find on your home screen.</p>" +
+			"<p>Your Total Estimated Power is your rank's base power combined with your Pepegas' power, which you can find on your home screen.</p>" +
 			"<p>Generally, you need this to be higher than the power of the Wild Pepega that you're trying to catch.</p>");
 		}, tutorialModalDelay);
 
-	} else if(tutorialPhase == "exploreInfo"){
-
+	} else if (tutorialPhase == "repelInfo"){
 		setTimeout(function() {
-			showTutorialModal("A Pepega's Natural Habitat", 
-			"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
-			"<p>This means that: you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
-			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>"  +
-			"<p>Tip: If you find the Pepegas in a particular website too powerful, you may Filter that site for now and try strengthening your army first in other websites with less powerful Pepegas.</p>");
+			showTutorialModal("Repelling Wild Pepegas", 
+			"<p>If you don't want to fight a Wild Pepega because it's too strong but you want it off the website, you may hold down the Shift key on your keyboard before clicking it in order to \"Repel\" it!</p>" + 
+			"<p>This will get rid of the Wild Pepega without you having to battle it.</p>");
 		}, tutorialModalDelay);
-
 	} else if(tutorialPhase == "levelUpPrompt"){
 
 		setTimeout(function() {
@@ -168,37 +164,49 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			"<p>Remember, If you don't know what something is, just hover over it!</p>");
 		}, tutorialModalDelay);
 
+	} else if(tutorialPhase == "exploreInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("A Pepega's Natural Habitat", 
+			"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
+			"<p>This means that: you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
+			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>"  +
+			"<p>Tip: If you find the Pepegas in a particular website too powerful, you may Filter that site for now and try strengthening your army first in other websites with less powerful Pepegas.</p>");
+		}, tutorialModalDelay);
+
 	} else if(tutorialPhase == "buySlotPrompt"){
 
 		setTimeout(function() {
 			showTutorialModal("Buy more slots for your Pepega Army.", 
 			"<p>Notice how you only have a limited amount of space for Pepegas in your army.</p>" + 
 			"<p>You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count. Try it now!</p>" +
-			"<p>You might not have enough IQ yet, so just wait and let your Pepegas do their work! You should also catch more Pepegas to get more IQ faster!</p>");
+			"<p>You might not have enough IQ yet, so just wait and let your Pepegas do their work! You should also catch more Pepegas to gain IQ faster!</p>");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "buySlot"){
 
 		tutorialDisplayContent = "Buy a slot";
-		tutorialDisplayDescription = "You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count.\nIf you don't have enough IQ yet to buy one, just wait and let your Pepegas do their work!\nYou should also catch more Pepegas to get more IQ faster!";
+		tutorialDisplayDescription = "You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count.\nIf you don't have enough IQ yet to buy one, just wait and let your Pepegas do their work!\nYou should also catch more Pepegas to gain IQ faster!";
 
 	} else if(tutorialPhase == "buySlotDone"){
 
 		setTimeout(function() {
-			showTutorialModal("Now you have more space for more Pepegas!", "Greekgas can now fit.");
+			showTutorialModal("Now you have more space for more Pepegas!", "Greekgas can now fit within your army.");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "fusionPrompt"){
 
 		setTimeout(function() {
 			showTutorialModal("For your last task, I want you to make a Fusion Pepega.", 
-			"<p>Only Level 3 Pepegas can be fusioned, so you'll need THREE Level 2 of the same type of Pepega to level it up even further.</p>");
+			"<p>Fusing specific Pepegas can create new, different types of Pepegas that are stronger and way smarter.</p>" +
+			"<p>However, only Level 3 Pepegas can be used for fusions.</p>" + 
+			"<p>Fusions are also done automatically. Once you have all of the required Pepegas for a particular Pepega Fusion, they will automatically fuse.</p>");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "fusionInfo"){
 
 		setTimeout(function() {
-			showTutorialModal("You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!", 
+			showTutorialModal("You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Red Fastga!", 
 			"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!</p>" +
 			"<p>To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!</p>" +
 			"<p>Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.</p>");
@@ -207,7 +215,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "fusion"){
 
 		tutorialDisplayContent = "Make a Fusion Pepega";
-		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Peppahga!\n" + 
+		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Red Fastga!\n" + 
 			"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!\n" +
 			"To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!\n"+
 			"Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.";
@@ -270,14 +278,16 @@ function closeTutorialModal(){
 	if(shownTutorialPhase == "catchPrompt"){
 		tutorialPhase = "catch";
 	}else if(shownTutorialPhase == "catchDone"){
-		tutorialPhase = "exploreInfo";
-	}else if(shownTutorialPhase == "exploreInfo"){
+		tutorialPhase = "repelInfo";
+	}else if(shownTutorialPhase == "repelInfo"){
 		tutorialPhase = "levelUpPrompt";
 	}else if(shownTutorialPhase == "levelUpPrompt"){
 		tutorialPhase = "levelUp";
 	}else if(shownTutorialPhase == "levelUpDone"){
 		tutorialPhase = "hoverInfo";
 	}else if(shownTutorialPhase == "hoverInfo"){
+		tutorialPhase = "exploreInfo";
+	}else if(shownTutorialPhase == "exploreInfo"){
 		tutorialPhase = "buySlotPrompt";
 	}else if(shownTutorialPhase == "buySlotPrompt"){
 		tutorialPhase = "buySlot";
