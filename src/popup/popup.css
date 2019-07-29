@@ -155,12 +155,10 @@ body{
 #rankContent{
     font-size: 24px;
 }
-
 #iqCountContent{
     font-size: 36px;
     color: whitesmoke;
 }
-
 #iqpsContent{
     font-size: 20px;
     color: rgb(230, 230, 230);
@@ -170,7 +168,6 @@ body{
     font-size: 16px;
     margin-left: 5px;
 }
-
 #powerContent{
     font-size: 20px;
     color: rgb(230, 230, 230);
@@ -201,11 +198,9 @@ body{
     padding-left: 20px;
     padding-right: 20px;
 }
-
 #quickFilter{
     margin-top: 7px;
 }
-
 #encounterRate{
     margin-top: 5px;
 }
@@ -326,8 +321,8 @@ body{
     cursor: pointer;
     width: 12px;
     height: 12px;
-    left: -5px;
-    top: -5px;
+    left: 1px;
+    top: 1px;
     position: absolute;
     visibility: hidden;
 }
@@ -339,8 +334,8 @@ body{
     cursor: pointer;
     width: 12px;
     height: 12px;
-    right: -5px;
-    top: -5px;
+    right: 1px;
+    top: 1px;
     position: absolute;
     visibility: hidden;
 }
@@ -449,4 +444,58 @@ textarea{
     cursor: pointer;
     color: rgb(207, 206, 203);
     opacity: 1.0;
+}
+
+.checkmarkContainer {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.checkmarkContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #eee;
+}
+.checkmarkContainer:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.checkmarkContainer input:checked ~ .checkmark {
+    background-color: darkgoldenrod;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.checkmarkContainer input:checked ~ .checkmark:after {
+    display: block;
+}
+.checkmarkContainer .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

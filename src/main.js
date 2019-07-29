@@ -1278,7 +1278,7 @@ function isSiteFiltered(locationHref){
         for (var i = 0; i < config.filteredSites.length; ++i) {
             if(config.filteredSites[i] && config.filteredSites[i] != "" && 
                 (locationHref.includes(config.filteredSites[i]))){
-                browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconDisabled128.png")});
+                browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-disabled-icon-128.png")});
                 return true;
             }
         }
@@ -1289,11 +1289,11 @@ function isSiteFiltered(locationHref){
 function updateIcon(locationHref){
     var siteFiltered = isSiteFiltered(locationHref);
     if(siteFiltered || config.encounterMode.multiplier == 0){
-        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconDisabled128.png")});
+        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-disabled-icon-128.png")});
     }else if(config.encounterMode.multiplier == 100){
-        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIcon128.png")});
+        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-icon-128.png")});
     }else{
-        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepegaIconLess128.png")});
+        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-less-icon-128.png")});
     }
 }
 

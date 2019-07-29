@@ -3,17 +3,20 @@
 <head>
 	<meta charset="UTF-8"> 
 	<link rel="stylesheet" type="text/css" href="./popup.css">
-	<link rel="stylesheet" type="text/css" href="./custom.css">
 </head>
 
 <body>
+
 	<div id="settingsModal" class="modal">
+
 		<div id="settingsModalContent" class="modalContent">
+
 			<span class="modalTitle unselectable">
 				Settings
 			</span>
 
 			<div id="settingsModalOptions">
+
 				<div class="unselectable setting" id="siteFilters">
 					Filter individual sites
 				</div>
@@ -68,12 +71,15 @@
 					</label>
 
 				</div>
+				
 			</div>
 
 			<div class="modalButtons">
 				<button id="settingsModalClose" class="button grayButton">Save & Close</button>
 			</div>
+
 		</div>
+
 	</div>
 
 	<div id="tutorialAskModal" class="modal">
@@ -262,19 +268,24 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 	</div>
 
 	<div id="pepegaArmy" class="section">
+
 		<div class="unselectable" id="pepegaArmyTitle">
 			My Pepega Army
 		</div>
+
 		<div class="unselectable" id="pepegaArmyCount">
 			Pepega Count: <span id="pepegaArmyCountContent">0/5</span>
 			<div class="unselectable" id="buyPepegaSlot">
 				Buy a slot for <span id="buyPepegaSlotCost">1000 IQ</span>
 			</div>
 		</div>
+
 		<div id="noPepegasMessage">
 			You haven't caught any pepegas yet!
 		</div>
+
 		<div id="pepegaArmyContent">
+
 			<div id="pepegaElementTemplate" class="pepega">
 				<div class="pepegaDisplay" style="position: relative">
 					<img class="releaseButton" src="../../images/pepega-army/release.png" title="Release this Pepega">
@@ -294,6 +305,7 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 					Power: <span class="pepegaPowerContent"> 10 </span>
 				</div>
 			</div>
+
 		</div>
 
 		<div class="unselectable" id="battleBreakdownSmallAlert">
@@ -303,12 +315,15 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 	</div>
 
 	<div id="battleBreakdownAlert" class="section">
+
 		<div class="unselectable" id="battleBreakdownAlertShow">
 			Show breakdown of battle against <span class="battleBreakdownAlertShowHighlight" id="battleBreakdownAlertShowWildPepegaName">Wild Pepega</span>
 		</div>
+
 		<div class="unselectable" id="battleBreakdownAlertHide">
 			Hide Message
 		</div>
+
 	</div>
 	
 	<div id="tutorialDisplay" title="">
@@ -316,6 +331,7 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 		<span id="tutorialDisplayContent">
 		</span>
 	</div>
+
 </body>
 
 <script type="text/javascript" src="./popup.js"></script>
