@@ -4,13 +4,10 @@
 }
 body{
     font-family: orange-kid;
-
     background-color:rgb(40, 40, 40);
     color: white;
-
     width: 390px;
     height: 100%;
-
     margin-top: 15px;
     margin-bottom: 25px;
 }
@@ -30,9 +27,7 @@ body{
 .returnToHome{
     color: rgb(194, 171, 44);
     font-size: 22px;
-
     text-align: center;
-
     margin-top: 20px;
     margin-bottom: 25px;
 }
@@ -47,7 +42,6 @@ b{
 
 .pepegasEqual{
     margin-right: 8px;
-
     font-size: 38px;
 }
 
@@ -77,13 +71,11 @@ b{
 }
 .pepegasContainer{
     margin-top: 10px;
-
     margin-left: 3px;
 }
 .pepegaImage{
     height: 42px;
     width: 42px;
-
     padding-left: 5px;
     padding-right: 5px;
 }

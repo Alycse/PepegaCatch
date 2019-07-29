@@ -4,25 +4,20 @@
 }
 body{
     font-family: orange-kid;
-
     background-color:rgb(40, 40, 40);
     color: white;
-
     width: 390px;
     height: 100%;
-
     margin-top: 15px;
     margin-left: 25px;
     margin-right: 25px;
     margin-bottom: 11px;
-
     overflow-x: hidden;
 }
 
 #gameTitle{
     color: rgb(190, 190, 190);
     font-size: 15px;
-
     float: right;
 }
 #gameTitle:hover{
@@ -56,12 +51,10 @@ body{
 }
 .modalTitle{
     font-size: 32px;
-
     color: rgb(180, 180, 180);
 }
 .modalDescription{
     font-size: 15px;
-
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -140,12 +133,10 @@ body{
 }
 .mainSubInfo{
     font-size: 19px;
-
     color:  rgb(228, 203, 91);
 }
 .subInfo{
     font-size: 19px;
-
     color:  rgb(235, 221, 163);
 }
 
@@ -167,33 +158,26 @@ body{
 
 #iqCountContent{
     font-size: 36px;
-
     color: whitesmoke;
 }
 
 #iqpsContent{
     font-size: 20px;
-
     color: rgb(230, 230, 230);
 }
 #iqpsMultiplier{
     color: rgb(240, 210, 110);
-
     font-size: 16px;
-
     margin-left: 5px;
 }
 
 #powerContent{
     font-size: 20px;
-
     color: rgb(230, 230, 230);
 }
 #additionalPower{
     color: rgb(240, 210, 110);
-
     font-size: 16px;
-
     margin-left: 5px;
 }
 
@@ -209,12 +193,9 @@ body{
 #quickSettings{
     margin-top: 25px;
     margin-bottom: -5px;
-
     background-color: rgb(30, 30, 30);
-
     margin-left: -25px;
     margin-right: -25px;
-
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 20px;
@@ -230,41 +211,22 @@ body{
 }
 #encounterRateContent{
     font-size: 21px;
-    
     color: rgb(230, 230, 230);
 }
 #encounterRateMultiplier{
     color: rgb(240, 210, 110);
-
     font-size: 17px;
-
     margin-left: 5px;
 }
 
 #nextRankContent{
     font-size: 18px;
-
     color: rgb(200, 200, 200);
 }
-/*
-#settings{
-    font-size: 20px;
 
-    margin-top: 14px;
-    margin-bottom: 20px;
-
-    color:  rgb(235, 221, 163);
-}
-#settings:hover{
-    cursor: pointer;
-
-    color: rgb(255, 223, 79);
-}
-*/
 #settingsModalClose{
     margin-top: 20px;
 }
-
 #settingsModalOptions{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -272,7 +234,6 @@ body{
 
 #encounterModeContent{
     margin-top: -18px;
-
     color: rgb(200, 200, 200);
 }
 
@@ -283,10 +244,8 @@ body{
 
 .setting{
     font-size: 19px;
-
     margin-top: 15px;
     margin-bottom: 20px;
-
     color: rgb(248, 215, 72);
 }
 .setting:hover{
@@ -296,7 +255,6 @@ body{
 
 #siteFiltersContent{
     font-size: 18px;
-
     color: rgb(200, 200, 200);
 }
 #siteFilterExample{
@@ -309,9 +267,7 @@ body{
 #pepegaArmy{
     margin-left: -25px;
     margin-right: -25px;
-
     padding: 20px;
-
     background-color: rgb(25, 25, 25);
 }
 #pepegaArmyTitle{
@@ -319,48 +275,36 @@ body{
 }
 #pepegaArmyTitle:hover{
     cursor: pointer;
-
     color: rgb(205, 165, 0);
 }
 #pepegaArmyCount{
     font-size: 16px;
-
     margin-top: 5px;
-
     color:rgb(200, 200, 200);
 }
 #buyPepegaSlot{
     margin-top: 2px;
-
     font-size: 14px;
 }
 #buyPepegaSlotCost{
     font-size: 16px;
-
     text-decoration: underline;
 }
 #pepegaArmyCountContent{
     font-size: 16px;
-
     color:rgb(220, 220, 220);
 }
 #pepegaArmyContent{
     font-size: 14px;
-
     color:rgb(220, 220, 220);
-
     text-align: center;
-
     margin-top: 15px;
     margin-bottom: 10px;
 }
 #noPepegasMessage{
     font-size: 16px;
-
     color:rgb(170, 170, 170);
-
     text-align: left;
-
     margin-top: 30px;
     margin-bottom: 10px;
 }
@@ -382,12 +326,9 @@ body{
     cursor: pointer;
     width: 12px;
     height: 12px;
-
     left: -5px;
     top: -5px;
-
     position: absolute;
-
     visibility: hidden;
 }
 .releaseButton:hover{
@@ -398,12 +339,9 @@ body{
     cursor: pointer;
     width: 12px;
     height: 12px;
-
     right: -5px;
     top: -5px;
-
     position: absolute;
-
     visibility: hidden;
 }
 .healButton:hover{
@@ -456,7 +394,6 @@ textarea{
 #tutorialDisplay{
     color: rgb(150, 150, 150);
     font-size: 15px;
-
     padding-top: 3px;
 }
 #tutorialDisplayContent{
@@ -466,19 +403,14 @@ textarea{
 #battleBreakdownSmallAlert{
     color: rgb(158, 140, 82);
     font-size: 14px;
-
     padding-top: 12px;
     margin-bottom: -12px;
-
     text-align: right;
-
     opacity: 0.8;
 }
 #battleBreakdownSmallAlert:hover{
     cursor: pointer;
-
     color: rgb(221, 181, 49);
-
     opacity: 1.0;
 }
 
