@@ -168,10 +168,6 @@ body{
     font-size: 16px;
     margin-left: 5px;
 }
-#powerContent{
-    font-size: 20px;
-    color: rgb(230, 230, 230);
-}
 #additionalPower{
     color: rgb(240, 210, 110);
     font-size: 16px;
@@ -205,7 +201,7 @@ body{
     margin-top: 5px;
 }
 #encounterRateContent{
-    font-size: 21px;
+    font-size: 20px;
     color: rgb(230, 230, 230);
 }
 #encounterRateMultiplier{
@@ -274,8 +270,23 @@ body{
 }
 #pepegaArmyCount{
     font-size: 16px;
-    margin-top: 5px;
+    margin-top: 2px;
     color:rgb(200, 200, 200);
+}
+#pepegaArmyCountContent{
+    font-size: 18px;
+    color: rgb(230, 230, 230);
+}
+#power{
+    margin-top: 5px;
+}
+#powerTitle{
+    font-size: 16px;
+    color:rgb(200, 200, 200);
+}
+#powerContent{
+    font-size: 20px;
+    color: rgb(230, 230, 230);
 }
 #buyPepegaSlot{
     margin-top: 2px;
@@ -285,16 +296,12 @@ body{
     font-size: 16px;
     text-decoration: underline;
 }
-#pepegaArmyCountContent{
-    font-size: 16px;
-    color:rgb(220, 220, 220);
-}
 #pepegaArmyContent{
     font-size: 14px;
     color:rgb(220, 220, 220);
     text-align: center;
-    margin-top: 15px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 #noPepegasMessage{
     font-size: 16px;
