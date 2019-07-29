@@ -359,6 +359,11 @@ function hideRandomTutorialModal(){
 
 function setDisplayedPepegaSlots(playerPepegaCount, playerPepegaSlots, pepegaSlotCost){
 	document.getElementById("pepegaArmyCountContent").innerHTML = playerPepegaCount + "/" + playerPepegaSlots;
+	if(playerPepegaCount == playerPepegaSlots){
+		document.getElementById("pepegaArmyCountFull").style.display = "inline";
+	}else{
+		document.getElementById("pepegaArmyCountFull").style.display = "none";
+	}
 	if(pepegaSlotCost){
 		document.getElementById("buyPepegaSlotCost").innerHTML = formatWithCommas(pepegaSlotCost) + " IQ";
 	}

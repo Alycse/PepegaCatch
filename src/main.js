@@ -17,22 +17,24 @@ var browserRuntime = browser.runtime;
 var browserStorage = browser.storage.local;
 var browserExtension = browser.extension;
 
-var pepegaCatchSound = new Audio(browserRuntime.getURL("sounds/pepega-catch.wav"));
+var pepegaCatchSound = new Audio(browserRuntime.getURL("sounds/pepega-catch.ogg"));
 pepegaCatchSound.volume = 0.25;
-var pepegaReleaseSound = new Audio(browserRuntime.getURL("sounds/pepega-release.wav"));
+var pepegaReleaseSound = new Audio(browserRuntime.getURL("sounds/pepega-release.ogg"));
 pepegaReleaseSound.volume = 0.25;
-var pepegaFullArmySound = new Audio(browserRuntime.getURL("sounds/pepega-full-army.wav"));
+var pepegaFullArmySound = new Audio(browserRuntime.getURL("sounds/pepega-full-army.ogg"));
 pepegaFullArmySound.volume = 0.1;
-var pepegaLevelSound = new Audio(browserRuntime.getURL("sounds/pepega-level.wav"));
+var pepegaLevelSound = new Audio(browserRuntime.getURL("sounds/pepega-level.ogg"));
 pepegaLevelSound.volume = 0.25;
-var pepegaFusionSound = new Audio(browserRuntime.getURL("sounds/pepega-fusion.wav"));
+var pepegaFusionSound = new Audio(browserRuntime.getURL("sounds/pepega-fusion.ogg"));
 pepegaFusionSound.volume = 0.25;
-var pepegaHealSound = new Audio(browserRuntime.getURL("sounds/pepega-heal.wav"));
+var pepegaHealSound = new Audio(browserRuntime.getURL("sounds/pepega-heal.ogg"));
 pepegaHealSound.volume = 0.2;
-var pepegaLostSound = new Audio(browserRuntime.getURL("sounds/pepega-lost.wav"));
+var pepegaLostSound = new Audio(browserRuntime.getURL("sounds/pepega-lost.ogg"));
 pepegaLostSound.volume = 0.2;
-var pepegaRepelSound = new Audio(browserRuntime.getURL("sounds/pepega-repel.wav"));
+var pepegaRepelSound = new Audio(browserRuntime.getURL("sounds/pepega-repel.ogg"));
 pepegaRepelSound.volume = 0.2;
+var pepegaBuySlotSound = new Audio(browserRuntime.getURL("sounds/pepega-buy-slot.ogg"));
+pepegaBuySlotSound.volume = 0.2;
 
 var popup = {
 	get isOpened (){
@@ -694,6 +696,7 @@ const categories = [
             new Site("metafilter")
         ],
         [ 
+            new Option(pepegaTypes[0], 100),
             new Option(pepegaTypes[2], 3),
             new Option(pepegaTypes[3], 2),
             new Option(pepegaTypes[4], 2),
@@ -1234,8 +1237,8 @@ function rollTimeBeforeNextWildPepegaSpawn(){
     return roll;
 }
 
-const minTimeBeforeNextWildPepegaSpawn = 7500;
-const maxTimeBeforeNextWildPepegaSpawn = 25000;
+const minTimeBeforeNextWildPepegaSpawn = 0;
+const maxTimeBeforeNextWildPepegaSpawn = 0;
 const beginnerTimeBeforeNextWildPepegaSpawn = 1000;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
@@ -1333,7 +1336,7 @@ function releasePlayerPepega(id){
 
     updatePlayerIqCount(iqReleasePrice);
 
-    notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", playerPepega.pepegaType.name + " released!", playerPepega.pepegaType.name + " was released back into " + 
+    notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", playerPepega.pepegaType.name + " was released!", playerPepega.pepegaType.name + " was released back into " + 
     playerPepega.origin + "! You got " + (iqReleasePrice)  + " IQ.", playerPepega.pepegaType.imageUrl);
 
     playSound(pepegaReleaseSound);
@@ -1499,7 +1502,7 @@ function fightWildPepega(wildPepega){
     return results;
 }
 
-const AddingPlayerPepegaResultEnum = {"successSingle":1, "successLeveledUp":2, "successFusioned":2, "noPepegaSlots":3}
+const AddingPlayerPepegaResultEnum = {"successSingle":1, "successLeveledUp":2, "successFusioned":3, "noPepegaSlots":4}
 const CombiningPlayerPepegaResultEnum = {"combined":1, "noCombination":2, "noPepegaSlots":3}
 
 function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, locationHref){
@@ -1531,9 +1534,9 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     wildPepega.fusioned = false;
 
     var pepegaAdd = addPlayerPepega(wildPepega);
-
+    
     if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successSingle){
-        var notificationMessage = "You caught " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!";
+        var notificationMessage = "You caught " + getArticle(pepegaAdd[1].pepegaType.name) + " Level " + pepegaAdd[1].level + " " + pepegaAdd[1].pepegaType.name + "!";
         if(fightResults.casualties == 1){
             notificationMessage += "\nOne of your Pepegas died during the battle. :(";
         }else if(fightResults.casualties > 1){
@@ -1551,6 +1554,19 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
         }
 
         playSound(pepegaCatchSound);
+    } else if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successFusioned){
+        notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "You fusion summoned " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!",
+            wildPepega.pepegaType.name + " fusioned with other Pepegas into " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!\nPogChamp!",
+            pepegaAdd[1].pepegaType.imageUrl);
+
+        player.successfulCatchCount++;
+        browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
+
+        if(tutorial.phase == "fusion"){
+            updateTutorialPhase("fusionDone");
+        }
+
+        playSound(pepegaFusionSound);
     } else if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successLeveledUp){
         notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", pepegaAdd[1].pepegaType.name + " is now level " + pepegaAdd[1].level + "!",
             "Your " + pepegaAdd[1].pepegaType.name + " leveled up!\nIt is now level " + pepegaAdd[1].level + "!\nPog!",
@@ -1564,19 +1580,6 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
         }
 
         playSound(pepegaLevelSound);
-    } else if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successFusioned){
-        notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "You fusion summoned " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!",
-            wildPepega.pepegaType.name + " fusioned with other Pepegas into " + article + " " + pepegaAdd[1].pepegaType.name + "!\nPogChamp!",
-            pepegaAdd[1].pepegaType.imageUrl);
-
-        player.successfulCatchCount++;
-        browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
-
-        if(tutorial.phase == "fusion"){
-            updateTutorialPhase("fusionDone");
-        }
-
-        playSound(pepegaFusionSound);
     } else{
         var iqReleasePrice = pepegaAdd[1].pepegaType.iqReleasePriceMultiplier * pepegaAdd[1].pepegaType.iqps * pepegaAdd[1].level;
         updatePlayerIqCount(iqReleasePrice);
@@ -1592,19 +1595,26 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     }
 }
 
-function addPlayerPepega(pepega, save = true, displayForPopup = true){
+var adds = 0;
+
+function addPlayerPepega(pepega, save = true, displayForPopup = true, addEvents = {}){
     acquirePepegaType(pepega.pepegaType.id);
 
-    var pepegaLevelingUp = checkPepegaLevelingUp(pepega);
-    var pepegaFusioning = checkPepegaFusioning(pepega);
+    var pepegaLevelingUp = checkPepegaLevelingUp(pepega, addEvents);
+    var pepegaFusioning = checkPepegaFusioning(pepega, addEvents);
 
-    if(pepegaLevelingUp[0] == CombiningPlayerPepegaResultEnum.combined){
-        return [AddingPlayerPepegaResultEnum.successLeveledUp, pepegaLevelingUp[1]];
-    } else if(pepegaFusioning[0] == CombiningPlayerPepegaResultEnum.combined){
-        return [AddingPlayerPepegaResultEnum.successFusioned, pepegaFusioning[1]];
-    } else if((pepegaLevelingUp[0] == CombiningPlayerPepegaResultEnum.noCombination || pepegaFusioning[0] == CombiningPlayerPepegaResultEnum.noCombination) && isPepegaSlotsAvailable(player.pepegas.length + 1)){
+    if(pepegaFusioning[0] == CombiningPlayerPepegaResultEnum.combined || pepegaLevelingUp[0] == CombiningPlayerPepegaResultEnum.combined){
+        
+        if(addEvents.fused){
+            return [AddingPlayerPepegaResultEnum.successFusioned, pepegaFusioning[1]];
+        }else{
+            return [AddingPlayerPepegaResultEnum.successLeveledUp, pepegaLevelingUp[1]];
+        }
+
+    } else if(isPepegaSlotsAvailable(player.pepegas.length + 1)){
 
         player.pepegas.push(pepega);
+
         if(pepega.alive){
             totalIqps += pepega.pepegaType.iqps * pepega.level;
             totalPepegaPower += pepega.power * pepega.level;
@@ -1621,14 +1631,17 @@ function addPlayerPepega(pepega, save = true, displayForPopup = true){
         }
 
         return [AddingPlayerPepegaResultEnum.successSingle, pepega];
+
     } else {
+
         return [AddingPlayerPepegaResultEnum.noPepegaSlots, pepega];
+
     }
 }
 
-function checkPepegaLevelingUp(addedPepega){
+function checkPepegaLevelingUp(addedPepega, addEvents = {}){
     if(addedPepega.level >= maxPepegaLevel){
-        return false;
+        return [CombiningPlayerPepegaResultEnum.noCombination, addedPepega];
     }
 
     levelingPlayerPepegaIds = [];
@@ -1639,6 +1652,7 @@ function checkPepegaLevelingUp(addedPepega){
             var tempPlayerPepega = new Object();
             tempPlayerPepega.id = player.pepegas[i].id;
             tempPlayerPepega.typeId = player.pepegas[i].pepegaType.id;
+            tempPlayerPepega.level = player.pepegas[i].level;
             tempPlayerPepega.power = player.pepegas[i].power;
             tempPlayerPepegas.push(tempPlayerPepega);
         }
@@ -1647,6 +1661,7 @@ function checkPepegaLevelingUp(addedPepega){
     var tempPlayerPepega = new Object();
     tempPlayerPepega.id = addedPepega.id;
     tempPlayerPepega.typeId = addedPepega.pepegaType.id;
+    tempPlayerPepega.level = addedPepega.level;
     tempPlayerPepega.power = addedPepega.power;
     tempPlayerPepegas.push(tempPlayerPepega);
 
@@ -1654,6 +1669,7 @@ function checkPepegaLevelingUp(addedPepega){
     for(var i = 0; i < tempPlayerPepegas.length; i++){
         if(addedPepega.pepegaType.id == tempPlayerPepegas[i].typeId){
             levelingPlayerPepegaIds.push(tempPlayerPepegas[i].id);
+            
             levelingPlayerPepegaTotalPower += parseFloat(tempPlayerPepegas[i].power);
             if(levelingPlayerPepegaIds.length == multiplesBeforeLevelUp){
                 isLevelingUp = true;
@@ -1673,8 +1689,10 @@ function checkPepegaLevelingUp(addedPepega){
         var newPepegaLevel = parseInt(addedPepega.level) + 1;
         var leveledUpPepega = new Pepega(pepegaTypes[addedPepega.pepegaType.id], addedPepega.origin, addedPepega.date, false, 
             levelingPlayerPepegaTotalPower / multiplesBeforeLevelUp, newPepegaLevel, true, null);
+
+        addEvents.levelled = true;
         
-        var pepegaAdd = addPlayerPepega(leveledUpPepega, true);
+        var pepegaAdd = addPlayerPepega(leveledUpPepega, true, true, addEvents);
 
         return [CombiningPlayerPepegaResultEnum.combined, pepegaAdd[1]];
     }else{
@@ -1682,7 +1700,7 @@ function checkPepegaLevelingUp(addedPepega){
     }
 }
 
-function checkPepegaFusioning(addedPepega = null){
+function checkPepegaFusioning(addedPepega = null, addEvents = {}){
     var fusioningPlayerPepegaIds;
     var isAddedPepegaInvolvedInFusion;
     var fusionedPepegaType;
@@ -1731,10 +1749,11 @@ function checkPepegaFusioning(addedPepega = null){
                     }
                     tempPlayerPepegas[k].isTaken = true;
                     fusioningPlayerPepegaIds.push(tempPlayerPepegas[k].id);
+                    
                     break;
                 }
             }
-        }
+        }     
         if(fusioningPlayerPepegaIds.length == pepegaTypes[i].fusionIds.length){
             fusionedPepegaType = pepegaTypes[i];
             isFusioning = true;
@@ -1754,7 +1773,9 @@ function checkPepegaFusioning(addedPepega = null){
         var fusionedPepega = new Pepega(fusionedPepegaType, addedPepega.origin, addedPepega.date, false, 
             rollPepegaPower(fusionedPepegaType.basePower), 1, true, null);
         
-        var pepegaAdd = addPlayerPepega(fusionedPepega, true);
+        addEvents.fused = true;
+
+        var pepegaAdd = addPlayerPepega(fusionedPepega, true, true, addEvents);
 
         return [CombiningPlayerPepegaResultEnum.combined, pepegaAdd[1]];
     }else{
@@ -1908,6 +1929,8 @@ function buyPepegaSlot(){
         updatePlayerIqCount(-pepegaSlotCost);
         updatePlayerPepegaSlots(player.pepegaSlots + 1);
 
+        playSound(pepegaBuySlotSound);
+
         if(tutorial.phase == "buySlot"){
             updateTutorialPhase("buySlotDone");
         }
@@ -1992,7 +2015,7 @@ function updateRandomTutorialPopupDisplay(){
 }
 
 function repelWildPepega(){
-    pepegaRepelSound.play();
+    playSound(pepegaRepelSound);
 }
 
 browserRuntime.onMessage.addListener(

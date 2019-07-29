@@ -1,4 +1,4 @@
-const wildPepegaSpawnMinimumDiv = 40;
+const wildPepegaSpawnMinimumDiv = 0;
 
 var browser = chrome;
 var browserRuntime = browser.runtime;
@@ -35,7 +35,7 @@ function getWildPepega() {
 function insertWildPepegaImage(divElement, wildPepegaTypeName, wildPepegaImageUrl, wildPepegaTypeId, wildPepegaPower, wildPepegaLevel){
 	var wildPepegaImage = document.createElement("img");
 	wildPepegaImage.id = "wildPepega";
-	wildPepegaImage.title = "Type: " + wildPepegaTypeName + "\nPower: " + wildPepegaPower + "\n\nLeft Click: Battle & Catch\nShift+Left Click: Repel";
+	wildPepegaImage.title = "Type: " + wildPepegaTypeName + "\nLevel: " + wildPepegaLevel + "\nPower: " + wildPepegaPower + "\n\nLeft Click: Battle & Catch\nShift+Left Click: Repel";
 	wildPepegaImage.name = wildPepegaTypeId + " " + wildPepegaPower + " " + wildPepegaLevel;
 	wildPepegaImage.src = wildPepegaImageUrl;
 	var pagePosition = rollPagePosition();
