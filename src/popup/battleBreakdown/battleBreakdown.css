@@ -81,3 +81,33 @@ b{
     -ms-user-select: none;
     user-select: none;
 }
+
+.pepegaImage{
+    height: 24px;
+    width: 24px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.dead{
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(1000%);
+}
+
+#wildPepegaImageTitle{
+    height: 42px;
+    width: 42px;
+    margin-bottom: -8px;
+}
+
+#wildPepegaLevel{
+    font-size: 18px;
+    color: rgb(236, 217, 110);
+    margin-top: -20px;
+    margin-bottom: 15px;
+}
+#wildPepegaLevelContent{
+    font-size: 21px;
+    color: rgb(240, 240, 240);
+    margin-bottom: 15px;
+}
