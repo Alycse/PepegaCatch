@@ -1,4 +1,4 @@
-const wildPepegaSpawnMinimumDiv = 0;
+const wildPepegaSpawnMinimumDiv = 40;
 
 var browser = chrome;
 var browserRuntime = browser.runtime;
