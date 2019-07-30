@@ -17,9 +17,6 @@ var shownRandomTutorialPhase;
 var hasUniquePepegaIqpsMultiplier = false;
 var hasRankIqpsMultiplier = false;
 
-var pepegaElementTemplate = document.getElementById("pepegaElementTemplate");
-pepegaElementTemplate.parentNode.removeChild(pepegaElementTemplate);
-
 var browser = chrome;
 var browserRuntime = browser.runtime;
 var browserTabs = browser.tabs;
@@ -58,6 +55,9 @@ browserRuntime.onMessage.addListener(
 		}else if(request.message == "player-army-name-updated"){
 			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
 			sendResponse();
+		}else if(request.message == "notifications-display-updated"){
+			setDisplayedNotifications(request.notificationsDisplayHeader, request.notificationsDisplayMessage);
+			sendResponse();
 		}else if(request.message == "player-pepega-slots-updated"){
 			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
@@ -81,6 +81,13 @@ browserRuntime.onMessage.addListener(
 
 browserRuntime.sendMessage({"message": "update-all-popup-displays"});
 
+function setDisplayedNotifications(notificationsDisplayHeader, notificationsDisplayMessage){
+	if(notificationsDisplayHeader != ""){
+		document.getElementById("notificationsDisplayHeader").innerHTML = notificationsDisplayHeader;
+		document.getElementById("notificationsDisplayMessage").innerHTML = notificationsDisplayMessage;
+	}
+}
+
 function setDisplayedTutorialPhase(tutorialPhase){
 	var tutorialDisplayContent = "";
 	var tutorialDisplayDescription = "";
@@ -89,7 +96,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	if(tutorialPhase == "ask"){
 
 		setTimeout(function() {
-			document.getElementById("tutorialAskModal").style.display = "block";
+			showModal("tutorialAskModal");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "catchPrompt"){
@@ -191,7 +198,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "buySlotDone"){
 
 		setTimeout(function() {
-			showTutorialModal("Now you have more space for more Pepegas!", "Greekgas can now fit within your army.");
+			showTutorialModal("Excellent work!", "Now you have more space for more Pepegas!");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "fusionPrompt"){
@@ -337,23 +344,23 @@ function closeRandomTutorialModal(){
 }
 
 function showTutorialModal(tutorialTitle, tutorialDescription){
-	document.getElementById("tutorialModal").style.display = "block";
+	showModal("tutorialModal");
 	document.getElementById("tutorialModalTitle").innerHTML = tutorialTitle;
 	document.getElementById("tutorialModalDescription").innerHTML = tutorialDescription;
 }
 function hideTutorialModal(){
-	document.getElementById("tutorialModal").style.display = "none";
+	hideModal("tutorialModal");
 	shownTutorialPhase = "";
 }
 
 function showRandomTutorialModal(randomTutorialPhase, tutorialTitle, tutorialDescription){
-	document.getElementById("randomTutorialModal").style.display = "block";
+	showModal("randomTutorialModal");
 	document.getElementById("randomTutorialModalTitle").innerHTML = tutorialTitle;
 	document.getElementById("randomTutorialModalDescription").innerHTML = tutorialDescription;
 	document.getElementById("randomTutorialModal").randomTutorialPhase = randomTutorialPhase;
 }
 function hideRandomTutorialModal(){
-	document.getElementById("randomTutorialModal").style.display = "none";
+	hideModal("randomTutorialModal");
 	randomTutorialPhase = "";
 }
 
@@ -468,6 +475,13 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 	if(rank.title[branch.id]){
 		rankTitle = rank.title[branch.id];
 	}
+	if(rankTitle.length < 21){
+		document.getElementById("rankTitle").style.fontSize = "22px";
+		document.getElementById("rankContent").style.fontSize = "24px";
+	}else{
+		document.getElementById("rankTitle").style.fontSize = "18px";
+		document.getElementById("rankContent").style.fontSize = "20px";
+	}
 
 	var rankDescription = rank.description[0];
 	if(rank.description[branch.id]){
@@ -564,8 +578,10 @@ function checkPepegas(){
 
 		var pepegaImageElement = pepegaElement.getElementsByClassName("pepegaImage")[0];
 
-		var secondsLeft = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000))
-
+		var secondsLeft = 0;
+		if(!pepegaAlive){
+			secondsLeft = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000));
+		}
 		if(!pepegaAlive && secondsLeft > allowedPepegaHealingTime){
 			var healCost = healCostMultiplier * Math.ceil((secondsLeft / 10));
 			if(healCost != pepegaElement.healCost){
@@ -583,9 +599,14 @@ function checkPepegas(){
 
 				if(displayedIqCount >= healCost){
 					healButtonElement.style.webkitFilter = "grayscale(0%)";
+					healButtonElement.style.filter = "grayscale(0%)";
 				}else{
 					healButtonElement.style.webkitFilter = "grayscale(100%)";
+					healButtonElement.style.filter = "grayscale(100%)";
 				}
+			}
+			if(healButtonElement.style.display != "inline"){
+				healButtonElement.style.display = "inline";
 			}
 		}else if (healButtonElement.style.display != "none"){
 			healButtonElement.style.display = "none";
@@ -593,7 +614,11 @@ function checkPepegas(){
 	}
 }
 
+
+var pepegaTemplateElement = document.getElementById("pepegaTemplate");
+pepegaTemplateElement.parentNode.removeChild(pepegaTemplateElement);
 function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
+
 	clearPepegaArmyContent();
 
 	if(playerPepegas.length > 0){
@@ -612,7 +637,7 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 				currentPepegaArmyRowElement.className = "pepegaArmyRow";
 			}
 
-			var pepegaElement = pepegaElementTemplate.cloneNode(true);
+			var pepegaElement = pepegaTemplateElement.cloneNode(true);
 			var pepegaImageElement = pepegaElement.getElementsByClassName("pepegaImage")[0];
 
 			currentPepegaArmyRowElement.appendChild(pepegaElement);
@@ -636,13 +661,6 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			pepegaElement.pepegaImageTitle = pepegaImageTitle;
 			pepegaElement.healCostMultiplier = playerPepegas[index].pepegaType.healCostMultiplier;
 
-			/*
-			var currentTime = new Date().getTime();
-			if(!playerPepegas[index].alive && currentTime < playerPepegas[index].timeBeforeRecovery){
-				pepegaImageTitle += "\nEstimated time of recovery: " + Math.round(((playerPepegas[index].timeBeforeRecovery - currentTime) / 1000)) + " seconds";
-			}
-			*/
-
 			pepegaImageElement.title = pepegaImageTitle;
 
 			pepegaElement.getElementsByClassName("pepegaIqContent")[0].innerHTML = formatWithCommas(playerPepegas[index].pepegaType.iqps * playerPepegas[index].level);
@@ -658,8 +676,10 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 
 			if(playerPepegas[index].alive){
 				pepegaImageElement.style.webkitFilter = "grayscale(0%)"
+				pepegaImageElement.style.filter = "grayscale(0%)";
 			}else{
 				pepegaImageElement.style.webkitFilter = "grayscale(100%)"
+				pepegaImageElement.style.filter = "grayscale(100%)";
 			}
 
 			pepegaElement.healCost = 0;
@@ -720,40 +740,57 @@ function healPlayerPepega(playerPepegaId, pepegaElementIndex){
 var selectedPlayerPepegaId = null;
 
 function showReleaseConfirmationModal(playerPepegaId, playerPepegaName, playerPepegaIqReleasePrice){
-	document.getElementById("releaseConfirmationModal").style.display = "block";
+	showModal("releaseConfirmationModal");
+
 	document.getElementById("releaseConfirmationModalPepegaName").innerHTML = playerPepegaName;
 	document.getElementById("releaseConfirmationModalPepegaIqReleasePrice").innerHTML = playerPepegaIqReleasePrice;
 	selectedPlayerPepegaId = playerPepegaId;
 }
 function hideReleaseConfirmationModal(){
-	document.getElementById("releaseConfirmationModal").style.display = "none";
+	hideModal("releaseConfirmationModal");
+
 	selectedPlayerPepegaId = null;
 }
 
 function showSiteFiltersModal(){
-	document.getElementById("siteFiltersModal").style.display = "block";
+	showModal("siteFiltersModal");
 }
 function showSettingsModal(){
-	document.getElementById("settingsModal").style.display = "block";
+	showModal("settingsModal");
 }
 function hideSiteFiltersModal(){
-	document.getElementById("siteFiltersModal").style.display = "none";
-	updateFilteredSites();
+	hideModal("siteFiltersModal");
 }
 function hideSettingsModal(){
-	document.getElementById("settingsModal").style.display = "none";
+	hideModal("settingsModal");
 }
 
 function showRenameArmyModal(){
-	document.getElementById("renameArmyModal").style.display = "block";
+	showModal("renameArmyModal");
 }
 function hideRenameArmyModal(){
-	document.getElementById("renameArmyModal").style.display = "none";
+	hideModal("renameArmyModal");
 }
 
 function clearPepegaArmyContent(){
 	document.getElementById("pepegaArmyContent").innerHTML = "";
 }
+
+function showModal(modalId){
+	modalYPosition = window.scrollY;
+	document.getElementById(modalId).style.display = "block";
+	document.getElementById(modalId).style.top = modalYPosition + "px";
+}
+function hideModal(modalId){
+	modalYPosition = null
+	document.getElementById(modalId).style.display = "none";
+}
+var modalYPosition = null;
+window.onscroll = function () { 
+	if(modalYPosition != null){
+		window.scrollTo(0, modalYPosition); 
+	}
+};
 
 function releasePlayerPepega(){
 	browserRuntime.sendMessage({"message": "release-player-pepega", "playerPepegaId": selectedPlayerPepegaId}, function() {
@@ -829,7 +866,7 @@ function openGameIssuesLink(){
 
 function answerTutorialAskModal(isTutorialAnswerYes){
 	browserRuntime.sendMessage({"message": "answer-tutorial-ask", "tutorialAnswer": isTutorialAnswerYes});
-	document.getElementById("tutorialAskModal").style.display = "none";
+	hideModal("tutorialAskModal");
 }
 
 function resetTutorial(){

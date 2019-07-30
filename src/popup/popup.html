@@ -75,7 +75,7 @@
 			</div>
 
 			<div class="modalButtons">
-				<button id="settingsModalClose" class="button grayButton">Save & Close</button>
+				<button id="settingsModalClose" class="button grayButton unselectable">Save & Close</button>
 			</div>
 
 		</div>
@@ -91,8 +91,8 @@
 				It's very short and easy!
 			</p>
 			<div class="modalButtons">
-				<button id="tutorialAskModalYes" class="button greenButton">Yes, I am Pepega.</button>
-				<button id="tutorialAskModalNo" class="button redButton">Skip the tutorial.</button>
+				<button id="tutorialAskModalYes" class="button greenButton unselectable">Yes, I am Pepega.</button>
+				<button id="tutorialAskModalNo" class="button redButton unselectable">Skip the tutorial.</button>
 			</div>
 		</div>
 	</div>
@@ -106,7 +106,7 @@
 				Tutorial Description!
 			</p>
 			<div class="modalButtons">
-				<button id="tutorialModalClose" class="button grayButton">Okay :)</button>
+				<button id="tutorialModalClose" class="button grayButton unselectable">Okay :)</button>
 			</div>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
 				Random Tutorial Description!
 			</p>
 			<div class="modalButtons">
-				<button id="randomTutorialModalClose" class="button grayButton">Okay :)</button>
+				<button id="randomTutorialModalClose" class="button grayButton unselectable">Okay :)</button>
 			</div>
 		</div>
 	</div>
@@ -133,8 +133,8 @@
 			</span>
 			<p>You won't be able to get it back!</p>
 			<div class="modalButtons">
-				<button id="releaseConfirmationModalYes" class="button redButton">Yes, release it!</button>
-				<button id="releaseConfirmationModalNo" class="button grayButton">No, keep it!</button>
+				<button id="releaseConfirmationModalYes" class="button redButton unselectable">Yes, release it!</button>
+				<button id="releaseConfirmationModalNo" class="button grayButton unselectable">No, keep it!</button>
 			</div>
 		</div>
 	</div>
@@ -153,7 +153,7 @@
 				<textarea id="siteFiltersModalTextArea" textarea rows="6" cols="10"></textarea>
 			</div>
 			<div class="modalButtons">
-				<button id="siteFiltersModalClose" class="button grayButton">Done</button>
+				<button id="siteFiltersModalClose" class="button grayButton unselectable">Done</button>
 			</div>
 		</div>
 	</div>
@@ -168,7 +168,7 @@
 				<input maxlength="64" id="renameArmyInputBox" type="text"><br>
 			</center>
 			<div class="modalButtons">
-					<button id="renameArmyModalClose" class="button grayButton">Save & Close</button>
+					<button id="renameArmyModalClose" class="button grayButton unselectable">Save & Close</button>
 			</div>
 		</div>
 	</div>
@@ -286,12 +286,11 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 		</div>
 
 		<div id="pepegaArmyContent">
-
-			<div id="pepegaElementTemplate" class="pepega">
+			<div id="pepegaTemplate" class="pepega">
 				<div class="pepegaDisplay" style="position: relative">
 					<img class="releaseButton" src="../../images/pepega-army/release.png" title="Release this Pepega">
 					<img class="healButton" src="../../images/pepega-army/heal.png" title="Heal this Pepega">
-
+	
 					<img class="pepegaImage" src="../../images/pepegas/0_Pepega.png">
 				</div>
 				<div class="pepegaLevel">
@@ -306,7 +305,6 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 					Power: <span class="pepegaPowerContent"> 10 </span>
 				</div>
 			</div>
-
 		</div>
 
 		<div class="unselectable" id="battleBreakdownSmallAlert">
@@ -331,6 +329,19 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 		Tutorial Task:
 		<span id="tutorialDisplayContent">
 		</span>
+	</div>
+
+	<div id="notificationsDisplay" title="">
+		<div id="notificationsDisplayTitle">
+			Latest Notification:
+		</div>
+		<div id="notificationsDisplayContent">
+			<div id="notificationsDisplayHeader">
+				You have no notifications at the moment!
+			</div>
+			<div id="notificationsDisplayMessage">
+			</div>
+		</div>
 	</div>
 
 </body>
