@@ -571,10 +571,10 @@ const categories = [
             new Option(pepegaTypes[7], 0.25),
             new Option(pepegaTypes[10], 0.1),
             new Option(pepegaTypes[11], 0.01),
-            new Option(pepegaTypes[12], 3),
-            new Option(pepegaTypes[14], 5),
-            new Option(pepegaTypes[17], 3),
-            new Option(pepegaTypes[19], 5),
+            new Option(pepegaTypes[12], 6),
+            new Option(pepegaTypes[14], 4),
+            new Option(pepegaTypes[17], 6),
+            new Option(pepegaTypes[19], 4),
             new Option(pepegaTypes[22], 1),
             new Option(pepegaTypes[23], 0.5),
             new Option(pepegaTypes[35], 20)
@@ -644,9 +644,10 @@ const categories = [
             new Option(pepegaTypes[19], 2.5),
             new Option(pepegaTypes[22], 2.5),
             new Option(pepegaTypes[23], 2.5),
-            new Option(pepegaTypes[27], 5),
-            new Option(pepegaTypes[36], 1),
-            new Option(pepegaTypes[37], 2.5),
+            new Option(pepegaTypes[27], 3),
+            new Option(pepegaTypes[35], 5),
+            new Option(pepegaTypes[36], 5),
+            new Option(pepegaTypes[37], 5),
             new Option(pepegaTypes[40], 0.5),
             new Option(pepegaTypes[41], 0.5),
             new Option(pepegaTypes[42], 0.5),
@@ -658,6 +659,50 @@ const categories = [
         ]
     ),
     new Category(7, false,
+        [
+            new Site("soundcloud"),
+            new Site("music"),
+            new Site("sound"),
+            new Site("pandora"),
+            new Site("spotify"),
+            new Site("myspace"),
+            new Site("last.fm"),
+            new Site("iheart"),
+            new Site("tunein"),
+        ],
+        [
+            new Option(pepegaTypes[1], 1.5),
+            new Option(pepegaTypes[2], 1.5),
+            new Option(pepegaTypes[3], 2),
+            new Option(pepegaTypes[4], 6),
+            new Option(pepegaTypes[5], 2),
+            new Option(pepegaTypes[7], 0.25),
+            new Option(pepegaTypes[9], 2.5),
+            new Option(pepegaTypes[10], 0.1),
+            new Option(pepegaTypes[11], 0.01),
+            new Option(pepegaTypes[12], 3),
+            new Option(pepegaTypes[13], 3),
+            new Option(pepegaTypes[14], 5),
+            new Option(pepegaTypes[15], 1),
+            new Option(pepegaTypes[22], 3),
+            new Option(pepegaTypes[23], 2.5),
+            new Option(pepegaTypes[24], 1),
+            new Option(pepegaTypes[27], 3),
+            new Option(pepegaTypes[28], 3),
+            new Option(pepegaTypes[29], 5),
+            new Option(pepegaTypes[35], 7.5),
+            new Option(pepegaTypes[38], 5),
+            new Option(pepegaTypes[40], 0.25),
+            new Option(pepegaTypes[41], 0.25),
+            new Option(pepegaTypes[42], 0.25),
+            new Option(pepegaTypes[43], 0.25),
+            new Option(pepegaTypes[44], 0.25),
+            new Option(pepegaTypes[45], 0.25),
+            new Option(pepegaTypes[46], 0.25),
+            new Option(pepegaTypes[47], 0.25)
+        ]
+    ),
+    new Category(8, false,
         [
             new Site("google"),
             new Site("bing"),
@@ -687,7 +732,7 @@ const categories = [
             new Option(pepegaTypes[46], 2.5)
         ]
     ),
-    new Category(8, false,
+    new Category(9, false,
         [
             new Site("wikipedia"),
             new Site("wikihow"),
@@ -696,7 +741,6 @@ const categories = [
             new Site("metafilter")
         ],
         [ 
-            new Option(pepegaTypes[3], 100),
             new Option(pepegaTypes[2], 3),
             new Option(pepegaTypes[3], 2),
             new Option(pepegaTypes[4], 2),
@@ -713,7 +757,7 @@ const categories = [
             new Option(pepegaTypes[24], 6)
         ]
     ),
-    new Category(9, false,
+    new Category(10, false,
         [
             new Site("amazon"),
             new Site("ebay"),
@@ -745,7 +789,7 @@ const categories = [
             new Option(pepegaTypes[46], 1)
         ]
     ),
-    new Category(10, false,
+    new Category(11, false,
         [
             new Site("xvideos"),
             new Site("porn"),
@@ -782,7 +826,7 @@ const categories = [
             new Option(pepegaTypes[47], 2.5)
         ]
     ),
-    new Category(11, false,
+    new Category(12, false,
         [
             new Site("hentai"),
             new Site("fakku"),
@@ -812,7 +856,7 @@ const categories = [
             new Option(pepegaTypes[45], 2.5)
         ]
     ),
-    new Category(12, false,
+    new Category(13, false,
         [
             new Site("4chan"),
             new Site("8chan"),
@@ -845,16 +889,16 @@ const categories = [
             new Option(pepegaTypes[45], 2.5)
         ]
     ),
-    new Category(13, true,
+    new Category(14, true,
         [
             new Site("kaotic"),
             new Site("gorejunkies"),
             new Site("livegore")
         ],
         [
-            new Option(pepegaTypes[48], 94),
+            new Option(pepegaTypes[48], 92.5),
             new Option(pepegaTypes[49], 5),
-            new Option(pepegaTypes[50], 1)
+            new Option(pepegaTypes[50], 2.5)
         ]
     )
 ];
@@ -1255,9 +1299,9 @@ function rollTimeBeforeNextWildPepegaSpawn(){
     return roll;
 }
 
-const minTimeBeforeNextWildPepegaSpawn = 0;
-const maxTimeBeforeNextWildPepegaSpawn = 0;
-const beginnerTimeBeforeNextWildPepegaSpawn = 1000;
+const minTimeBeforeNextWildPepegaSpawn = 7500;
+const maxTimeBeforeNextWildPepegaSpawn = 25000;
+const beginnerTimeBeforeNextWildPepegaSpawn = 2000;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
 browserStorage.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"], function(result) {
