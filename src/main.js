@@ -1403,7 +1403,7 @@ function releasePlayerPepega(id){
 
     updatePlayerIqCount(iqReleasePrice);
 
-    notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", playerPepega.pepegaType.name + " was released!", playerPepega.pepegaType.name + " was released back into " + 
+    notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "Level " + playerPepega.level + " " + playerPepega.pepegaType.name + " was released!", "Level " + playerPepega.level + " " + playerPepega.pepegaType.name + " was released back into " + 
     playerPepega.origin + "! You got " + (iqReleasePrice)  + " IQ.", playerPepega.pepegaType.imageUrl);
 
     playSound(pepegaReleaseSound);
@@ -1655,7 +1655,7 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     } else{
         var iqReleasePrice = pepegaAdd[1].pepegaType.iqReleasePriceMultiplier * pepegaAdd[1].pepegaType.iqps * pepegaAdd[1].level;
         updatePlayerIqCount(iqReleasePrice);
-        var notificationMessage = pepegaAdd[1].pepegaType.name + " was released, earning you " + iqReleasePrice + " IQ.";
+        var notificationMessage = "Level " + pepegaAdd[1].level + " " + pepegaAdd[1].pepegaType.name + " was released, earning you " + iqReleasePrice + " IQ.";
 
         if(player.pepegaSlots < maxPepegaSlots){
             notificationMessage += "\nYou can buy more slots by spending your IQ!";
