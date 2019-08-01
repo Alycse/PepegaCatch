@@ -25,17 +25,17 @@ function getWildPepega() {
 			if(divElement == null){
 				return;
 			}
-			insertWildPepegaImage(divElement, result.wildPepega.pepegaType.name, result.wildPepega.pepegaType.imageUrl, result.wildPepega.pepegaType.id, result.wildPepega.power, result.wildPepega.level);
+			insertWildPepegaImage(divElement, result.wildPepega.pepegaType.name, result.wildPepega.pepegaType.imageUrl, result.wildPepega.pepegaType.id, result.wildPepega.power, result.wildPepega.level, result.totalEstimatedPower);
 			insertWildPepegaJs();
 			insertWildPepegaCss();
 		}
 	});
 }
 
-function insertWildPepegaImage(divElement, wildPepegaTypeName, wildPepegaImageUrl, wildPepegaTypeId, wildPepegaPower, wildPepegaLevel){
+function insertWildPepegaImage(divElement, wildPepegaTypeName, wildPepegaImageUrl, wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, totalEstimatedPower){
 	var wildPepegaImage = document.createElement("img");
 	wildPepegaImage.id = "wildPepega";
-	wildPepegaImage.title = "Type: " + wildPepegaTypeName + "\nLevel: " + wildPepegaLevel + "\nPower: " + wildPepegaPower + "\n\nLeft Click: Battle & Catch\nShift+Left Click: Repel";
+	wildPepegaImage.title = "Type: " + wildPepegaTypeName + "\nLevel: " + wildPepegaLevel + "\nPower: " + wildPepegaPower + "\n\nYour Army's Estimated Power: " + totalEstimatedPower + "\n\nLeft Click: Battle & Catch\nShift+Left Click: Repel";
 	wildPepegaImage.name = wildPepegaTypeId + " " + wildPepegaPower + " " + wildPepegaLevel;
 	wildPepegaImage.src = wildPepegaImageUrl;
 	var pagePosition = rollPagePosition();

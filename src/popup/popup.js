@@ -136,10 +136,10 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "levelUpPrompt"){
 
 		setTimeout(function() {
-			showTutorialModal("Now, let's try leveling up your Pepega!", 
-			"<p>Three Pepegas of the same type and level will combine into a Pepega which is one level higher.</p>" + 
+			showTutorialModal("Now, let's try levelling up your Pepega!", 
+			"<p>To level up a Pepega, you need to combine it with two other Pepegas of the same type and level!</p>" + 
 			"<p>So three Level 1 Pepegas will combine into a Level 2 Pepega, and three Level 2 Pepegas will combine into a Level 3 Pepega!</p>" + 
-			"<p>The highest level is Level 3! Go ahead and try leveling up your Pepega now!</p>");
+			"<p>The highest level a Pepega can get is Level 3! Go ahead and try levelling up your Pepega now!</p>");
 		}, tutorialModalDelay);
 
 	}else if(tutorialPhase == "levelUp"){
@@ -213,7 +213,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "fusionInfo"){
 
 		setTimeout(function() {
-			showTutorialModal("You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Red Fastga!", 
+			showTutorialModal("You can make any Pepega Fusions to complete this task, but it's recommended to make an Okayga OR a Red Fastga!", 
 			"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!</p>" +
 			"<p>To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!</p>" +
 			"<p>Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.</p>");
@@ -222,7 +222,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "fusion"){
 
 		tutorialDisplayContent = "Make a Fusion Pepega";
-		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but I recommend making an Okayga OR a Red Fastga!\n" + 
+		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but it's recommended to make an Okayga OR a Red Fastga!\n" + 
 			"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or NINE Level 1 Pepegas in total!\n" +
 			"To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!\n"+
 			"Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.";
