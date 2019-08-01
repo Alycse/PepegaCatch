@@ -207,7 +207,7 @@ const pepegaTypes = [
 
     new PepegaType(3, [], "Firega", "This Pepega leaves behind gasoline cans, gasoline-soaked rags,\nand lighters on websites it roams on.", 
         10, 60, 
-        20, 20, ["Sun with Face Clap", "Starfire", "Overheat"],
+        20, 20, ["Sun with face Clap", "Starfire", "Overheat"],
         browserRuntime.getURL("images/pepegas/3_Firega.png")),
 
     new PepegaType(4, [], "Grassga", "Grassgas devote their lives into protecting and preserving nature.\nThey are against the consumption of plants, animals, and water.\nThey only eat Pepegas.", 
@@ -430,20 +430,20 @@ const pepegaTypes = [
         240, 30, ["Two-Time", "Invisibility", "Become Champion"],
         browserRuntime.getURL("images/pepegas/47_Doctor-Pepega.png")),
 
-    new PepegaType(48, [], "Repliga", "", 
+    new PepegaType(48, [], "REPLIGA", "", 
         -2500, 10, 
         1600, 40, ["t0rm3nt"],
-        browserRuntime.getURL("images/pepegas/48_Repliga.png")),
+        browserRuntime.getURL("images/pepegas/48_REPLIGA.png")),
 
-    new PepegaType(49, [], "Luciga", "", 
+    new PepegaType(49, [], "ZOZOGA", "", 
         1000, 5, 
         30000, 45, ["Torment"],
-        browserRuntime.getURL("images/pepegas/49_Luciga.png")),
+        browserRuntime.getURL("images/pepegas/49_ZOZOGA.png")),
 
-    new PepegaType(50, [], "Final Luciga", "", 
+    new PepegaType(50, [], "ZOZOGA II", "", 
         150000, -10, 
-        180000, 50, ["Massacre", "Slaughter", "Summon the Pepedra"],
-        browserRuntime.getURL("images/pepegas/50_Final-Luciga.png")),
+        180000, 50, ["Hijack", "Shut Down", "Possess"],
+        browserRuntime.getURL("images/pepegas/50_ZOZOGA-II.png")),
 ]
 
 const categories = [
@@ -749,12 +749,12 @@ const categories = [
             new Option(pepegaTypes[9], 1.5),
             new Option(pepegaTypes[10], 0.1),
             new Option(pepegaTypes[11], 0.01),
-            new Option(pepegaTypes[12], 3),
-            new Option(pepegaTypes[13], 4),
-            new Option(pepegaTypes[14], 6),
-            new Option(pepegaTypes[22], 2),
-            new Option(pepegaTypes[23], 8),
-            new Option(pepegaTypes[24], 6)
+            new Option(pepegaTypes[12], 4),
+            new Option(pepegaTypes[13], 5),
+            new Option(pepegaTypes[14], 7),
+            new Option(pepegaTypes[22], 3),
+            new Option(pepegaTypes[23], 9),
+            new Option(pepegaTypes[24], 7)
         ]
     ),
     new Category(10, false,
@@ -1299,8 +1299,8 @@ function rollTimeBeforeNextWildPepegaSpawn(){
     return roll;
 }
 
-const minTimeBeforeNextWildPepegaSpawn = 7500;
-const maxTimeBeforeNextWildPepegaSpawn = 25000;
+const minTimeBeforeNextWildPepegaSpawn = 5000;
+const maxTimeBeforeNextWildPepegaSpawn = 15000;
 const beginnerTimeBeforeNextWildPepegaSpawn = 2000;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
@@ -1608,7 +1608,7 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     var pepegaAdd = addPlayerPepega(wildPepega);
     
     if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successSingle){
-        var notificationMessage = "You caught " + getArticle(pepegaAdd[1].pepegaType.name) + " Level " + pepegaAdd[1].level + " " + pepegaAdd[1].pepegaType.name + "!";
+        var notificationMessage = "You caught a Level " + pepegaAdd[1].level + " " + pepegaAdd[1].pepegaType.name + "!";
         if(fightResults.casualties == 1){
             notificationMessage += "\nOne of your Pepegas died during the battle. :(";
         }else if(fightResults.casualties > 1){
@@ -2097,10 +2097,14 @@ function repelWildPepega(){
     playSound(pepegaRepelSound);
 }
 
+function formatWithCommas(value) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if(request.message == "get-wild-pepega"){
-            sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref) });
+            sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref), "totalEstimatedPower": formatWithCommas((rank.basePower + totalPepegaPower).toFixed(2)) });
 		}else if(request.message == "catch-wild-pepega"){
             catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.locationHref);
             sendResponse();
