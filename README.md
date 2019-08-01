@@ -16,17 +16,15 @@ Pepega Catch is a browser extension that inserts Pepegas in the webpages that yo
 To catch a Pepega, you simply click on it.
 
 Your Pepega Army (Pepegas that you've already caught) will then "battle" the Wild Pepega that you're trying to catch.
-
-Your Pepegas can die during battle, and if you and all your Pepegas fail to defeat the Wild Pepega, it will escape.
-
+Your Pepegas can also die during battle, and if you and all your Pepegas fail to defeat the Wild Pepega, it will escape.
 This all happens automatically, however, so all you have to do is click on the Wild Pepega!
 
 When you successfully catch a Wild Pepega, it will automatically become a part of your army.
 
-Pepegas in your army generates IQ points. You can spend IQ points to buy more slots for your army, and ressurect dead Pepegas who died in battle!
+Pepegas in your army generate IQ Points. You can spend IQ Points to buy more slots for your army, and ressurect dead Pepegas who died in battle!
 
 You'll also be ranked based on how much IQ you have. The higher your rank is, the more powerful you get!\
-This means being able to battle and successfully catch <b>stronger</b> Pepegas across the internet!
+This means being able to battle and successfully catch much <b>stronger</b> Pepegas!
 
 ## Natural Habitats
 
