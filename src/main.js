@@ -965,6 +965,8 @@ var notificationsDisplay = {
     message: ""
 }
 
+var savedScrollPosition = 0;
+
 browserStorage.get(["notificationsDisplayHeader", "notificationsDisplayMessage"], function(result) {
     if(result.notificationsDisplayHeader != null){
         notificationsDisplay.header = result.notificationsDisplayHeader;
@@ -2009,6 +2011,10 @@ function buyPepegaSlot(){
     }
 }
 
+function updateSavedScrollPosition(y){
+    savedScrollPosition = y;
+}
+
 function updateAllPopupDisplays(){
     updatePlayerIqCountPopupDisplay();
     updatePlayerPepegasPopupDisplay();
@@ -2152,6 +2158,11 @@ browserRuntime.onMessage.addListener(
         }else if(request.message == "repel-wild-pepega"){
             repelWildPepega();
             sendResponse();
+        }else if(request.message == "update-saved-scroll-position"){
+            updateSavedScrollPosition(request.y);
+            sendResponse();
+        }else if(request.message == "get-saved-scroll-position"){
+            sendResponse({ "y": savedScrollPosition });
         }
 	}
 );

@@ -80,6 +80,9 @@ browserRuntime.onMessage.addListener(
 );
 
 browserRuntime.sendMessage({"message": "update-all-popup-displays"});
+browserRuntime.sendMessage({"message": "get-saved-scroll-position"}, function(result) {
+	window.scrollTo(0, result.y);
+});
 
 function setDisplayedNotifications(notificationsDisplayHeader, notificationsDisplayMessage){
 	if(notificationsDisplayHeader != ""){
@@ -790,6 +793,7 @@ window.onscroll = function () {
 	if(modalYPosition != null){
 		window.scrollTo(0, modalYPosition); 
 	}
+	browserRuntime.sendMessage({"message": "update-saved-scroll-position", "y": window.scrollY});
 };
 
 function releasePlayerPepega(){
