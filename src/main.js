@@ -392,7 +392,7 @@ const pepegaTypes = [
 
     new PepegaType(40, [39, 39, 17], "Ninjaga", "This Pepega keeps telling you to click the Subscribe button,\nbut also making sure you don't smash it.", 
         130, 300, 
-        275, 30, ["Ligma", "Sugma", "Subscribe to Pepega Prime (without smashing)"],
+        275, 30, ["Ligma", "Subscribe to Pepega Prime (without smashing)", "Stream on Miksga"],
         browserRuntime.getURL("images/pepegas/40_Ninjaga.png")),
 
     new PepegaType(41, [39, 39, 12], "Xqga", "A streamer with a fanbase.", 
