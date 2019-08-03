@@ -9,7 +9,7 @@ const startingPlayerPepegaSlots = 4;
 const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 70;
-const minimumCatchCountForMorePepegas = 4;
+const minimumCatchCountForMorePepegas = 5;
 const multiplierBeforePepegaRecovers = 10000;
 
 var browser = chrome;
@@ -126,22 +126,22 @@ class Branch {
 }
 
 const ranks = [
-    new Rank(0, ["a"], ["Pepega Trainer"], ["Gotta take em all!"], function iqRankRequirement(){ return isPlayerIqHigher(0); }, "0 IQ",1.0, 10),
-    new Rank(1, ["a"], ["Pepega Shepherd"], [""], function iqRankRequirement(){ return isPlayerIqHigher(4000); }, "4,000 IQ", 1.1, 15),
-    new Rank(2, ["a"], ["Pepega Whisperer"], [""], function iqRankRequirement(){ return isPlayerIqHigher(35000); }, "35,000 IQ", 1.2, 20),
-    new Rank(3, ["a"], ["Pepega Researcher"], [""], function iqRankRequirement(){ return isPlayerIqHigher(250000); }, "250,000 IQ", 1.3, 25),
-    new Rank(4, ["a"], ["Pepega Scientist"], [""], function iqRankRequirement(){ return isPlayerIqHigher(1000000); }, "1,000,000 IQ", 1.4, 30),
-    new Rank(5, ["a"], ["Pepega Guru"], [""], function iqRankRequirement(){ return isPlayerIqHigher(4000000); }, "4,000,000 IQ", 1.5, 40),
-    new Rank(6, ["a"], ["Professor Pepega"], [""], function iqRankRequirement(){ return isPlayerIqHigher(15000000); }, "15,000,000 IQ", 1.6, 50),
-    new Rank(7, ["a"], ["Pepega Leader"], [""], function iqRankRequirement(){ return isPlayerIqHigher(40000000); }, "40,000,000 IQ", 1.7, 75),
-    new Rank(8, ["a"], ["Pepega Commander"], [""], function iqRankRequirement(){ return isPlayerIqHigher(120000000); }, "120,000,000 IQ", 1.8, 100),
-    new Rank(9, [""], ["Captain Pepega"], ["You're the captain now!"], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 1.9, 125),
-    new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(600000000); }, "600,000,000 IQ", 2.0, 150),
-    new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(1000000000); }, "1,000,000,000 IQ", 2.2, 200),
-    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(2500000000); }, "2,500,000,000 IQ IQ", 2.4, 250),
-    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(5000000000); }, "5,000,000,000 IQ", 2.6, 300),
+    new Rank(0, ["a"], ["Pepega Trainer"], ["Gotta take em all!"], function iqRankRequirement(){ return isPlayerIqHigher(0); }, "0 IQ",1.0, 15),
+    new Rank(1, ["a"], ["Pepega Shepherd"], [""], function iqRankRequirement(){ return isPlayerIqHigher(1000); }, "1,000 IQ", 1.1, 20),
+    new Rank(2, ["a"], ["Pepega Whisperer"], [""], function iqRankRequirement(){ return isPlayerIqHigher(20000); }, "20,000 IQ", 1.2, 25),
+    new Rank(3, ["a"], ["Pepega Researcher"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000); }, "150,000 IQ", 1.3, 30),
+    new Rank(4, ["a"], ["Pepega Scientist"], [""], function iqRankRequirement(){ return isPlayerIqHigher(750000); }, "750,000 IQ", 1.4, 35),
+    new Rank(5, ["a"], ["Pepega Guru"], [""], function iqRankRequirement(){ return isPlayerIqHigher(2000000); }, "2,000,000 IQ", 1.5, 40),
+    new Rank(6, ["a"], ["Professor Pepega"], [""], function iqRankRequirement(){ return isPlayerIqHigher(5000000); }, "5,000,000 IQ", 1.6, 50),
+    new Rank(7, ["a"], ["Pepega Leader"], [""], function iqRankRequirement(){ return isPlayerIqHigher(10000000); }, "10,000,000 IQ", 1.7, 75),
+    new Rank(8, ["a"], ["Pepega Commander"], [""], function iqRankRequirement(){ return isPlayerIqHigher(20000000); }, "20,000,000 IQ", 1.8, 100),
+    new Rank(9, [""], ["Captain Pepega"], ["You're the captain now!"], function iqRankRequirement(){ return isPlayerIqHigher(40000000); }, "40,000,000 IQ", 1.9, 125),
+    new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(75000000); }, "75,000,000 IQ", 2.0, 150),
+    new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000000); }, "150,000,000 IQ", 2.2, 200),
+    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 2.4, 250),
+    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(500000000); }, "500,000,000 IQ", 2.6, 300),
     new Rank(14, ["a", "the", "the"], ["Pepega Legend Gold", "President of the Pepega States", "Emperor of Pepegan"], 
-    ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(10000000000); }, "10,000,000,000 IQ IQ", 2.8, 500),
+    ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(1000000000); }, "1,000,000,000 IQ", 2.8, 500),
     new Rank(15, ["the", "the", "the"], ["True Pepega", "PepeGOD", "Gaijinga"], 
     ["Your IQ is less than 100... you are the truest of all Pepegas!", "Pepegas across the globe bow down to your presence.", "You are the ultimate weeb. AYAYA Clap"], 
     function iqRankRequirement(){  return finalRankRequirement(); }, "Every. Single. Pepega.", 3.0, 150),
@@ -1224,7 +1224,7 @@ function rollWildPepega(category){
     var specialEventOccured = false;
 
     if(!category.isSpecial){
-        if(player.successfulCatchCount == 1){
+        if(player.catchCount == 1){
             var roll = Math.floor(Math.random() * (3));
             if(roll == 0){
                 wildPepegaType = pepegaTypes[3];
@@ -1281,7 +1281,7 @@ function rollWildPepega(category){
 
     var roll = Math.floor(Math.random() * (99));
     console.log("Wild Pepega Level Roll: " + roll); 
-    if(!specialEventOccured && roll > 25 && wildPepegaType.basePower < (totalPepegaPower / 4)){
+    if(player.catchCount >= 20 && roll > 25 && wildPepegaType.basePower < (totalPepegaPower / 4)){
         wildPepegaLevel = 2;
     }
 
@@ -1301,9 +1301,10 @@ function rollTimeBeforeNextWildPepegaSpawn(){
     return roll;
 }
 
-const minTimeBeforeNextWildPepegaSpawn = 5000;
-const maxTimeBeforeNextWildPepegaSpawn = 15000;
-const beginnerTimeBeforeNextWildPepegaSpawn = 2000;
+const minimumBeginnerCatchCount = 10;
+const minTimeBeforeNextWildPepegaSpawn = 3500;
+const maxTimeBeforeNextWildPepegaSpawn = 10000;
+const beginnerTimeBeforeNextWildPepegaSpawn = 1000;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
 browserStorage.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"], function(result) {
@@ -1318,7 +1319,7 @@ function getWildPepega(locationHref){
 
     var currentTime = new Date().getTime();
     console.log(((lastWildPepegaSpawnTime - (currentTime - timeBeforeNextWildPepegaSpawn))/1000.0) + " seconds before the next Wild Pepega spawns.");
-    if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && rollEncounter()){
+    if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && (rollEncounter() || player.catchCount <= minimumBeginnerCatchCount)){
         console.log("Wild Pepega has spawned in " + location.hostname + "!");
         var category = getCategory(location.hostname);
         if(category == null){
@@ -1326,7 +1327,7 @@ function getWildPepega(locationHref){
         }
 
         lastWildPepegaSpawnTime = currentTime;
-        if(player.catchCount >= 3){
+        if(player.catchCount >= minimumBeginnerCatchCount){
             timeBeforeNextWildPepegaSpawn = rollTimeBeforeNextWildPepegaSpawn();
         }else{
             timeBeforeNextWildPepegaSpawn = beginnerTimeBeforeNextWildPepegaSpawn;
@@ -1608,6 +1609,9 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     wildPepega.fusioned = false;
 
     var pepegaAdd = addPlayerPepega(wildPepega);
+
+    player.successfulCatchCount++;
+    browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
     
     if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successSingle){
         var notificationMessage = "You caught a Level " + pepegaAdd[1].level + " " + pepegaAdd[1].pepegaType.name + "!";
@@ -1620,9 +1624,6 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
         notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", pepegaAdd[1].pepegaType.name + " caught!", 
         notificationMessage, pepegaAdd[1].pepegaType.imageUrl);
 
-        player.successfulCatchCount++;
-        browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
-
         if(tutorial.phase == "catch"){
             updateTutorialPhase("catchDone");
         }
@@ -1633,9 +1634,6 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
             wildPepega.pepegaType.name + " fusioned with other Pepegas into " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!\nPogChamp!",
             pepegaAdd[1].pepegaType.imageUrl);
 
-        player.successfulCatchCount++;
-        browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
-
         if(tutorial.phase == "fusion"){
             updateTutorialPhase("fusionDone");
         }
@@ -1645,9 +1643,6 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
         notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", pepegaAdd[1].pepegaType.name + " is now level " + pepegaAdd[1].level + "!",
             "Your " + pepegaAdd[1].pepegaType.name + " leveled up!\nIt is now level " + pepegaAdd[1].level + "!\nPog!",
             pepegaAdd[1].pepegaType.imageUrl);
-
-        player.successfulCatchCount++;
-        browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
 
         if(tutorial.phase == "levelUp"){
             updateTutorialPhase("levelUpDone");
@@ -2100,6 +2095,9 @@ function updateRandomTutorialPopupDisplay(){
 }
 
 function repelWildPepega(){
+    player.catchCount++;
+    browserStorage.set({playerCatchCount: player.catchCount});
+    
     playSound(pepegaRepelSound);
 }
 
