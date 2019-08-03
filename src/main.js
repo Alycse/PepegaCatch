@@ -1224,7 +1224,7 @@ function rollWildPepega(category){
     var specialEventOccured = false;
 
     if(!category.isSpecial){
-        if(player.catchCount == 1){
+        if(player.successfulCatchCount == 1){
             var roll = Math.floor(Math.random() * (3));
             if(roll == 0){
                 wildPepegaType = pepegaTypes[3];
@@ -1236,7 +1236,7 @@ function rollWildPepega(category){
             specialEventOccured = true;
         } else if(player.successfulCatchCount < minimumCatchCountForMorePepegas){
             specialEventOccured = true;
-        } else if(player.catchCount == 5){
+        } else if(player.catchCount == 6){
             var roll = Math.floor(Math.random() * (8));
             if(roll == 0){
                 wildPepegaType = pepegaTypes[40];
@@ -1281,7 +1281,7 @@ function rollWildPepega(category){
 
     var roll = Math.floor(Math.random() * (99));
     console.log("Wild Pepega Level Roll: " + roll); 
-    if(roll > 25 && wildPepegaType.basePower < (totalPepegaPower / 4)){
+    if(!specialEventOccured && roll > 25 && wildPepegaType.basePower < (totalPepegaPower / 4)){
         wildPepegaLevel = 2;
     }
 
