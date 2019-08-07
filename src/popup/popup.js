@@ -75,6 +75,9 @@ browserRuntime.onMessage.addListener(
 		}else if(request.message == "show-random-tutorial"){
 			setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
 			sendResponse();
+		}else if(request.message == "config-is-iq-count-unitized-updated"){
+			setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
+			sendResponse();
 		}
 	}
 );
@@ -512,19 +515,6 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 	}
 }
 
-function commarize() {
-	if (this >= 1000000) {
-	  	var units = ["Million", "Billion", "Trillion", "Quadrillion"];
-	  	let unit = Math.floor(((this).toFixed(0).length - 1) / 3) * 3;
-	  	var num = (this / ('1e'+unit)).toFixed(2);
-	  	var unitname = units[Math.floor(unit / 3) - 2];
-	  	return num + " " + unitname;
-	}
-	return this.toLocaleString();
-}
-Number.prototype.commarize = commarize
-String.prototype.commarize = commarize
-  
 function setDisplayedEncounterRate(baseEncounterRate, settingsEncounterMode){
 	document.getElementById("encounterRateContent").innerHTML = ((baseEncounterRate) * (settingsEncounterMode.multiplier / 100)) + "%";
 	if(settingsEncounterMode.multiplier != 100){
@@ -536,9 +526,37 @@ function setDisplayedEncounterRate(baseEncounterRate, settingsEncounterMode){
 	}
 }
 
+function unitize() {
+	if (this >= 1000000) {
+	  	var units = ["Million", "Billion", "Trillion", "Quadrillion"];
+	  	let unit = Math.floor(((this).toFixed(0).length - 1) / 3) * 3;
+	  	var num = (this / ('1e'+unit)).toFixed(2);
+	  	var unitname = units[Math.floor(unit / 3) - 2];
+	  	return num + " " + unitname;
+	}
+	return this.toLocaleString();
+}
+Number.prototype.unitize = unitize;
+String.prototype.unitize = unitize;
+
+var isIqCountUnitized = true;
+
 function setDisplayedPlayerIqCount(playerIqCount){
 	displayedIqCount = playerIqCount;
-	document.getElementById("iqCountContent").innerHTML = Math.round(playerIqCount).commarize();
+	if(isIqCountUnitized){
+		document.getElementById("iqCountContent").innerHTML = Math.round(playerIqCount).unitize();
+	}else{
+		document.getElementById("iqCountContent").innerHTML = Math.round(playerIqCount).toLocaleString();
+	}
+}
+
+function changeIqCountUnitization(){
+	browserRuntime.sendMessage({"message": "change-iq-count-unitization"});
+}
+
+function setDisplayedIsIqCountUnitized(unitize, playerIqCount){
+	isIqCountUnitized = unitize;
+	setDisplayedPlayerIqCount(playerIqCount)
 }
 
 function setDisplayedEncounterMode(settingsEncounterMode){
@@ -910,3 +928,4 @@ document.getElementById("battleBreakdownAlertShow").addEventListener("click", sh
 document.getElementById("battleBreakdownAlertHide").addEventListener("click", hideBattleBreakdownAlert);
 document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);
 document.getElementById("fusionRecipesTitle").addEventListener("click", showFusionRecipes);
+document.getElementById("iqCountContent").addEventListener("click", changeIqCountUnitization);

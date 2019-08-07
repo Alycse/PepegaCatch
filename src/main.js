@@ -190,7 +190,7 @@ function weebBranchRequirement(){
 }
 
 const pepegaTypes = [
-    new PepegaType(0, [], "Pepega", "The original Pepega we all know and love.", 
+    new PepegaType(0, [], "Pepega", "The original Pepega we all know and love.\nIts head is shaped like a garlic.", 
         1, 1,
         1, 20, ["Shout", "Push", "Scream"],
         browserRuntime.getURL("images/pepegas/0_Pepega.png")),
@@ -950,6 +950,7 @@ var settings = {
 var config = {
     filteredSites: [],
     encounterMode: encounterModes[0],
+    isIqCountUnitized: true
 }
 
 var tutorial = {
@@ -1072,6 +1073,12 @@ browserStorage.get(["configEncounterMode"], function(result) {
     }
 });
 
+browserStorage.get(["configIsIqCountUnitized"], function(result) {
+    if(result.configIsIqCountUnitized != null){
+        config.isIqCountUnitized = result.configIsIqCountUnitized;
+    }
+});
+
 browserStorage.get(["configFilteredSites"], function(result) {
     if(result.configFilteredSites != null){
         config.filteredSites = result.configFilteredSites;
@@ -1180,10 +1187,12 @@ function updatePlayerPepegaSlots(newPepegaSlots, save = true){
 }
 
 function analyzePepegaSlotCost(){
-    if(player.pepegaSlots > 4){
+    if(player.pepegaSlots <= 4){
+        pepegaSlotCost = 50 + (player.pepegaSlots * 50);
+    }else if(player.pepegaSlots <= 15){
         pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6));
     }else{
-        pepegaSlotCost = 50 + (player.pepegaSlots * 50);
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7));
     }
 }
 
@@ -1880,6 +1889,14 @@ function updateConfigFilteredSites(filteredSitesText){
     browserStorage.set({configFilteredSites: config.filteredSites});
 }
 
+function updateConfigIsIqCountUnitized(){
+    config.isIqCountUnitized = !config.isIqCountUnitized;
+
+    updateConfigIsIqCountUnitizedPopupDisplay();
+
+    browserStorage.set({configIsIqCountUnitized: config.isIqCountUnitized});
+}
+
 function updateConfigEncounterMode(){
     var newEncounterMode = encounterModes[0];
     if(config.encounterMode.id < encounterModes.length-1){
@@ -2021,6 +2038,7 @@ function updateAllPopupDisplays(){
     updateTutorialPhasePopupDisplay();
     updateRandomTutorialPopupDisplay();
     updateNotificationsPopupDisplay();
+    updateConfigIsIqCountUnitizedPopupDisplay();
 }
 function updateNotificationsPopupDisplay(){
     if(popup.isOpened){
@@ -2076,6 +2094,11 @@ function updatePlayerArmyNamePopupDisplay(){
 function updateConfigEncounterModePopupDisplay(){
     if(popup.isOpened){
         browserRuntime.sendMessage({"message": "config-encounter-mode-updated", "configEncounterMode": config.encounterMode, "baseEncounterRate": baseEncounterRate});
+    }
+}
+function updateConfigIsIqCountUnitizedPopupDisplay(){
+    if(popup.isOpened){
+        browserRuntime.sendMessage({"message": "config-is-iq-count-unitized-updated", "configIsIqCountUnitized": config.isIqCountUnitized, "playerIqCount" : player.iqCount});
     }
 }
 function updateConfigFilteredSitesPopupDisplay(){
@@ -2161,6 +2184,9 @@ browserRuntime.onMessage.addListener(
             sendResponse();
         }else if(request.message == "get-saved-scroll-position"){
             sendResponse({ "y": savedScrollPosition });
+        }else if(request.message== "change-iq-count-unitization"){
+            updateConfigIsIqCountUnitized();
+            sendResponse();
         }
 	}
 );

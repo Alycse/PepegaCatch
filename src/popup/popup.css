@@ -154,6 +154,7 @@ body{
 #iqCountContent{
     font-size: 36px;
     color: whitesmoke;
+    cursor: pointer;
 }
 #iqpsContent{
     font-size: 22px;
