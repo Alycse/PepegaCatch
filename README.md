@@ -1,11 +1,11 @@
 # Pepega Catch
 Catch and collect all Pepegas across the internet!
 
-# Playing the game
+# Installation/Download Links
 
-[Install for Google Chrome]
+[Install for Google Chrome](https://chrome.google.com/webstore/detail/pepega-catch/pgjlemoacllebidgpchfhdgeifkmbigi)
 
-[Install for Mozilla Firefox]
+[Install for Mozilla Firefox](https://addons.mozilla.org/firefox/addon/pepega-catch/)
 
 
 
