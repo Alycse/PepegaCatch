@@ -111,7 +111,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("Let's catch your first Pepega!", 
 			"<p>Go to any website, find the Wild Pepega hiding within the page, then click it!</p>" + 
 			"<p>You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)</p>" +
-			"<p>But since you don't have any Pepegas yet, you're gonna have to defeat it yourself!</p>" +
+			"<p>But since you don't have any Pepegas yet, you're gonna have to defeat it by yourself!</p>" +
 			"<p>Try catching one now! You may hover over the Wild Pepega to see its name and power.</p>");
 		}, tutorialModalDelay);
 		
