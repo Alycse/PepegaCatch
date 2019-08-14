@@ -1189,8 +1189,8 @@ function updatePlayerPepegaSlots(newPepegaSlots, save = true){
 function analyzePepegaSlotCost(){
     if(player.pepegaSlots <= 4){
         pepegaSlotCost = 20 + (player.pepegaSlots * 20);
-    }else {
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 5));
+    } else {
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 5)) + Math.round(Math.pow(player.pepegaSlots-1, 5) / 2);
     }
 }
 
