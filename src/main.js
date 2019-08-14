@@ -207,22 +207,22 @@ const pepegaTypes = [
 
     new PepegaType(3, [], "Firega", "This Pepega leaves behind gasoline cans, gasoline-soaked rags,\nand lighters on websites it roams on.", 
         5, 60, 
-        125, 20, ["Sun with face Clap", "Starfire", "Overheat"],
+        55, 20, ["Sun with face Clap", "Starfire", "Overheat"],
         browserRuntime.getURL("images/pepegas/3_Firega.png")),
 
     new PepegaType(4, [], "Grassga", "Grassgas devote their lives into protecting and preserving nature.\nThey are against the consumption of plants, animals, and water.\nThey only eat Pepegas.", 
-        8, 60, 
-        100, 20, ["Snus", "Fame Leech", "Sap"],
+        7, 60, 
+        45, 20, ["Snus", "Fame Leech", "Sap"],
         browserRuntime.getURL("images/pepegas/4_Grassga.png")),
 
     new PepegaType(5, [], "Icega", "", 
-        10, 60, 
-        70, 20, ["Hail", "Stage", "Freeze"],
+        9, 60, 
+        30, 20, ["Hail", "Stage", "Freeze"],
         browserRuntime.getURL("images/pepegas/5_Icega.png")),
 
     new PepegaType(6, [2, 3, 3], "Pepega Knight", "Pepega Knights are the protectors of the weak.\nThey will defend anyone who is under scrutiny by the public,\nas long as it is attractive of course.", 
-        190, 300, 
-        1950, 25, ["Donate", "Permaban", "Defend"],
+        185, 300, 
+        1985, 25, ["Donate", "Permaban", "Defend"],
         browserRuntime.getURL("images/pepegas/6_Pepega-Knight.png")),
 
     new PepegaType(7, [2, 4, 4], "Pepega Hunter", "Pepega Hunters can't actually shoot arrows with their bows,\ninstead they just bash their bows against their enemies.", 
@@ -231,8 +231,8 @@ const pepegaTypes = [
         browserRuntime.getURL("images/pepegas/7_Pepega-Hunter.png")),
 
     new PepegaType(8, [2, 5, 5], "Pepega Wizard", "This Pepega is very fond of Time Travel and risque dancing.\nIt has a habit of screaming its own name.", 
-        248, 300, 
-        1555, 25, ["Old Age", "Thrust", "Time Compression"],
+        255, 300, 
+        1520, 25, ["Old Age", "Thrust", "Time Compression"],
         browserRuntime.getURL("images/pepegas/8_Pepega-Wizard.png")),
 
     new PepegaType(9, [], "Baby Pepega", "Aww, it's so cute! :3", 
