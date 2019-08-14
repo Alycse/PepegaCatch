@@ -127,10 +127,10 @@ function setDisplayedTutorialPhase(tutorialPhase){
 
 		setTimeout(function() {
 			showTutorialModal("Great! You caught your first Pepega!", 
-			"<p>This Pepega will increase the amount of IQ you get per second, " +
+			"<p>This newly tamed Pepega will increase the amount of IQ you get per second, " +
 			"and it will also fight for you when you're catching more Wild Pepegas!</p>" +
-			"<p>Your Total Estimated Power is your rank's base power combined with your Pepegas' power, which you can find on your home screen.</p>" +
-			"<p>Generally, you need this to be higher than the power of the Wild Pepega that you're trying to catch.</p>");
+			"<p>Your Total Estimated Power is your rank's base power combined with your tamed Pepegas' power, which you can find on your home screen.</p>" +
+			"<p>Generally, you need this to be much higher than the power of the Wild Pepega that you're trying to catch, as Pepegas are stronger when they're untamed!</p>");
 		}, tutorialModalDelay);
 
 	} else if (tutorialPhase == "repelInfo"){
@@ -211,7 +211,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 
 		setTimeout(function() {
 			showTutorialModal("For your last task, I want you to make a Fusion Pepega.", 
-			"<p>Fusing specific Pepegas can create new, different types of Pepegas that are stronger and way smarter.</p>" +
+			"<p>Fusing Pepegas can create new, different types of Pepegas that are stronger and way smarter.</p>" +
 			"<p>However, only Level 3 Pepegas can be used for fusions.</p>" + 
 			"<p>Fusions are also done automatically. Once you have all of the required Pepegas for a particular Pepega Fusion, they will automatically fuse.</p>");
 		}, tutorialModalDelay);

@@ -49,8 +49,8 @@ body{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .modalTitle{
-    font-size: 32px;
-    color: rgb(180, 180, 180);
+    font-size: 30px;
+    color: rgb(200, 200, 200);
 }
 .modalDescription{
     font-size: 15px;
