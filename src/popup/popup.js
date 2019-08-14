@@ -243,8 +243,9 @@ function setDisplayedTutorialPhase(tutorialPhase){
 
 		setTimeout(function() {
 			showTutorialModal("You've completed the tutorial!", 
-				"<p>If you need more information about the game, you may <a href=\""+gameLink+"\">visit the game's page</a>!</p>" + 
+				"<p>If you need more information about the game, you may <span id=\"gameLink\">visit the game's page</span>!</p>" + 
 				"<p>Thank you!</p>");
+			document.getElementById("gameLink").addEventListener("click", openGameLink);
 		}, tutorialModalDelay);
 
 	} 
@@ -336,7 +337,8 @@ function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 		showRandomTutorialModal("deadPepega", "Oh no! One of your Pepegas died while fighting the Wild Pepega!", 
 		"<p>When a Pepega dies, it won't produce any IQ and it won't fight for you.</p>"+
 		"<p>To bring it back to life, you can either wait for it to be ressurected (you can see how long this will take by hovering over the dead Pepega with your cursor)...</p>" +
-		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button. You also can't heal Pepegas that are close to being fully healed!</p>");
+		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button.</p>" + 
+		"<p>Remember, you can hover your cursor over the Wild Pepega on the website to find out if it's too strong for your army!</p>");
 	
 	}
 	shownRandomTutorialPhase = randomTutorialPhase;

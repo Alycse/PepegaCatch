@@ -109,6 +109,14 @@ body{
     font-size: 18px;
 }
 
+#gameLink {
+    color: rgb(255, 223, 162);
+}
+#gameLink:hover {
+    color: rgb(255, 197, 91);
+    cursor: pointer;
+}
+
 #randomTutorialModalTitle{
     color: rgb(255, 247, 179);
     font-size: 24px;
