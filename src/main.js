@@ -451,7 +451,6 @@ const pepegaTypes = [
 const categories = [
     new Category(0, false, [],
         [
-            new Option(pepegaTypes[1], 3),
             new Option(pepegaTypes[3], 5),
             new Option(pepegaTypes[4], 5),
             new Option(pepegaTypes[5], 5),
@@ -485,7 +484,6 @@ const categories = [
             new Site("twitter"),
         ],
         [
-            new Option(pepegaTypes[1], 3),
             new Option(pepegaTypes[3], 3),
             new Option(pepegaTypes[4], 3),
             new Option(pepegaTypes[5], 8),
@@ -508,7 +506,6 @@ const categories = [
             new Site("tumblr")
         ],
         [
-            new Option(pepegaTypes[1], 3),
             new Option(pepegaTypes[3], 8),
             new Option(pepegaTypes[4], 3),
             new Option(pepegaTypes[5], 3),
@@ -529,7 +526,6 @@ const categories = [
             new Site("reddit")
         ],
         [
-            new Option(pepegaTypes[1], 1.5),
             new Option(pepegaTypes[2], 1.5),
             new Option(pepegaTypes[3], 2),
             new Option(pepegaTypes[4], 6),
@@ -565,7 +561,6 @@ const categories = [
             new Site("deviantart")
         ],
         [
-            new Option(pepegaTypes[1], 1.5),
             new Option(pepegaTypes[2], 1.5),
             new Option(pepegaTypes[3], 2),
             new Option(pepegaTypes[4], 6),
@@ -635,7 +630,6 @@ const categories = [
             new Site("nintendo")
         ],
         [
-            new Option(pepegaTypes[1], 1.5),
             new Option(pepegaTypes[2], 1.5),
             new Option(pepegaTypes[3], 3),
             new Option(pepegaTypes[4], 8),
@@ -678,7 +672,6 @@ const categories = [
             new Site("tunein"),
         ],
         [
-            new Option(pepegaTypes[1], 1.5),
             new Option(pepegaTypes[2], 1.5),
             new Option(pepegaTypes[3], 2),
             new Option(pepegaTypes[4], 6),
@@ -712,7 +705,6 @@ const categories = [
             new Site("duckduckgo")
         ],
         [
-            new Option(pepegaTypes[1], 1.5),
             new Option(pepegaTypes[2], 1.5),
             new Option(pepegaTypes[3], 2),
             new Option(pepegaTypes[4], 2),
