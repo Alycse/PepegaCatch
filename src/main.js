@@ -130,23 +130,23 @@ class Branch {
 const ranks = [
     new Rank(0, ["a"], ["Pepega Trainer"], ["Gotta take em all!"], function iqRankRequirement(){ return isPlayerIqHigher(0); }, "0 IQ",1.0, 30),
     new Rank(1, ["a"], ["Pepega Shepherd"], [""], function iqRankRequirement(){ return isPlayerIqHigher(1000); }, "1,000 IQ", 1.1, 40),
-    new Rank(2, ["a"], ["Pepega Whisperer"], [""], function iqRankRequirement(){ return isPlayerIqHigher(20000); }, "20,000 IQ", 1.2, 50),
-    new Rank(3, ["a"], ["Pepega Researcher"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000); }, "150,000 IQ", 1.3, 60),
-    new Rank(4, ["a"], ["Pepega Scientist"], [""], function iqRankRequirement(){ return isPlayerIqHigher(750000); }, "750,000 IQ", 1.4, 70),
-    new Rank(5, ["a"], ["Pepega Guru"], [""], function iqRankRequirement(){ return isPlayerIqHigher(2000000); }, "2,000,000 IQ", 1.5, 80),
-    new Rank(6, ["a"], ["Professor Pepega"], [""], function iqRankRequirement(){ return isPlayerIqHigher(5000000); }, "5,000,000 IQ", 1.6, 90),
-    new Rank(7, ["a"], ["Pepega Leader"], [""], function iqRankRequirement(){ return isPlayerIqHigher(10000000); }, "10,000,000 IQ", 1.7, 100),
-    new Rank(8, ["a"], ["Pepega Commander"], [""], function iqRankRequirement(){ return isPlayerIqHigher(20000000); }, "20,000,000 IQ", 1.8, 125),
-    new Rank(9, [""], ["Captain Pepega"], ["You're the captain now!"], function iqRankRequirement(){ return isPlayerIqHigher(40000000); }, "40,000,000 IQ", 1.9, 150),
-    new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(75000000); }, "75,000,000 IQ", 2.0, 175),
-    new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000000); }, "150,000,000 IQ", 2.2, 200),
-    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 2.4, 250),
-    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(500000000); }, "500,000,000 IQ", 2.6, 300),
+    new Rank(2, ["a"], ["Pepega Whisperer"], [""], function iqRankRequirement(){ return isPlayerIqHigher(20000); }, "7,500 IQ", 1.2, 50),
+    new Rank(3, ["a"], ["Pepega Researcher"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000); }, "20,000 IQ", 1.3, 60),
+    new Rank(4, ["a"], ["Pepega Scientist"], [""], function iqRankRequirement(){ return isPlayerIqHigher(750000); }, "100,000 IQ", 1.4, 70),
+    new Rank(5, ["a"], ["Pepega Guru"], [""], function iqRankRequirement(){ return isPlayerIqHigher(2000000); }, "500,000 IQ", 1.5, 80),
+    new Rank(6, ["a"], ["Professor Pepega"], [""], function iqRankRequirement(){ return isPlayerIqHigher(5000000); }, "1,000,000 IQ", 1.7, 90),
+    new Rank(7, ["a"], ["Pepega Leader"], [""], function iqRankRequirement(){ return isPlayerIqHigher(10000000); }, "5,000,000 IQ", 1.9, 100),
+    new Rank(8, ["a"], ["Pepega Commander"], [""], function iqRankRequirement(){ return isPlayerIqHigher(20000000); }, "10,000,000 IQ", 2.1, 125),
+    new Rank(9, [""], ["Captain Pepega"], ["You're the captain now!"], function iqRankRequirement(){ return isPlayerIqHigher(40000000); }, "35,000,000 IQ", 2.3, 150),
+    new Rank(10, ["a"], ["Pepega General"], [""], function iqRankRequirement(){ return isPlayerIqHigher(75000000); }, "75,000,000 IQ", 2.5, 200),
+    new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000000); }, "150,000,000 IQ", 3.0, 250),
+    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 3.5, 300),
+    new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(500000000); }, "500,000,000 IQ", 4.0, 400),
     new Rank(14, ["a", "the", "the"], ["Pepega Legend Gold", "President of the Pepega States", "Emperor of Pepegan"], 
-    ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(1000000000); }, "1,000,000,000 IQ", 2.8, 500),
+    ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(1000000000); }, "1,000,000,000 IQ", 5.0, 500),
     new Rank(15, ["the", "the", "the"], ["True Pepega", "PepeGOD", "Gaijinga"], 
     ["Your IQ is less than 100... you are the truest of all Pepegas!", "Pepegas across the globe bow down to your presence.", "You are the ultimate weeb. AYAYA Clap"], 
-    function iqRankRequirement(){  return finalRankRequirement(); }, "Every. Single. Pepega.", 3.0, 150),
+    function iqRankRequirement(){  return finalRankRequirement(); }, "Every. Single. Pepega.", 10.0, 1000),
 ]
 
 const branches = [
@@ -933,7 +933,7 @@ var uniquePepegaCount = 0;
 var isPlayerIdle = false;
 
 var player = {
-    iqCount: 0,
+    iqCount: 100000000000,
     pepegas: [],
     armyName: defaultArmyName,
     pepegaSlots: startingPlayerPepegaSlots,
@@ -1209,15 +1209,15 @@ function analyzePepegaSlotCost(){
     if(player.pepegaSlots <= 4){
         pepegaSlotCost = 125;
     } else if(player.pepegaSlots <= 5){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7) * 0.09);
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7) * 0.045);
     } else if(player.pepegaSlots <= 8){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7) * 0.11);
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7) * 0.07);
     } else if(player.pepegaSlots <= 16){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7) * 0.17);
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 7) * 0.115);
     } else if(player.pepegaSlots <= 24){
-        pepegaSlotCost = Math.round(Math.pow(16 + ((player.pepegaSlots-16) * 0.6), 7) * 0.17);
+        pepegaSlotCost = Math.round(Math.pow(16 + ((player.pepegaSlots-16) * 0.65), 7) * 0.115);
     } else {
-        pepegaSlotCost = Math.round(Math.pow(20.8 + ((player.pepegaSlots-24) * 0.4), 7) * 0.17);
+        pepegaSlotCost = Math.round(Math.pow(21.2 + ((player.pepegaSlots-24) * 0.4), 7) * 0.115);
     }
 }
 
