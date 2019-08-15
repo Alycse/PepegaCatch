@@ -11,6 +11,8 @@ const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 80;
 const minimumCatchCountForMorePepegas = 5;
 const multiplierBeforePepegaRecovers = 2000;
+const idleIqMultiplier = 0.5;
+const idleTime = 1800;
 
 var browser = chrome;
 var browserRuntime = browser.runtime;
@@ -420,15 +422,15 @@ const pepegaTypes = [
         1385, 50, ["Try Hard", "Speedrun", "7"],
         browserRuntime.getURL("images/pepegas/45_Triga.png")),
 
-    new PepegaType(46, [39, 39, 36], "Forsenga", "A professional children's card player that gets mad and bald when it loses.\nAlthough, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever.\nPerhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
-        69, 300, 
-        1335, 50, ["Steal Posture", "Bottom Snus", "Google"],
-        browserRuntime.getURL("images/pepegas/46_Forsenga.png")),
-
     new PepegaType(47, [39, 39, 38, 38], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega.\nFor some reason, you can see through its body.", 
-        73, 300, 
-        1280, 50, ["Two-Time", "Invisibility", "Become Champion"],
+        69, 300, 
+        1335, 50, ["Two-Time", "Invisibility", "Become Champion"],
         browserRuntime.getURL("images/pepegas/47_Doctor-Pepega.png")),
+
+    new PepegaType(46, [39, 39, 36], "Forsenga", "A professional children's card player that gets mad and bald when it loses.\nAlthough, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever.\nPerhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
+        73, 300, 
+        1280, 50, ["Steal Posture", "Bottom Snus", "Google"],
+        browserRuntime.getURL("images/pepegas/46_Forsenga.png")),
 
     new PepegaType(48, [], "REPLIGA", "", 
         -1000, 10, 
@@ -926,6 +928,7 @@ var branch = branches[0];
 var pepegaSlotCost = 0;
 var uniquePepegaIqpsMultiplier = 1;
 var uniquePepegaCount = 0;
+var isPlayerIdle = false;
 
 var player = {
     iqCount: 0,
@@ -1174,6 +1177,20 @@ function removePlayerPepega(id, save = true){
     }
 }
 
+chrome.idle.setDetectionInterval(idleTime);
+chrome.idle.onStateChanged.addListener(
+    function (state) {
+        if (state === "idle"){
+            isPlayerIdle = true;
+            console.log("User is idle.");
+        }else{
+            isPlayerIdle = false;
+            console.log("User is active.");
+        }
+        updateIdlePopupDisplay();
+    }
+);
+
 function updatePlayerPepegaSlots(newPepegaSlots, save = true){
     player.pepegaSlots = newPepegaSlots;
 
@@ -1188,15 +1205,15 @@ function updatePlayerPepegaSlots(newPepegaSlots, save = true){
 
 function analyzePepegaSlotCost(){
     if(player.pepegaSlots <= 4){
-        pepegaSlotCost = 100;
+        pepegaSlotCost = 125;
     } else if(player.pepegaSlots <= 5){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.15);
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.2);
     } else if(player.pepegaSlots <= 8){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.45);
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.55);
     } else if(player.pepegaSlots <= 25){
         pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.75);
     } else {
-        pepegaSlotCost = Math.round(Math.pow(25 + ((player.pepegaSlots-25) * 0.65), 6) * 0.75);
+        pepegaSlotCost = Math.round(Math.pow(25 + ((player.pepegaSlots-25) * 0.75), 6) * 0.75);
     }
 }
 
@@ -1959,7 +1976,11 @@ var interval = setInterval(function() {
 }, 100);
 
 function updatePlayerIqCount(iq){
-    var newPlayerIqCount = player.iqCount + iq;
+    var additionalIq = iq;
+    if(isPlayerIdle){
+        additionalIq *= idleIqMultiplier;
+    }
+    var newPlayerIqCount = player.iqCount + additionalIq;
 
     if(newPlayerIqCount > maxPlayerIqCount){
         newPlayerIqCount = maxPlayerIqCount;
@@ -2049,6 +2070,7 @@ function updateAllPopupDisplays(){
     updateRandomTutorialPopupDisplay();
     updateNotificationsPopupDisplay();
     updateConfigIsIqCountUnitizedPopupDisplay();
+    updateIdlePopupDisplay();
 }
 function updateNotificationsPopupDisplay(){
     if(popup.isOpened){
@@ -2059,6 +2081,11 @@ function updateNotificationsPopupDisplay(){
 function updatePlayerPepegaSlotsPopupDisplay(){
     if(popup.isOpened){
 		browserRuntime.sendMessage({"message": "player-pepega-slots-updated", "playerPepegaCount": player.pepegas.length, "playerPepegaSlots": player.pepegaSlots, "pepegaSlotCost": pepegaSlotCost, "playerIqCount": player.iqCount});
+    }
+}
+function updateIdlePopupDisplay(){
+    if(popup.isOpened){
+		browserRuntime.sendMessage({"message": "idle-updated", "isPlayerIdle": isPlayerIdle, "idleIqMultiplier" : idleIqMultiplier});
     }
 }
 function updatePlayerIqCountPopupDisplay(){
@@ -2088,7 +2115,7 @@ function updatePlayerIqCountPopupDisplay(){
 function updatePlayerPepegasPopupDisplay(){
     if(popup.isOpened){
         browserRuntime.sendMessage({"message": "player-pepegas-updated", "playerPepegas": player.pepegas, "totalIqps": totalIqps, "totalPepegaPower": totalPepegaPower, "rankBasePower": rank.basePower,
-        "multipliedTotalIqps": Math.round((totalIqps * rank.iqpsMultiplier) * uniquePepegaIqpsMultiplier), "playerPepegaSlots": player.pepegaSlots, "uniquePepegaIqpsMultiplier": uniquePepegaIqpsMultiplier, "baseEncounterRate": baseEncounterRate, "configEncounterMode": config.encounterMode});
+        "multipliedTotalIqps": Math.round(totalIqps * rank.iqpsMultiplier * uniquePepegaIqpsMultiplier * (isPlayerIdle ? idleIqMultiplier : 1.0)), "playerPepegaSlots": player.pepegaSlots, "uniquePepegaIqpsMultiplier": uniquePepegaIqpsMultiplier, "baseEncounterRate": baseEncounterRate, "configEncounterMode": config.encounterMode});
     }
 }
 function updateSettingsPopupDisplay(){

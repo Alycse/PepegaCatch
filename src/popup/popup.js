@@ -78,9 +78,20 @@ browserRuntime.onMessage.addListener(
 		}else if(request.message == "config-is-iq-count-unitized-updated"){
 			setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
 			sendResponse();
+		}else if(request.message == "idle-updated"){
+			setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
+			sendResponse();
 		}
 	}
 );
+
+function setDisplayedIdle(isPlayerIdle, idleIqMultiplier){
+	if(isPlayerIdle){
+		document.getElementById("idleIqMultiplier").innerHTML = " x " + idleIqMultiplier.toFixed(2) + "";
+	}else{
+		document.getElementById("idleIqMultiplier").innerHTML = "";
+	}
+}
 
 browserRuntime.sendMessage({"message": "update-all-popup-displays"});
 browserRuntime.sendMessage({"message": "get-saved-scroll-position"}, function(result) {
@@ -207,6 +218,15 @@ function setDisplayedTutorialPhase(tutorialPhase){
 			showTutorialModal("Excellent work!", "Now you have more space for more Pepegas!");
 		}, tutorialModalDelay);
 
+	} else if(tutorialPhase == "idleInfo"){
+
+		setTimeout(function() {
+			showTutorialModal("Away from keyboard?", 
+			"<p>When your machine is idle for more than 30 minutes, your Pepegas only generate half as much IQ!</p>" + 
+			"<p>Pepegas can be pretty lazy when their trainer is away.</p>" +
+			"<p>(This does NOT mean you need to open the browser extension popup every 30 minutes! Your cursor just needs to be moving inside the browser.)</p>")
+		}, tutorialModalDelay);
+
 	} else if(tutorialPhase == "fusionPrompt"){
 
 		setTimeout(function() {
@@ -306,6 +326,8 @@ function closeTutorialModal(){
 	}else if(shownTutorialPhase == "buySlotPrompt"){
 		tutorialPhase = "buySlot";
 	}else if(shownTutorialPhase == "buySlotDone"){
+		tutorialPhase = "idleInfo";
+	}else if(shownTutorialPhase == "idleInfo"){
 		tutorialPhase = "fusionPrompt";
 	}else if(shownTutorialPhase == "fusionPrompt"){
 		tutorialPhase = "fusionInfo";
@@ -905,6 +927,13 @@ function showFusionRecipes(){
 	window.location.href=browserRuntime.getURL("src/popup/fusionRecipes/fusionRecipes.html");
 }
 
+function showIqpsInfo(){
+	document.getElementById("iqpsInfo").style.display = "block";
+}
+function hideIqpsInfo(){
+	document.getElementById("iqpsInfo").style.display = "none";
+}
+
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
@@ -931,3 +960,5 @@ document.getElementById("battleBreakdownAlertHide").addEventListener("click", hi
 document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);
 document.getElementById("fusionRecipesTitle").addEventListener("click", showFusionRecipes);
 document.getElementById("iqCountContent").addEventListener("click", changeIqCountUnitization);
+document.getElementById("iqps").addEventListener("mouseenter", showIqpsInfo);
+document.getElementById("iqps").addEventListener("mouseleave", hideIqpsInfo);
