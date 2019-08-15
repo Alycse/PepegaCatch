@@ -438,14 +438,14 @@ const pepegaTypes = [
         browserRuntime.getURL("images/pepegas/48_REPLIGA.png")),
 
     new PepegaType(49, [], "ZOZOGA", "", 
-        540, 5, 
+        2400, 5, 
         60000, 70, ["Torment"],
         browserRuntime.getURL("images/pepegas/49_ZOZOGA.png")),
 
-    new PepegaType(50, [], "ZOZOGA II", "", 
-        5800, -10, 
+    new PepegaType(50, [], "FINAL ZOZOGA", "", 
+        24000, -10, 
         150000, 80, ["Hijack", "Shut Down", "Possess"],
-        browserRuntime.getURL("images/pepegas/50_ZOZOGA-II.png")),
+        browserRuntime.getURL("images/pepegas/50_FINAL-ZOZOGA.png")),
 ]
 
 const categories = [
@@ -1213,7 +1213,7 @@ function analyzePepegaSlotCost(){
     } else if(player.pepegaSlots <= 25){
         pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.75);
     } else {
-        pepegaSlotCost = Math.round(Math.pow(25 + ((player.pepegaSlots-25) * 0.75), 6) * 0.75);
+        pepegaSlotCost = Math.round(Math.pow(25 + ((player.pepegaSlots-25) * 0.5), 6) * 0.8);
     }
 }
 
