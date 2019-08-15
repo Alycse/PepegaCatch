@@ -640,7 +640,7 @@ function checkPepegas(){
 
 				pepegaImageElement.title = pepegaImageTitle;
 
-				healButtonElement.title = "Heal this Pepega. You will lose " + healCost + " IQ";
+				healButtonElement.title = "Heal this Pepega. This will cost you " + healCost + " IQ.";
 
 				if(displayedIqCount >= healCost){
 					healButtonElement.style.webkitFilter = "grayscale(0%)";
