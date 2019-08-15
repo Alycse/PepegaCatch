@@ -1192,11 +1192,11 @@ function analyzePepegaSlotCost(){
     } else if(player.pepegaSlots <= 5){
         pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.15);
     } else if(player.pepegaSlots <= 8){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.4);
-    } else if(player.pepegaSlots <= 24){
-        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.5);
-    } else {
         pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.45);
+    } else if(player.pepegaSlots <= 25){
+        pepegaSlotCost = Math.round(Math.pow(player.pepegaSlots, 6) * 0.75);
+    } else {
+        pepegaSlotCost = Math.round(Math.pow(25 + ((player.pepegaSlots-25) * 0.65), 6) * 0.75);
     }
 }
 
