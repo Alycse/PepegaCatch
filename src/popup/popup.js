@@ -927,13 +927,6 @@ function showFusionRecipes(){
 	window.location.href=browserRuntime.getURL("src/popup/fusionRecipes/fusionRecipes.html");
 }
 
-function showIqpsInfo(){
-	document.getElementById("iqpsInfo").style.display = "block";
-}
-function hideIqpsInfo(){
-	document.getElementById("iqpsInfo").style.display = "none";
-}
-
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
@@ -960,5 +953,3 @@ document.getElementById("battleBreakdownAlertHide").addEventListener("click", hi
 document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);
 document.getElementById("fusionRecipesTitle").addEventListener("click", showFusionRecipes);
 document.getElementById("iqCountContent").addEventListener("click", changeIqCountUnitization);
-document.getElementById("iqps").addEventListener("mouseenter", showIqpsInfo);
-document.getElementById("iqps").addEventListener("mouseleave", hideIqpsInfo);
