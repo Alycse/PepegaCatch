@@ -1335,7 +1335,7 @@ function rollWildPepega(category){
                 wildPepegaType = pepegaTypes[47];
             }
             specialEventOccured = true;
-        } else if(player.catchCount < 19 && player.encounterCount % 2 == 0){
+        } else if(player.catchCount < 20 && player.encounterCount % 2 == 0){
             wildPepegaType = pepegaTypes[0];
             specialEventOccured = true;
         }
