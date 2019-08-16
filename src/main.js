@@ -939,7 +939,7 @@ var uniquePepegaCount = 0;
 var isPlayerIdle = false;
 
 var player = {
-    iqCount: 100000000000,
+    iqCount: 0,
     pepegas: [],
     armyName: defaultArmyName,
     pepegaSlots: startingPlayerPepegaSlots,
