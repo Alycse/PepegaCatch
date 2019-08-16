@@ -945,6 +945,7 @@ var player = {
     pepegaSlots: startingPlayerPepegaSlots,
     catchCount: 0,
     successfulCatchCount: 0,
+    encounterCount: 0,
     pepegaTypeStatuses: []
 }
 
@@ -1026,7 +1027,7 @@ function resetTutorial(){
     updateRandomTutorialPopupDisplay();
 }
 
-browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", "playerArmyName", "playerPepegaTypeStatuses"], function(result) {
+browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", "playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses"], function(result) {
     if(parseInt(result.playerIqCount)){
         player.iqCount = result.playerIqCount;
     }
@@ -1042,6 +1043,10 @@ browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "p
 
     if(result.playerSuccessfulCatchCount != null){
         player.successfulCatchCount = result.playerSuccessfulCatchCount;
+    }
+
+    if(result.playerEncounterCount != null){
+        player.encounterCount = result.playerEncounterCount;
     }
 
     if(result.playerArmyName != null){
@@ -1214,7 +1219,7 @@ function analyzePepegaSlotCost(){
     if(player.pepegaSlots <= 4){
         pepegaSlotCost = 125;
     } else if(player.pepegaSlots <= 8){
-        pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.06);
+        pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.05);
     } else if(player.pepegaSlots <= 24){
         pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.07);
     } else {
@@ -1330,7 +1335,7 @@ function rollWildPepega(category){
                 wildPepegaType = pepegaTypes[47];
             }
             specialEventOccured = true;
-        } else if(player.catchCount < 19 && player.catchCount % 3 == 0){
+        } else if(player.catchCount < 19 && player.encounterCount % 2 == 0){
             wildPepegaType = pepegaTypes[0];
             specialEventOccured = true;
         }
@@ -1428,7 +1433,13 @@ function getWildPepega(locationHref){
             timeBeforeNextWildPepegaSpawn = beginnerTimeBeforeNextWildPepegaSpawn;
         }
         browserStorage.set({lastWildPepegaSpawnTime: lastWildPepegaSpawnTime, timeBeforeNextWildPepegaSpawn: timeBeforeNextWildPepegaSpawn}, function() {
+            player.encounterCount++;
+            if(player.encounterCount > 999999999){
+                player.encounterCount = 900000000;
+            }
+            browserStorage.set({playerEncounterCount: player.encounterCount});
         });
+
         return rollWildPepega(category);
     }else{
         return null;
@@ -1683,6 +1694,9 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     browserStorage.set({"recentBattleBreakdown": fightResults.battleBreakdown});
 
     player.catchCount++;
+    if(player.catchCount > 999999999){
+        player.catchCount = 900000000;
+    }
     browserStorage.set({playerCatchCount: player.catchCount});
 
     if(!fightResults.won){
@@ -1703,6 +1717,9 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
     var pepegaAdd = addPlayerPepega(wildPepega);
 
     player.successfulCatchCount++;
+    if(player.successfulCatchCount > 999999999){
+        player.successfulCatchCount = 900000000;
+    }
     browserStorage.set({playerSuccessfulCatchCount: player.successfulCatchCount});
     
     if(pepegaAdd[0] == AddingPlayerPepegaResultEnum.successSingle){
