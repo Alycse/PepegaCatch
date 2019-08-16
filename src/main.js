@@ -808,10 +808,11 @@ const categories = [
         ],
         [
             new Option(pepegaTypes[2], 3),
-            new Option(pepegaTypes[3], 8),
+            new Option(pepegaTypes[3], 6),
             new Option(pepegaTypes[4], 2),
-            new Option(pepegaTypes[5], 2),
-            new Option(pepegaTypes[6], 1.5),
+            new Option(pepegaTypes[5], 6),
+            new Option(pepegaTypes[6], 1),
+            new Option(pepegaTypes[8], 1),
             new Option(pepegaTypes[9], 2.5),
             new Option(pepegaTypes[10], 0.1),
             new Option(pepegaTypes[11], 0.01),
@@ -823,11 +824,11 @@ const categories = [
             new Option(pepegaTypes[19], 2),
             new Option(pepegaTypes[27], 7.5),
             new Option(pepegaTypes[28], 15),
-            new Option(pepegaTypes[29], 6),
+            new Option(pepegaTypes[29], 3),
             new Option(pepegaTypes[30], 0.5),
             new Option(pepegaTypes[31], 0.5),
             new Option(pepegaTypes[32], 0.5),
-            new Option(pepegaTypes[35], 5),
+            new Option(pepegaTypes[35], 3),
             new Option(pepegaTypes[38], 5),
             new Option(pepegaTypes[47], 0.5)
         ]
@@ -846,7 +847,7 @@ const categories = [
             new Option(pepegaTypes[5], 4),
             new Option(pepegaTypes[6], 1),
             new Option(pepegaTypes[8], 1),
-            new Option(pepegaTypes[9], 3),
+            new Option(pepegaTypes[9], 5),
             new Option(pepegaTypes[10], 0.1),
             new Option(pepegaTypes[11], 0.01),
             new Option(pepegaTypes[14], 5),
@@ -856,7 +857,7 @@ const categories = [
             new Option(pepegaTypes[20], 1),
             new Option(pepegaTypes[27], 5),
             new Option(pepegaTypes[28], 12.5),
-            new Option(pepegaTypes[29], 8.5),
+            new Option(pepegaTypes[29], 7.5),
             new Option(pepegaTypes[30], 1),
             new Option(pepegaTypes[31], 1),
             new Option(pepegaTypes[32], 1),
@@ -1189,10 +1190,8 @@ chrome.idle.onStateChanged.addListener(
     function (state) {
         if (state === "idle"){
             isPlayerIdle = true;
-            console.log("User is idle.");
         }else{
             isPlayerIdle = false;
-            console.log("User is active.");
         }
         updateIdlePopupDisplay();
     }
@@ -1242,12 +1241,10 @@ function getCategory(hostname){
         var index2, length2;
         for (index2 = 0, length2 = categories[index].sites.length; index2 < length2; ++index2) {
             if(hostname.includes(categories[index].sites[index2].hostname)){
-                console.log("Site Category ID: " + categories[index].id + ", because '" + hostname + "' includes '" + categories[index].sites[index2].hostname + "'");
                 return categories[index];
             }
         }
     }
-    console.log("Default Site Category was used");
     return null;
 }
 
@@ -1359,12 +1356,9 @@ function rollWildPepega(category){
     }
 
     var roll = Math.floor(Math.random() * (99));
-    console.log("Wild Pepega Level Roll: " + roll); 
     if(player.catchCount >= 20 && roll > 25 && (wildPepegaType.basePower < (totalPepegaPower / 4) || (roll > 80 && player.catchCount >= 40))){
         wildPepegaLevel = 2;
     }
-
-    console.log("Special Event? " + specialEventOccured + " and level is " + wildPepegaLevel);
 
     return new Pepega(wildPepegaType, "", "", false, rollPepegaPower(wildPepegaType.basePower), wildPepegaLevel, true, null);
 }
@@ -1387,29 +1381,23 @@ function getScaledCategory(categoryOptions){
     scaledCategory.maxRoll = 100.0;
 
     if(isStrongerPepegasAllowed == 0){
-        console.log("Allowing stronger Pepegas"); 
         scaledCategory.options = categoryOptions;
     }else{
-        console.log("Not allowing stronger Pepegas"); 
         scaledCategory.options = [];
         var scaledCategoryOptionsLength = 0;
         for(var i = 0; i < categoryOptions.length; i++){
             if(totalPepegaPower >= categoryOptions[i].pepegaType.basePower){
                 scaledCategory.options[scaledCategoryOptionsLength++] = categoryOptions[i];
-                console.log("Allowing: " + categoryOptions[i].pepegaType.name + " with power: " + categoryOptions[i].pepegaType.basePower + " with probability: " + categoryOptions[i].probability); 
             }else{
                 scaledCategory.maxRoll -= categoryOptions[i].probability;
-                console.log("Not Allowing: " + categoryOptions[i].pepegaType.name + " with power: " + categoryOptions[i].pepegaType.basePower + " with probability: " + categoryOptions[i].probability); 
             }
         }
     }
-    console.log("Max roll: " + scaledCategory.maxRoll);
     return scaledCategory;
 }
 
 function rollEncounter(){
     var roll = (Math.random() * (100 - 0.1)) + 0.1;
-    console.log("Encounter Roll: " + roll + " must be less than " +(baseEncounterRate) * (config.encounterMode.multiplier/100));
     return roll <= ((baseEncounterRate) * (config.encounterMode.multiplier/100));
 }
 
@@ -1429,9 +1417,7 @@ function getWildPepega(locationHref){
     var location = new URL(locationHref);
 
     var currentTime = new Date().getTime();
-    console.log(((lastWildPepegaSpawnTime - (currentTime - timeBeforeNextWildPepegaSpawn))/1000.0) + " seconds before the next Wild Pepega spawns.");
     if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && (rollEncounter() || player.catchCount <= minimumBeginnerCatchCount)){
-        console.log("Wild Pepega has spawned in " + location.hostname + "!");
         var category = getCategory(location.hostname);
         if(category == null){
             category = categories[0];
@@ -1444,7 +1430,6 @@ function getWildPepega(locationHref){
             timeBeforeNextWildPepegaSpawn = beginnerTimeBeforeNextWildPepegaSpawn;
         }
         browserStorage.set({lastWildPepegaSpawnTime: lastWildPepegaSpawnTime, timeBeforeNextWildPepegaSpawn: timeBeforeNextWildPepegaSpawn}, function() {
-            console.log("Spawn Time was saved. New time before the next Wild Pepega spawns is " + (timeBeforeNextWildPepegaSpawn/1000.0) + " seconds.");
         });
         return rollWildPepega(category);
     }else{
