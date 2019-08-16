@@ -939,7 +939,7 @@ var uniquePepegaCount = 0;
 var isPlayerIdle = false;
 
 var player = {
-    iqCount: 0,
+    iqCount: 100000000000,
     pepegas: [],
     armyName: defaultArmyName,
     pepegaSlots: startingPlayerPepegaSlots,
@@ -1210,17 +1210,15 @@ function updatePlayerPepegaSlots(newPepegaSlots, save = true){
 }
 
 function analyzePepegaSlotCost(){
-    var costBase = player.pepegaSlots - 1;
+    var costBase = player.pepegaSlots;
     if(player.pepegaSlots <= 4){
         pepegaSlotCost = 125;
-    } else if(player.pepegaSlots <= 5){
-        pepegaSlotCost = Math.round(Math.pow(costBase, 6) * 0.2);
     } else if(player.pepegaSlots <= 8){
-        pepegaSlotCost = Math.round(Math.pow(costBase, 6) * 0.4);
+        pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.06);
     } else if(player.pepegaSlots <= 24){
-        pepegaSlotCost = Math.round(Math.pow(costBase, 6) * 0.7);
+        pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.07);
     } else {
-        pepegaSlotCost = Math.round(Math.pow(24 + ((costBase-24) * 0.5), 6) * 0.7);
+        pepegaSlotCost = Math.round(Math.pow(24 + ((costBase-24) * 0.4), 7) * 0.07);
     }
 }
 
