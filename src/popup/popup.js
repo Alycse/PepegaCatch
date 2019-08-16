@@ -221,7 +221,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "idleInfo"){
 
 		setTimeout(function() {
-			showTutorialModal("Away from keyboard?", 
+			showTutorialModal("\"AFK\"", 
 			"<p>When your machine is idle for more than 30 minutes, your Pepegas only generate half as much IQ!</p>" + 
 			"<p>Pepegas can be pretty lazy when their trainer is away.</p>" +
 			"<p>(This does NOT mean you need to open the browser extension popup every 30 minutes! Your cursor just needs to be moving inside the browser.)</p>")
