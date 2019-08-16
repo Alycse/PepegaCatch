@@ -5,7 +5,7 @@ const defaultPepegaOrigin = "the internet";
 const defaultArmyName = "Click here to change your Pepega Army's name";
 const multiplesBeforeLevelUp = 3;
 const maxPepegaLevel = 3;
-const startingPlayerPepegaSlots = 4;
+const startingPlayerPepegaSlots = 5;
 const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 80;
@@ -1215,8 +1215,8 @@ function updatePlayerPepegaSlots(newPepegaSlots, save = true){
 }
 
 function analyzePepegaSlotCost(){
-    var costBase = player.pepegaSlots;
-    if(player.pepegaSlots <= 4){
+    var costBase = player.pepegaSlots - 1;
+    if(player.pepegaSlots <= 5){
         pepegaSlotCost = 125;
     } else if(player.pepegaSlots <= 8){
         pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.05);
