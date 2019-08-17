@@ -1367,7 +1367,7 @@ function rollWildPepega(category){
     }
 
     var roll = Math.floor(Math.random() * (99));
-    if(player.catchCount >= 30 && roll > 25 && (wildPepegaType.basePower < (totalPepegaPower / 4) || (roll > 80 && player.catchCount >= 40))){
+    if(player.catchCount >= 30 && roll > 20 && (wildPepegaType.basePower < (totalPepegaPower / 4) || (roll > 85 && player.catchCount >= 45))){
         wildPepegaLevel = 2;
     }
 
@@ -1625,7 +1625,7 @@ function fightWildPepega(wildPepega){
         var playerPepega = player.pepegas[indexArray[i]];
 
         var playerPepegaPower = playerPepega.power * playerPepega.level;
-        var playerPepegaRolledPower = Math.round((playerPepegaPower*((Math.random() * (0.7 - 0.55)) + 0.55)) * 100)/100;
+        var playerPepegaRolledPower = Math.round((playerPepegaPower*((Math.random() * (1.15 - 0.85)) + 0.85)) * 100)/100;
         var playerPepegaName = playerPepega.pepegaType.name;
         var playerPepegaAttack;
         playerPepegaAttack = playerPepega.pepegaType.attacks[Math.min( j%3, playerPepega.pepegaType.attacks.length - 1 )];
@@ -1644,9 +1644,9 @@ function fightWildPepega(wildPepega){
         if(wildPepegaRemainingPower > 0){
 
             var wildPepegaAttack = wildPepega.pepegaType.attacks[Math.min( j%3, wildPepega.pepegaType.attacks.length - 1 )];
-            var wildPepegaRolledPower = Math.round((wildPepegaTotalPower*((Math.random() * (0.9 - 0.7)) + 0.7)) * 100)/100;
+            var wildPepegaRolledPower = Math.round((wildPepegaTotalPower*((Math.random() * (1.15 - 0.85)) + 0.85)) * 100)/100;
             if(wildPepegaRolledPower < playerPepegaPower){
-                wildPepegaRolledPower += Math.round(((playerPepegaPower - wildPepegaRolledPower)*((Math.random() * (1.1 - 1.05)) + 1.05)) * 100)/100;
+                wildPepegaRolledPower += Math.round(((playerPepegaPower - wildPepegaRolledPower)*((Math.random() * (1.2 - 1.075)) + 1.075)) * 100)/100;
             }
             
             results.battleBreakdown.rounds[j].roundPlayerWon = false;
