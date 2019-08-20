@@ -8,7 +8,7 @@ const maxPepegaLevel = 3;
 const startingPlayerPepegaSlots = 5;
 const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
-const baseEncounterRate = 80;
+const baseEncounterRate = 70;
 const minimumCatchCountForMorePepegas = 5;
 const multiplierBeforePepegaRecovers = 2000;
 const idleIqMultiplier = 0.5;
@@ -923,7 +923,7 @@ class EncounterMode {
 
 const encounterModes = [
     new EncounterMode(0, "Maximum Encounters (100%)", 100),
-    new EncounterMode(1, "Less Encounters (40%)", 40),
+    new EncounterMode(1, "Less Encounters (50%)", 50),
     new EncounterMode(2, "Encounters Disabled (0%)", 0)
 ]
 
@@ -1227,11 +1227,11 @@ function analyzePepegaSlotCost(){
     } else if(player.pepegaSlots == 9){
         pepegaSlotCost = 443560;
     } else if(player.pepegaSlots <= 16){
-        pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.11);
+        pepegaSlotCost = Math.round(Math.pow(costBase, 7) * 0.12);
     } else if(player.pepegaSlots <= 30){
-        pepegaSlotCost = Math.round(Math.pow(16 + ((costBase-16) * 0.5), 7) * 0.11);
+        pepegaSlotCost = Math.round(Math.pow(16 + ((costBase-16) * 0.5), 7) * 0.12);
     } else {
-        pepegaSlotCost = Math.round(Math.pow(23 + ((costBase-30) * 0.3), 7) * 0.11);
+        pepegaSlotCost = Math.round(Math.pow(23 + ((costBase-30) * 0.3), 7) * 0.12);
     }
 }
 
@@ -1343,7 +1343,7 @@ function rollWildPepega(category){
                 wildPepegaType = pepegaTypes[47];
             }
             specialEventOccured = true;
-        } else if(player.catchCount <= 30 && player.encounterCount % 2 == 0){
+        } else if(player.catchCount <= 40 && player.encounterCount % 3 == 0){
             wildPepegaType = pepegaTypes[0];
             specialEventOccured = true;
         }
@@ -1374,18 +1374,6 @@ function rollWildPepega(category){
     return new Pepega(wildPepegaType, "", "", false, rollPepegaPower(wildPepegaType.basePower), wildPepegaLevel, true, null);
 }
 
-/*
-    new Category(0, false, [],
-        [
-            new Option(pepegaTypes[3], 5),
-            new Option(pepegaTypes[4], 5),
-            new Option(pepegaTypes[5], 5),
-            new Option(pepegaTypes[6], 0.2),
-            new Option(pepegaTypes[7], 0.2),
-            new Option(pepegaTypes[8], 0.2),
-            new Option(pepegaTypes[10], 0.1),
-            new Option(pepegaTypes[11], 0.01),
-            */
 function getScaledCategory(categoryOptions){
     var isStrongerPepegasAllowed = Math.round(Math.random() * (1));
     var scaledCategory = {};
@@ -1413,8 +1401,8 @@ function rollEncounter(){
 }
 
 const minimumBeginnerCatchCount = 10;
-const regularTimeBeforeNextWildPepegaSpawn = 1000;
-const beginnerTimeBeforeNextWildPepegaSpawn = 100;
+const regularTimeBeforeNextWildPepegaSpawn = 3000;
+const beginnerTimeBeforeNextWildPepegaSpawn = 500;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = 0;
 browserStorage.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"], function(result) {
