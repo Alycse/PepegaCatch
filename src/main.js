@@ -1401,7 +1401,8 @@ function rollEncounter(){
 }
 
 const minimumBeginnerCatchCount = 10;
-const regularTimeBeforeNextWildPepegaSpawn = 3000;
+const minRegularTimeBeforeNextWildPepegaSpawn = 2500;
+const maxRegularTimeBeforeNextWildPepegaSpawn = 5000;
 const beginnerTimeBeforeNextWildPepegaSpawn = 500;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = 0;
@@ -1424,7 +1425,7 @@ function getWildPepega(locationHref){
 
         lastWildPepegaSpawnTime = currentTime;
         if(player.catchCount >= minimumBeginnerCatchCount){
-            timeBeforeNextWildPepegaSpawn = regularTimeBeforeNextWildPepegaSpawn;
+            timeBeforeNextWildPepegaSpawn = (Math.random() * (maxRegularTimeBeforeNextWildPepegaSpawn - minRegularTimeBeforeNextWildPepegaSpawn)) + minRegularTimeBeforeNextWildPepegaSpawn;;
         }else{
             timeBeforeNextWildPepegaSpawn = beginnerTimeBeforeNextWildPepegaSpawn;
         }
