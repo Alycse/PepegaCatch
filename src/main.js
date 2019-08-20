@@ -1403,7 +1403,7 @@ function rollEncounter(){
 const minimumBeginnerCatchCount = 10;
 const minRegularTimeBeforeNextWildPepegaSpawn = 2500;
 const maxRegularTimeBeforeNextWildPepegaSpawn = 5000;
-const beginnerTimeBeforeNextWildPepegaSpawn = 500;
+const beginnerTimeBeforeNextWildPepegaSpawn = 1500;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = 0;
 browserStorage.get(["lastWildPepegaSpawnTime", "timeBeforeNextWildPepegaSpawn"], function(result) {
