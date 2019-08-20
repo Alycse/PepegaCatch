@@ -1401,8 +1401,8 @@ function rollEncounter(){
 }
 
 const minimumBeginnerCatchCount = 10;
-const minRegularTimeBeforeNextWildPepegaSpawn = 2500;
-const maxRegularTimeBeforeNextWildPepegaSpawn = 5000;
+const minRegularTimeBeforeNextWildPepegaSpawn = 2000;
+const maxRegularTimeBeforeNextWildPepegaSpawn = 4000;
 const beginnerTimeBeforeNextWildPepegaSpawn = 1500;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = 0;
