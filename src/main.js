@@ -8,7 +8,7 @@ const maxPepegaLevel = 3;
 const startingPlayerPepegaSlots = 5;
 const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
-const baseEncounterRate = 70;
+const baseEncounterRate = 60;
 const minimumCatchCountForMorePepegas = 5;
 const multiplierBeforePepegaRecovers = 2000;
 const idleIqMultiplier = 0.5;
@@ -923,7 +923,7 @@ class EncounterMode {
 
 const encounterModes = [
     new EncounterMode(0, "Maximum Encounters (100%)", 100),
-    new EncounterMode(1, "Less Encounters (50%)", 50),
+    new EncounterMode(1, "Less Encounters (40%)", 40),
     new EncounterMode(2, "Encounters Disabled (0%)", 0)
 ]
 
@@ -1401,8 +1401,8 @@ function rollEncounter(){
 }
 
 const minimumBeginnerCatchCount = 10;
-const minRegularTimeBeforeNextWildPepegaSpawn = 3500;
-const maxRegularTimeBeforeNextWildPepegaSpawn = 7000;
+const minRegularTimeBeforeNextWildPepegaSpawn = 3000;
+const maxRegularTimeBeforeNextWildPepegaSpawn = 6000;
 const beginnerTimeBeforeNextWildPepegaSpawn = 1500;
 var lastWildPepegaSpawnTime = 0;
 var timeBeforeNextWildPepegaSpawn = 0;
