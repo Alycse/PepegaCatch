@@ -63,7 +63,3 @@ so that Pepegas you've already caught will still generate IQ but you won't be bo
 
 The game is still in beta so the balance won't be 100% perfect yet, and there might be a couple of bugs here and there.
 
-If you find a bug, please post them on the [Issues section](https://github.com/Alycse/PepegaCatch/issues/new/choose) and I'll fix them as soon as I can!
-
-If you have any feedback and/or suggestions, [I'd love to hear them](https://github.com/Alycse/PepegaCatch/issues/new/choose) as well!
-
