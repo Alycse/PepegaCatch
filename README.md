@@ -61,5 +61,4 @@ so that Pepegas you've already caught will still generate IQ but you won't be bo
 
 # Issues
 
-The game is still in beta so the balance won't be 100% perfect yet, and there might be a couple of bugs here and there.
-
+The game is still in beta so the balance won't be 100% perfect yet, and there might be a couple of bugs here and there, so I'd love to hear your feedback if you have any!
