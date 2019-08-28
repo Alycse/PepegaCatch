@@ -3,7 +3,7 @@ const gameLink = "https://github.com/Alycse/PepegaCatch";
 const gameIssuesLink = "https://github.com/Alycse/PepegaCatch/issues/new/choose";
 const gameTitle = "Pepega Catch!";
 
-const pepegasPerRow = 5;
+const pepegasPerRow = 100;
 const defaultInputBoxArmyName = "My Pepega Army";
 
 const allowedPepegaHealingTime = 2;
