@@ -255,7 +255,7 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	} else if(tutorialPhase == "fusionDone"){
 
 		setTimeout(function() {
-			showTutorialModal("Wonderful! You finally made your first Pepega Fusion!", "Note that Fusions aren't always this simple. Some fusions require multiple different types of Pepegas!");
+			showTutorialModal("Wonderful! You made your first Pepega Fusion!", "Note that Fusions aren't always this simple. Some fusions require multiple different types of Pepegas!");
 		}, tutorialModalDelay);
 
 	} else if(tutorialPhase == "complete"){
