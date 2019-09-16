@@ -1436,7 +1436,7 @@ function getWildPepega(locationHref){
     var location = new URL(locationHref);
 
     var currentTime = new Date().getTime();
-    if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && (rollEncounter() || player.catchCount <= beginnerCatchCount)){
+    if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && (rollEncounter() || (player.catchCount <= beginnerCatchCount && config.encounterMode != encounterModes[2]))){
         var category = getCategory(location.hostname);
         if(category == null){
             category = categories[0];
