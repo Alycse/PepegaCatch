@@ -18,7 +18,7 @@ const idleIqMultiplier = 0.5;
 //How long, in seconds, does it take for the player to be considered "idle"
 const idleTime = 1800;
 //Determine's whether the player is considered a "beginner" or not based on the player's catch count.
-const beginnerCatchCount = 10;
+const beginnerCatchCount = 12;
 //The regular time before another Pepega can spawn on a website
 const minRegularTimeBeforeNextWildPepegaSpawn = 3000;
 const maxRegularTimeBeforeNextWildPepegaSpawn = 6000;
@@ -1104,7 +1104,6 @@ browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "p
     }
 
     if(result.playerRank != null){
-        console.log("saved rank id: " + result.playerRank.id);
         player.rank = result.playerRank;
     }
 });
@@ -1436,7 +1435,9 @@ function getWildPepega(locationHref){
     var location = new URL(locationHref);
 
     var currentTime = new Date().getTime();
-    if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && (rollEncounter() || (player.catchCount <= beginnerCatchCount && config.encounterMode != encounterModes[2]))){
+    if(currentTime - timeBeforeNextWildPepegaSpawn >= lastWildPepegaSpawnTime && 
+        config.encounterMode.multiplier != 0 && ((rollEncounter() || player.catchCount <= beginnerCatchCount))){
+
         var category = getCategory(location.hostname);
         if(category == null){
             category = categories[0];
