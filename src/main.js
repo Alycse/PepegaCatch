@@ -1315,7 +1315,7 @@ function rollPepegaPower(basePower){
     return Math.round((basePower * roll) * 100) / 100;
 }
 
-//Rolls for a wild pepega that will spawn on the website that player has visited
+//Rolls for a wild pepega that will spawn on the website that the player has visited
 function rollWildPepega(category){
     //By default, the Pepega that will spawn is a Level 1 ordinary Pepega
     var wildPepegaType = pepegaTypes[0];
