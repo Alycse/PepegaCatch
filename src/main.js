@@ -12,7 +12,7 @@ const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 60;
 //Used by a special event that determines whether the player can encounter more powerful Pepegas
 const minimumCatchCountForMorePepegas = 5;
-const multiplierBeforePepegaRecovers = 2000;
+const multiplierBeforePepegaRecovers = 2100;
 //The percentage of how much IQ a player gets when the player is "idle"
 const idleIqMultiplier = 0.5;
 //How long, in seconds, does it take for the player to be considered "idle"
