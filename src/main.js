@@ -2191,25 +2191,31 @@ function updateIdlePopupDisplay(){
 }
 function updatePlayerIqCountPopupDisplay(){
     if(popup.isOpened){
-        var tempBranch = {}
-        tempBranch.id = branch.id;
-        tempBranch.name = branch.name;
-        var tempRank = {}
-        tempRank.id = player.rank.id;
-        tempRank.titleArticle = player.rank.titleArticle;
-        tempRank.title = player.rank.title;
-        tempRank.description = player.rank.description;
-        tempRank.requirementDescription = player.rank.requirementDescription;
-        tempRank.iqpsMultiplier = player.rank.iqpsMultiplier;
-        tempRank.basePower = player.rank.basePower;
-        var tempNextRank = {}
-        tempNextRank.id = ranks[player.rank.id+1].id;
-        tempNextRank.titleArticle = ranks[player.rank.id+1].titleArticle;
-        tempNextRank.title = ranks[player.rank.id+1].title;
-        tempNextRank.description = ranks[player.rank.id+1].description;
-        tempNextRank.requirementDescription = ranks[player.rank.id+1].requirementDescription;
-        tempNextRank.iqpsMultiplier = ranks[player.rank.id+1].iqpsMultiplier;
-        tempNextRank.basePower = ranks[player.rank.id+1].basePower;
+
+        var tempBranch = {
+            id: branch.id,
+            name: branch.name
+        }
+        var tempRank = {
+            id: player.rank.id,
+            titleArticle: player.rank.titleArticle,
+            title: player.rank.title,
+            description: player.rank.description,
+            requirementDescription: player.rank.requirementDescription,
+            iqpsMultiplier: player.rank.iqpsMultiplier,
+            basePower: player.rank.basePower
+        }
+        
+        var tempNextRank = {
+            id: ranks[player.rank.id+1].id,
+            titleArticle: ranks[player.rank.id+1].titleArticle,
+            title: ranks[player.rank.id+1].title,
+            description: ranks[player.rank.id+1].description,
+            requirementDescription: ranks[player.rank.id+1].requirementDescription,
+            iqpsMultiplier: ranks[player.rank.id+1].iqpsMultiplier,
+            basePower: ranks[player.rank.id+1].basePower
+        }
+
 		browserRuntime.sendMessage({"message": "player-iq-count-updated", "playerIqCount": player.iqCount, "rank": tempRank, "branch": tempBranch, "nextRank": tempNextRank, "pepegaSlotCost": pepegaSlotCost, "ranksLength": ranks.length});
     }
 }
@@ -2268,63 +2274,50 @@ function formatWithCommas(value) {
 
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		if(request.message == "get-wild-pepega"){
-            sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref), "totalEstimatedPower": formatWithCommas((player.rank.basePower + totalPepegaPower).toFixed(2)) });
-		}else if(request.message == "catch-wild-pepega"){
-            catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.locationHref);
-            sendResponse();
-		}else if(request.message == "update-all-popup-displays"){
-            updateAllPopupDisplays();
-            sendResponse();
-		}else if(request.message == "release-player-pepega"){
-            releasePlayerPepega(request.playerPepegaId);
-            sendResponse();
-		}else if(request.message == "update-settings"){
-			updateSettings(request.settings);
-            sendResponse();
-		}else if(request.message == "update-config-encounter-mode"){
-            updateConfigEncounterMode();
-            sendResponse();
-		}else if(request.message == "update-config-filtered-sites"){
-            updateConfigFilteredSites(request.filteredSitesText);
-            sendResponse();
-		}else if(request.message == "update-player-army-name"){
-            updatePlayerArmyName(request.playerArmyName);
-            sendResponse();
-		}else if(request.message == "buy-pepega-slot"){
-            buyPepegaSlot();
-            sendResponse();
-		}else if(request.message == "answer-tutorial-ask"){
-            answerTutorialAsk(request.tutorialAnswer);
-            sendResponse();
-        }else if(request.message == "update-tutorial-phase"){
-            updateTutorialPhase(request.tutorialPhase);
-            sendResponse();
-        }else if(request.message == "update-random-tutorial-phase"){
-            updateRandomTutorialPhase(request.randomTutorialPhase);
-            sendResponse();
-        }else if(request.message == "replace-random-tutorial-phase"){
-            replaceRandomTutorialPhase(request.randomTutorialPhase);
-            sendResponse();
-        }else if(request.message == "reset-tutorial"){
-            resetTutorial();
-            sendResponse();
-        }else if(request.message == "heal-player-pepega"){
-            healPlayerPepega(request.playerPepegaId, request.healCost);
-            sendResponse();
-        }else if(request.message == "get-pepega-types"){
-            sendResponse({ "pepegaTypes": pepegaTypes, "playerPepegaTypeStatuses": player.pepegaTypeStatuses });
-        }else if(request.message == "repel-wild-pepega"){
-            repelWildPepega();
-            sendResponse();
-        }else if(request.message == "update-saved-scroll-position"){
-            updateSavedScrollPosition(request.y);
-            sendResponse();
-        }else if(request.message == "get-saved-scroll-position"){
-            sendResponse({ "y": savedScrollPosition });
-        }else if(request.message== "change-iq-count-unitization"){
-            updateConfigIsIqCountUnitized();
-            sendResponse();
+        switch(request.message) {
+            case "get-wild-pepega":
+                sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref), "totalEstimatedPower": formatWithCommas((player.rank.basePower + totalPepegaPower).toFixed(2)) });
+            case "catch-wild-pepega":
+                catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.locationHref);
+            case "update-all-popup-displays":
+                updateAllPopupDisplays();
+            case "release-player-pepega":
+                releasePlayerPepega(request.playerPepegaId);
+            case "update-settings":
+                updateSettings(request.settings);
+            case "update-config-encounter-mode":
+                updateConfigEncounterMode();
+            case "update-config-filtered-sites":
+                updateConfigFilteredSites(request.filteredSitesText);
+            case "update-player-army-name":
+                updatePlayerArmyName(request.playerArmyName);
+            case "buy-pepega-slot":
+                buyPepegaSlot();
+            case "answer-tutorial-ask":
+                answerTutorialAsk(request.tutorialAnswer);
+            case "update-tutorial-phase":
+                updateTutorialPhase(request.tutorialPhase);
+            case "update-random-tutorial-phase":
+                updateRandomTutorialPhase(request.randomTutorialPhase);
+            case "replace-random-tutorial-phase":
+                replaceRandomTutorialPhase(request.randomTutorialPhase);
+            case "reset-tutorial":
+                resetTutorial();
+            case "heal-player-pepega":
+                healPlayerPepega(request.playerPepegaId, request.healCost);
+            case "get-pepega-types":
+                sendResponse({ "pepegaTypes": pepegaTypes, "playerPepegaTypeStatuses": player.pepegaTypeStatuses });
+            case "repel-wild-pepega":
+                repelWildPepega();
+            case "update-saved-scroll-position":
+                updateSavedScrollPosition(request.y);
+            case "get-saved-scroll-position":
+                sendResponse({ "y": savedScrollPosition });
+                break;
+            case "change-iq-count-unitization":
+                updateConfigIsIqCountUnitized();
+            default:
+                sendResponse();
         }
 	}
 );
