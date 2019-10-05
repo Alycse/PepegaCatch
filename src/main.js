@@ -2046,31 +2046,39 @@ function updatePlayerArmyName(playerArmyName){
     browserStorage.set({playerArmyName: player.armyName});
 }
 
-var pepegaIndexToCheck = 0;nterval = setInterval(function() {
-    if(player.pepegas.length > 0){
-        var currentTime = new Date().getTime();
-        if(player.pepegas[pepegaIndexToCheck + 1]){
-            pepegaIndexToCheck++;
-        }else{
-            pepegaIndexToCheck = 0;
+var pepegaAliveCheckInterval = function () {
+    var pepegaIndexToCheck = 0;
+    setInterval(function() {
+        if(player.pepegas.length > 0){
+            var currentTime = new Date().getTime();
+            if(player.pepegas[pepegaIndexToCheck + 1]){
+                pepegaIndexToCheck++;
+            }else{
+                pepegaIndexToCheck = 0;
+            }
+            if(!player.pepegas[pepegaIndexToCheck].alive && 
+                currentTime >= player.pepegas[pepegaIndexToCheck].timeBeforeRecovery){
+                    player.pepegas[pepegaIndexToCheck].setAlive(true);
+                    browserStorage.set({playerPepegas: player.pepegas});
+                updatePlayerPepegasPopupDisplay();
+            }
         }
-        if(!player.pepegas[pepegaIndexToCheck].alive && 
-            currentTime >= player.pepegas[pepegaIndexToCheck].timeBeforeRecovery){
-                player.pepegas[pepegaIndexToCheck].setAlive(true);
-                browserStorage.set({playerPepegas: player.pepegas});
-            updatePlayerPepegasPopupDisplay();
-        }
-    }
-}, 500);
+    }, 500);
+}
 
-var previousUpdateIqCountTime = new Date().getTime();
-var interval = setInterval(function() {
-    var currentTime = new Date().getTime();
-    if(currentTime - previousUpdateIqCountTime >= updateIqCountMillisecondInterval){
-        updatePlayerIqCount(Math.round(totalIqps * player.rank.iqpsMultiplier * uniquePepegaIqpsMultiplier));
-        previousUpdateIqCountTime = currentTime;
-    }
-}, 100);
+var updateIqCountInterval = function () {
+    var previousUpdateIqCountTime = new Date().getTime();
+    setInterval(function() {
+        var currentTime = new Date().getTime();
+        if(currentTime - previousUpdateIqCountTime >= updateIqCountMillisecondInterval){
+            updatePlayerIqCount(Math.round(totalIqps * player.rank.iqpsMultiplier * uniquePepegaIqpsMultiplier));
+            previousUpdateIqCountTime = currentTime;
+        }
+    }, 100);
+}
+
+pepegaAliveCheckInterval();
+updateIqCountInterval();
 
 function updatePlayerIqCount(iq){
     var additionalIq = iq;
@@ -2277,45 +2285,81 @@ browserRuntime.onMessage.addListener(
         switch(request.message) {
             case "get-wild-pepega":
                 sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref), "totalEstimatedPower": formatWithCommas((player.rank.basePower + totalPepegaPower).toFixed(2)) });
+                break;
             case "catch-wild-pepega":
                 catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.locationHref);
+                sendResponse();
+                break;
             case "update-all-popup-displays":
                 updateAllPopupDisplays();
+                sendResponse();
+                break;
             case "release-player-pepega":
                 releasePlayerPepega(request.playerPepegaId);
+                sendResponse();
+                break;
             case "update-settings":
                 updateSettings(request.settings);
+                sendResponse();
+                break;
             case "update-config-encounter-mode":
                 updateConfigEncounterMode();
+                sendResponse();
+                break;
             case "update-config-filtered-sites":
                 updateConfigFilteredSites(request.filteredSitesText);
+                sendResponse();
+                break;
             case "update-player-army-name":
                 updatePlayerArmyName(request.playerArmyName);
+                sendResponse();
+                break;
             case "buy-pepega-slot":
                 buyPepegaSlot();
+                sendResponse();
+                break;
             case "answer-tutorial-ask":
                 answerTutorialAsk(request.tutorialAnswer);
+                sendResponse();
+                break;
             case "update-tutorial-phase":
                 updateTutorialPhase(request.tutorialPhase);
+                sendResponse();
+                break;
             case "update-random-tutorial-phase":
                 updateRandomTutorialPhase(request.randomTutorialPhase);
+                sendResponse();
+                break;
             case "replace-random-tutorial-phase":
                 replaceRandomTutorialPhase(request.randomTutorialPhase);
+                sendResponse();
+                break;
             case "reset-tutorial":
                 resetTutorial();
+                sendResponse();
+                break;
             case "heal-player-pepega":
                 healPlayerPepega(request.playerPepegaId, request.healCost);
+                sendResponse();
+                break;
             case "get-pepega-types":
                 sendResponse({ "pepegaTypes": pepegaTypes, "playerPepegaTypeStatuses": player.pepegaTypeStatuses });
+                break;
             case "repel-wild-pepega":
                 repelWildPepega();
+                sendResponse();
+                break;
             case "update-saved-scroll-position":
                 updateSavedScrollPosition(request.y);
+                sendResponse();
+                break;
             case "get-saved-scroll-position":
                 sendResponse({ "y": savedScrollPosition });
                 break;
             case "change-iq-count-unitization":
                 updateConfigIsIqCountUnitized();
+                sendResponse();
+                break;
             default:
                 sendResponse();
         }
