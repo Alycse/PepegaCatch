@@ -18,7 +18,7 @@ const idleIqMultiplier = 0.5;
 //How long, in seconds, does it take for the player to be considered "idle"
 const idleTime = 1800;
 //Determine's whether the player is considered a "beginner" or not based on the player's catch count.
-const beginnerCatchCount = 12;
+const beginnerCatchCount = 10;
 //The regular time before another Pepega can spawn on a website
 const minRegularTimeBeforeNextWildPepegaSpawn = 3000;
 const maxRegularTimeBeforeNextWildPepegaSpawn = 6000;
