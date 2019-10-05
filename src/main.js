@@ -117,6 +117,23 @@ class Pepega {
         //States when this Pepega will be ressurected
         this.timeBeforeRecovery = timeBeforeRecovery;
     }
+
+    //Sets a Pepega's "alive" state
+    setAlive(alive, save = true) {
+        if(!this.alive && alive){
+            totalIqps += this.pepegaType.iqps * this.level;
+            totalPepegaPower += this.power * this.level;
+            this.alive = alive;
+        }else if (this.alive && !alive){
+            totalIqps -= this.pepegaType.iqps * this.level;
+            totalPepegaPower -= this.power * this.level;
+            this.alive = alive;
+        }
+
+        if(save){
+            browserStorage.set({playerPepegas: player.pepegas});
+        }
+    }
 }
 
 //A Pepega Type option and its probability of spawning. Used by categories
@@ -1551,7 +1568,7 @@ function healPlayerPepega(id, healCost){
 
             playSound(pepegaHealSound);
 
-            setPepegaAlive(playerPepega, true);
+            playerPepega.setAlive(true);
 
             updatePlayerPepegasPopupDisplay();
         }
@@ -1564,23 +1581,6 @@ function getArticle(word){
         article = "an";
     }
     return article;
-}
-
-//Sets a Pepega's "alive" state
-function setPepegaAlive(pepega, alive, save = true){
-    if(!pepega.alive && alive){
-        totalIqps += pepega.pepegaType.iqps * pepega.level;
-        totalPepegaPower += pepega.power * pepega.level;
-        pepega.alive = alive;
-    }else if (pepega.alive && !alive){
-        totalIqps -= pepega.pepegaType.iqps * pepega.level;
-        totalPepegaPower -= pepega.power * pepega.level;
-        pepega.alive = alive;
-    }
-
-    if(save){
-        browserStorage.set({playerPepegas: player.pepegas});
-    }
 }
 
 var shuffle = function (array) {
@@ -1669,7 +1669,7 @@ function fightWildPepega(wildPepega){
             results.battleBreakdown.rounds[j].wildPepega.attack = wildPepegaAttack;
             results.battleBreakdown.rounds[j].wildPepega.power = wildPepegaRolledPower;
 
-            setPepegaAlive(playerPepega, false, false);
+            playerPepega.setAlive(false, false);
             results.casualties++;
             playerPepega.timeBeforeRecovery = new Date().getTime() + 
             (playerPepega.power * playerPepega.level * multiplierBeforePepegaRecovers);
@@ -1795,8 +1795,6 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
         playSound(pepegaFullArmySound);
     }
 }
-
-var adds = 0;
 
 //Add the pepega to the player's pepega army
 function addPlayerPepega(pepega, save = true, displayForPopup = true, addEvents = {}){
@@ -2058,7 +2056,7 @@ var pepegaIndexToCheck = 0;nterval = setInterval(function() {
         }
         if(!player.pepegas[pepegaIndexToCheck].alive && 
             currentTime >= player.pepegas[pepegaIndexToCheck].timeBeforeRecovery){
-                setPepegaAlive(player.pepegas[pepegaIndexToCheck], true);
+                player.pepegas[pepegaIndexToCheck].setAlive(true);
                 browserStorage.set({playerPepegas: player.pepegas});
             updatePlayerPepegasPopupDisplay();
         }
