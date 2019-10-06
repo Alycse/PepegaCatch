@@ -37,48 +37,48 @@ function updateGameTitle(){
 
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		if(request.message == "player-iq-count-updated"){
+		if(request.message == EventMessageEnum.PlayerIqCountUpdated){
 			setDisplayedPlayerIqCount(request.playerIqCount);
 			setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength, request.isBeforeLastRank);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
 			sendResponse();
-		}else if(request.message == "player-pepegas-updated"){
+		}else if(request.message == EventMessageEnum.PlayerPepegasUpdated){
 			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
 			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
 			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
 			setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
 			setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
 			sendResponse();
-		}else if(request.message == "settings-updated"){
+		}else if(request.message == EventMessageEnum.SettingsUpdated){
 			setDisplayedSettings(request.settings);
 			sendResponse();
-		}else if(request.message == "player-army-name-updated"){
+		}else if(request.message == EventMessageEnum.PlayerArmyNameUpdated){
 			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
 			sendResponse();
-		}else if(request.message == "notifications-display-updated"){
+		}else if(request.message == EventMessageEnum.NotificationsDisplayUpdated){
 			setDisplayedNotifications(request.notificationsDisplayHeader, request.notificationsDisplayMessage);
 			sendResponse();
-		}else if(request.message == "player-pepega-slots-updated"){
+		}else if(request.message == EventMessageEnum.PlayerPepegaSlotsUpdated){
 			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
 			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
 			sendResponse();
-		}else if(request.message == "config-encounter-mode-updated"){
+		}else if(request.message == EventMessageEnum.ConfigEncounterModeUpdated){
 			setDisplayedEncounterMode(request.configEncounterMode);
 			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
 			sendResponse();
-		}else if(request.message == "config-filtered-sites-updated"){
+		}else if(request.message == EventMessageEnum.ConfigFilteredSitesUpdated){
 			setDisplayedFilteredSites(request.configFilteredSites);
 			sendResponse();
-		}else if(request.message == "tutorial-phase-updated"){
+		}else if(request.message == EventMessageEnum.TutorialPhaseUpdated){
 			setDisplayedTutorialPhase(request.tutorialPhase);
 			sendResponse();
-		}else if(request.message == "show-random-tutorial"){
+		}else if(request.message == EventMessageEnum.ShowRandomTutorial){
 			setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
 			sendResponse();
-		}else if(request.message == "config-is-iq-count-unitized-updated"){
+		}else if(request.message == EventMessageEnum.ConfigIsIqCountUnitizedUpdated){
 			setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
 			sendResponse();
-		}else if(request.message == "idle-updated"){
+		}else if(request.message == EventMessageEnum.IdleUpdated){
 			setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
 			sendResponse();
 		}
@@ -93,8 +93,8 @@ function setDisplayedIdle(isPlayerIdle, idleIqMultiplier){
 	}
 }
 
-browserRuntime.sendMessage({"message": "update-all-popup-displays"});
-browserRuntime.sendMessage({"message": "get-saved-scroll-position"}, function(result) {
+browserRuntime.sendMessage({"message": EventMessageEnum.UpdateAllPopupDisplays});
+browserRuntime.sendMessage({"message": EventMessageEnum.GetSavedScrollPosition}, function(result) {
 	window.scrollTo(0, result.y);
 });
 
@@ -337,7 +337,7 @@ function closeTutorialModal(){
 	}else if(shownTutorialPhase == "complete"){
 		tutorialPhase = "end";
 	}
-	browserRuntime.sendMessage({"message": "update-tutorial-phase", "tutorialPhase": tutorialPhase});
+	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateTutorialPhase, "tutorialPhase": tutorialPhase});
 	hideTutorialModal();
 }
 
@@ -368,7 +368,7 @@ function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 function closeRandomTutorialModal(){
 	shownRandomTutorialPhase = shownRandomTutorialPhase.replace("_" + document.getElementById("randomTutorialModal").randomTutorialPhase + "_", "");
 
-	browserRuntime.sendMessage({"message": "replace-random-tutorial-phase", "randomTutorialPhase": shownRandomTutorialPhase});
+	browserRuntime.sendMessage({"message": EventMessageEnum.ReplaceRandomTutorialPhase, "randomTutorialPhase": shownRandomTutorialPhase});
 	hideRandomTutorialModal();
 }
 
@@ -574,7 +574,7 @@ function setDisplayedPlayerIqCount(playerIqCount){
 }
 
 function changeIqCountUnitization(){
-	browserRuntime.sendMessage({"message": "change-iq-count-unitization"});
+	browserRuntime.sendMessage({"message": EventMessageEnum.ChangeIqCountUnitization});
 }
 
 function setDisplayedIsIqCountUnitized(unitize, playerIqCount){
@@ -778,7 +778,7 @@ function checkForIqpsMultiplier(){
 
 function healPlayerPepega(playerPepegaId, pepegaElementIndex){
 	var healCost = pepegaElements[pepegaElementIndex].healCost;
-	browserRuntime.sendMessage({"message": "heal-player-pepega", "playerPepegaId": playerPepegaId, "healCost": healCost});
+	browserRuntime.sendMessage({"message": EventMessageEnum.HealPlayerPepega, "playerPepegaId": playerPepegaId, "healCost": healCost});
 }
 
 var selectedPlayerPepegaId = null;
@@ -834,11 +834,11 @@ window.onscroll = function () {
 	if(modalYPosition != null){
 		window.scrollTo(0, modalYPosition); 
 	}
-	browserRuntime.sendMessage({"message": "update-saved-scroll-position", "y": window.scrollY});
+	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateSavedScrollPosition, "y": window.scrollY});
 };
 
 function releasePlayerPepega(){
-	browserRuntime.sendMessage({"message": "release-player-pepega", "playerPepegaId": selectedPlayerPepegaId}, function() {
+	browserRuntime.sendMessage({"message": EventMessageEnum.ReleasePlayerPepega, "playerPepegaId": selectedPlayerPepegaId}, function() {
 		hideReleaseConfirmationModal();
 	});
 }
@@ -852,7 +852,7 @@ function updateSettings(){
 	settings.recordOrigin = document.getElementById('recordOriginCheckmark').checked;
 	settings.showBattleBreakdown = document.getElementById('showBattleBreakdownCheckmark').checked;
 
-	browserRuntime.sendMessage({"message": "update-settings", "settings": settings}, function() {
+	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateSettings, "settings": settings}, function() {
 		hideSettingsModal();
 	});
 }
@@ -885,21 +885,21 @@ function quickFilterSite(){
 }
 
 function updateArmyName(){
-	browserRuntime.sendMessage({"message": "update-player-army-name", "playerArmyName": document.getElementById("renameArmyInputBox").value}, function() {
+	browserRuntime.sendMessage({"message": EventMessageEnum.UpdatePlayerArmyName, "playerArmyName": document.getElementById("renameArmyInputBox").value}, function() {
 		hideRenameArmyModal();
 	});
 }
 
 function updateEncounterMode(){
-	browserRuntime.sendMessage({"message": "update-config-encounter-mode"});
+	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateConfigEncounterMode});
 }
 
 function updateFilteredSites(){
-	browserRuntime.sendMessage({"message": "update-config-filtered-sites", "filteredSitesText": document.getElementById("siteFiltersModalTextArea").value});
+	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateConfigFilteredSites, "filteredSitesText": document.getElementById("siteFiltersModalTextArea").value});
 }
 
 function buyPepegaSlot(){
-	browserRuntime.sendMessage({"message": "buy-pepega-slot"});
+	browserRuntime.sendMessage({"message": EventMessageEnum.BuyPepegaSlot});
 }
 
 function openGameLink(){
@@ -910,13 +910,13 @@ function openGameIssuesLink(){
 }
 
 function answerTutorialAskModal(isTutorialAnswerYes){
-	browserRuntime.sendMessage({"message": "answer-tutorial-ask", "tutorialAnswer": isTutorialAnswerYes});
+	browserRuntime.sendMessage({"message": EventMessageEnum.AnswerTutorialAsk, "tutorialAnswer": isTutorialAnswerYes});
 	hideModal("tutorialAskModal");
 }
 
 function resetTutorial(){
 	hideSettingsModal();
-	browserRuntime.sendMessage({"message": "reset-tutorial"});
+	browserRuntime.sendMessage({"message": EventMessageEnum.ResetTutorial});
 }
 
 function showBattleBreakdown(){

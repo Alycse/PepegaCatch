@@ -18,7 +18,7 @@ function rollPagePosition() {
 }
 
 function getWildPepega() {
-	browserRuntime.sendMessage({"message": "get-wild-pepega", "locationHref": window.location.href}, function(result) {
+	browserRuntime.sendMessage({"message": EventMessageEnum.GetWildPepega, "locationHref": window.location.href}, function(result) {
 		var divs = document.getElementsByTagName("div");
 		if(!result.isSiteFiltered && result.wildPepega != null && divs.length >= wildPepegaSpawnMinimumDiv){
 			var divElement = document.getElementsByTagName("body")[0];
@@ -63,13 +63,15 @@ window.addEventListener("message", function(event) {
         return;
     }
     if (event.data.message) {
-		if(event.data.message == "catch-wild-pepega"){
+		if(event.data.message == EventMessageEnum.CatchWildPepega){
 			try{
-				browserRuntime.sendMessage({"message": "catch-wild-pepega", "wildPepegaTypeId": event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, "wildPepegaLevel": event.data.wildPepegaLevel, "locationHref": window.location.href});
+				browserRuntime.sendMessage({"message": EventMessageEnum.CatchWildPepega, "wildPepegaTypeId": 
+					event.data.wildPepegaTypeId, "wildPepegaPower": event.data.wildPepegaPower, 
+					"wildPepegaLevel": event.data.wildPepegaLevel, "locationHref": window.location.href});
 			}catch(e){}
-		}else if(event.data.message == "repel-wild-pepega"){
+		}else if(event.data.message == EventMessageEnum.RepelWildPepega){
 			try{
-				browserRuntime.sendMessage({"message": "repel-wild-pepega"});
+				browserRuntime.sendMessage({"message": EventMessageEnum.RepelWildPepega});
 			}catch(e){}
 		}
     }

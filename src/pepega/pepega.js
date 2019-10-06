@@ -4,9 +4,9 @@ document.getElementById("wildPepega").addEventListener("click",  function(event)
 	if(!event.shiftKey){
 		var wildPepegaInfo = wildPepegaImage.name.split(" ");
 
-		window.postMessage({ "message": "catch-wild-pepega", "wildPepegaTypeId":  wildPepegaInfo[0], "wildPepegaPower": wildPepegaInfo[1], "wildPepegaLevel": wildPepegaInfo[2] }, "*");	
+		window.postMessage({ "message": EventMessageEnum.CatchWildPepega, "wildPepegaTypeId":  wildPepegaInfo[0], "wildPepegaPower": wildPepegaInfo[1], "wildPepegaLevel": wildPepegaInfo[2] }, "*");	
 	}else{
-		window.postMessage({ "message": "repel-wild-pepega" }, "*");	
+		window.postMessage({ "message": EventMessageEnum.RepelWildPepega }, "*");	
 	}
 	
 	wildPepegaImage.parentNode.removeChild(wildPepegaImage);

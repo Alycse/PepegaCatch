@@ -20,7 +20,7 @@ function isStringAVowel(s) {
     return (/^[AEIOUaeiou]$/i).test(s);
 }
 
-browserRuntime.sendMessage({"message": "get-pepega-types"}, function(result) {
+browserRuntime.sendMessage({"message": EventMessageEnum.GetPepegaTypes}, function(result) {
     for(var i = 0, j = 0; i < result.pepegaTypes.length; i++){
         if(result.pepegaTypes[i].fusionIds.length > 0){
             var fusionPepegaType = result.pepegaTypes[i];

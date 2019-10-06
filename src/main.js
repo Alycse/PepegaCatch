@@ -2183,18 +2183,18 @@ function updateAllPopupDisplays(){
 }
 function updateNotificationsPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "notifications-display-updated", 
+        browserRuntime.sendMessage({"message": EventMessageEnum.NotificationsDisplayUpdated, 
         "notificationsDisplayHeader": notificationsDisplay.header, "notificationsDisplayMessage": notificationsDisplay.message});
     }
 }
 function updatePlayerPepegaSlotsPopupDisplay(){
     if(popup.isOpened){
-		browserRuntime.sendMessage({"message": "player-pepega-slots-updated", "playerPepegaCount": player.pepegas.length, "playerPepegaSlots": player.pepegaSlots, "pepegaSlotCost": pepegaSlotCost, "playerIqCount": player.iqCount});
+		browserRuntime.sendMessage({"message": EventMessageEnum.PlayerPepegaSlotsUpdated, "playerPepegaCount": player.pepegas.length, "playerPepegaSlots": player.pepegaSlots, "pepegaSlotCost": pepegaSlotCost, "playerIqCount": player.iqCount});
     }
 }
 function updateIdlePopupDisplay(){
     if(popup.isOpened){
-		browserRuntime.sendMessage({"message": "idle-updated", "isPlayerIdle": isPlayerIdle, "idleIqMultiplier" : idleIqMultiplier});
+		browserRuntime.sendMessage({"message": EventMessageEnum.IdleUpdated, "isPlayerIdle": isPlayerIdle, "idleIqMultiplier" : idleIqMultiplier});
     }
 }
 function updatePlayerIqCountPopupDisplay(){
@@ -2224,48 +2224,48 @@ function updatePlayerIqCountPopupDisplay(){
             basePower: ranks[player.rank.id+1].basePower
         }
 
-		browserRuntime.sendMessage({"message": "player-iq-count-updated", "playerIqCount": player.iqCount, "rank": tempRank, "branch": tempBranch, "nextRank": tempNextRank, "pepegaSlotCost": pepegaSlotCost, "ranksLength": ranks.length});
+		browserRuntime.sendMessage({"message": EventMessageEnum.PlayerIqCountUpdated, "playerIqCount": player.iqCount, "rank": tempRank, "branch": tempBranch, "nextRank": tempNextRank, "pepegaSlotCost": pepegaSlotCost, "ranksLength": ranks.length});
     }
 }
 function updatePlayerPepegasPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "player-pepegas-updated", "playerPepegas": player.pepegas, "totalIqps": totalIqps, "totalPepegaPower": totalPepegaPower, "rankBasePower": player.rank.basePower,
+        browserRuntime.sendMessage({"message": EventMessageEnum.PlayerPepegasUpdated, "playerPepegas": player.pepegas, "totalIqps": totalIqps, "totalPepegaPower": totalPepegaPower, "rankBasePower": player.rank.basePower,
         "multipliedTotalIqps": Math.round(totalIqps * player.rank.iqpsMultiplier * uniquePepegaIqpsMultiplier * (isPlayerIdle ? idleIqMultiplier : 1.0)), "playerPepegaSlots": player.pepegaSlots, "uniquePepegaIqpsMultiplier": uniquePepegaIqpsMultiplier, "baseEncounterRate": baseEncounterRate, "configEncounterMode": config.encounterMode});
     }
 }
 function updateSettingsPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "settings-updated", "settings": settings});
+        browserRuntime.sendMessage({"message": EventMessageEnum.SettingsUpdated, "settings": settings});
     }
 }
 function updatePlayerArmyNamePopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "player-army-name-updated", "playerArmyName": player.armyName, "isDefaultArmyName": (player.armyName == defaultArmyName)});
+        browserRuntime.sendMessage({"message": EventMessageEnum.PlayerArmyNameUpdated, "playerArmyName": player.armyName, "isDefaultArmyName": (player.armyName == defaultArmyName)});
     }
 }
 function updateConfigEncounterModePopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "config-encounter-mode-updated", "configEncounterMode": config.encounterMode, "baseEncounterRate": baseEncounterRate});
+        browserRuntime.sendMessage({"message": EventMessageEnum.ConfigEncounterModeUpdated, "configEncounterMode": config.encounterMode, "baseEncounterRate": baseEncounterRate});
     }
 }
 function updateConfigIsIqCountUnitizedPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "config-is-iq-count-unitized-updated", "configIsIqCountUnitized": config.isIqCountUnitized, "playerIqCount" : player.iqCount});
+        browserRuntime.sendMessage({"message": EventMessageEnum.ConfigIsIqCountUnitizedUpdated, "configIsIqCountUnitized": config.isIqCountUnitized, "playerIqCount" : player.iqCount});
     }
 }
 function updateConfigFilteredSitesPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "config-filtered-sites-updated", "configFilteredSites": config.filteredSites});
+        browserRuntime.sendMessage({"message": EventMessageEnum.ConfigFilteredSitesUpdated, "configFilteredSites": config.filteredSites});
     }
 }
 function updateTutorialPhasePopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "tutorial-phase-updated", "tutorialPhase": tutorial.phase});
+        browserRuntime.sendMessage({"message": EventMessageEnum.TutorialPhaseUpdated, "tutorialPhase": tutorial.phase});
     }
 }
 function updateRandomTutorialPopupDisplay(){
     if(popup.isOpened){
-        browserRuntime.sendMessage({"message": "show-random-tutorial", "randomTutorialPhase": tutorial.randomPhase});
+        browserRuntime.sendMessage({"message": EventMessageEnum.ShowRandomTutorial, "randomTutorialPhase": tutorial.randomPhase});
     }
 }
 
@@ -2280,83 +2280,118 @@ function formatWithCommas(value) {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const EventMessageEnum = {
+    "GetWildPepega":1, 
+    "CatchWildPepega":2, 
+    "UpdateAllPopupDisplays":3, 
+    "ReleasePlayerPepega":4,
+    "UpdateSettings":5,
+    "UpdateConfigEncounterMode":6,
+    "UpdateConfigFilteredSites":7,
+    "UpdatePlayerArmyName":8,
+    "BuyPepegaSlot":9,
+    "AnswerTutorialAsk":10,
+    "UpdateTutorialPhase":11,
+    "UpdateRandomTutorialPhase":12,
+    "ReplaceRandomTutorialPhase":13,
+    "ResetTutorial":14,
+    "HealPlayerPepega":15,
+    "GetPepegaTypes":16,
+    "RepelWildPepega":17,
+    "UpdateSavedScrollPosition":18,
+    "GetSavedScrollPosition":19,
+    "ChangeIqCountUnitization":20,
+    "NotificationsDisplayUpdated":21,
+    "PlayerPepegaSlotsUpdated":22,
+    "IdleUpdated":23,
+    "PlayerIqCountUpdated":24,
+    "PlayerPepegasUpdated":25,
+    "SettingsUpdated":26,
+    "PlayerArmyNameUpdated":27,
+    "ConfigEncounterModeUpdated":28,
+    "ConfigIsIqCountUnitizedUpdated":29,
+    "ConfigFilteredSitesUpdated":30,
+    "TutorialPhaseUpdated":31,
+    "ShowRandomTutorial":32
+}
+
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
         switch(request.message) {
-            case "get-wild-pepega":
+            case EventMessageEnum.GetWildPepega:
                 sendResponse({ "isSiteFiltered": isSiteFiltered(request.locationHref), "wildPepega": getWildPepega(request.locationHref), "totalEstimatedPower": formatWithCommas((player.rank.basePower + totalPepegaPower).toFixed(2)) });
                 break;
-            case "catch-wild-pepega":
+            case EventMessageEnum.CatchWildPepega:
                 catchWildPepega(request.wildPepegaTypeId, request.wildPepegaPower, request.wildPepegaLevel, request.locationHref);
                 sendResponse();
                 break;
-            case "update-all-popup-displays":
+            case EventMessageEnum.UpdateAllPopupDisplays:
                 updateAllPopupDisplays();
                 sendResponse();
                 break;
-            case "release-player-pepega":
+            case EventMessageEnum.ReleasePlayerPepega:
                 releasePlayerPepega(request.playerPepegaId);
                 sendResponse();
                 break;
-            case "update-settings":
+            case EventMessageEnum.UpdateSettings:
                 updateSettings(request.settings);
                 sendResponse();
                 break;
-            case "update-config-encounter-mode":
+            case EventMessageEnum.UpdateConfigEncounterMode:
                 updateConfigEncounterMode();
                 sendResponse();
                 break;
-            case "update-config-filtered-sites":
+            case EventMessageEnum.UpdateConfigFilteredSites:
                 updateConfigFilteredSites(request.filteredSitesText);
                 sendResponse();
                 break;
-            case "update-player-army-name":
+            case EventMessageEnum.UpdatePlayerArmyName:
                 updatePlayerArmyName(request.playerArmyName);
                 sendResponse();
                 break;
-            case "buy-pepega-slot":
+            case EventMessageEnum.BuyPepegaSlot:
                 buyPepegaSlot();
                 sendResponse();
                 break;
-            case "answer-tutorial-ask":
+            case EventMessageEnum.AnswerTutorialAsk:
                 answerTutorialAsk(request.tutorialAnswer);
                 sendResponse();
                 break;
-            case "update-tutorial-phase":
+            case EventMessageEnum.UpdateTutorialPhase:
                 updateTutorialPhase(request.tutorialPhase);
                 sendResponse();
                 break;
-            case "update-random-tutorial-phase":
+            case EventMessageEnum.UpdateRandomTutorialPhase:
                 updateRandomTutorialPhase(request.randomTutorialPhase);
                 sendResponse();
                 break;
-            case "replace-random-tutorial-phase":
+            case EventMessageEnum.ReplaceRandomTutorialPhase:
                 replaceRandomTutorialPhase(request.randomTutorialPhase);
                 sendResponse();
                 break;
-            case "reset-tutorial":
+            case EventMessageEnum.ResetTutorial:
                 resetTutorial();
                 sendResponse();
                 break;
-            case "heal-player-pepega":
+            case EventMessageEnum.HealPlayerPepega:
                 healPlayerPepega(request.playerPepegaId, request.healCost);
                 sendResponse();
                 break;
-            case "get-pepega-types":
+            case EventMessageEnum.GetPepegaTypes:
                 sendResponse({ "pepegaTypes": pepegaTypes, "playerPepegaTypeStatuses": player.pepegaTypeStatuses });
                 break;
-            case "repel-wild-pepega":
+            case EventMessageEnum.RepelWildPepega:
                 repelWildPepega();
                 sendResponse();
                 break;
-            case "update-saved-scroll-position":
+            case EventMessageEnum.UpdateSavedScrollPosition:
                 updateSavedScrollPosition(request.y);
                 sendResponse();
                 break;
-            case "get-saved-scroll-position":
+            case EventMessageEnum.GetSavedScrollPosition:
                 sendResponse({ "y": savedScrollPosition });
                 break;
-            case "change-iq-count-unitization":
+            case EventMessageEnum.ChangeIqCountUnitization:
                 updateConfigIsIqCountUnitized();
                 sendResponse();
                 break;
