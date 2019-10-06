@@ -1,3 +1,7 @@
+const EventMessageEnum = {
+    "GetPepegaTypes":16,
+}
+
 var browser = chrome;
 var browserRuntime = browser.runtime;
 var browserStorage = browser.storage.local;

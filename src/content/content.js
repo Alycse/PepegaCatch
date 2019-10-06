@@ -1,3 +1,9 @@
+const EventMessageEnum = {
+    "GetWildPepega":1, 
+    "CatchWildPepega":2, 
+    "RepelWildPepega":17
+}
+
 const wildPepegaSpawnMinimumDiv = 40;
 
 var browser = chrome;

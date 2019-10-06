@@ -1,3 +1,8 @@
+const EventMessageEnum = {
+    "CatchWildPepega":2, 
+    "RepelWildPepega":17
+}
+
 document.getElementById("wildPepega").addEventListener("click",  function(event){
 	var wildPepegaImage = event.target || event.srcElement;
 

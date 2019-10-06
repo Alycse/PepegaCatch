@@ -1,3 +1,33 @@
+const EventMessageEnum = {
+    "UpdateAllPopupDisplays":3, 
+    "ReleasePlayerPepega":4,
+    "UpdateSettings":5,
+    "UpdateConfigEncounterMode":6,
+    "UpdateConfigFilteredSites":7,
+    "UpdatePlayerArmyName":8,
+    "BuyPepegaSlot":9,
+    "AnswerTutorialAsk":10,
+    "UpdateTutorialPhase":11,
+    "ReplaceRandomTutorialPhase":13,
+    "ResetTutorial":14,
+    "HealPlayerPepega":15,
+    "UpdateSavedScrollPosition":18,
+    "GetSavedScrollPosition":19,
+    "ChangeIqCountUnitization":20,
+    "NotificationsDisplayUpdated":21,
+    "PlayerPepegaSlotsUpdated":22,
+    "IdleUpdated":23,
+    "PlayerIqCountUpdated":24,
+    "PlayerPepegasUpdated":25,
+    "SettingsUpdated":26,
+    "PlayerArmyNameUpdated":27,
+    "ConfigEncounterModeUpdated":28,
+    "ConfigIsIqCountUnitizedUpdated":29,
+    "ConfigFilteredSitesUpdated":30,
+    "TutorialPhaseUpdated":31,
+    "ShowRandomTutorial":32
+}
+
 const isBeta = true;
 const gameLink = "https://github.com/Alycse/PepegaCatch";
 const gameIssuesLink = "https://github.com/Alycse/PepegaCatch/issues/new/choose";
