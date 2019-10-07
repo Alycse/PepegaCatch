@@ -474,13 +474,13 @@ const pepegaTypes = [
         62, 300, 1725, 100, ["Try Hard", "Speedrun", "7"],
         browserRuntime.getURL("images/pepegas/45_Triga.png")),
 
-    new PepegaType(47, [39, 39, 38, 38], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega.\nFor some reason, you can see through its body.", 
-        66, 300, 1660, 100, ["Two-Time", "Invisibility", "Become Champion"],
-        browserRuntime.getURL("images/pepegas/47_Doctor-Pepega.png")),
-
     new PepegaType(46, [39, 39, 36], "Forsenga", "A professional children's card player that gets mad and bald when it loses.\nAlthough, nowadays, it just plays cartoon drag-and-drop games that require no skill whatsoever.\nPerhaps, this way, it can just blame its bad luck when it loses, instead of its lack of skill.", 
         69, 300, 1590, 100, ["Steal Posture", "Bottom Snus", "Google"],
         browserRuntime.getURL("images/pepegas/46_Forsenga.png")),
+
+    new PepegaType(47, [39, 39, 38, 38], "Doctor Pepega", "The three time, back to back to back, consecutive years, 1982-1976 blockbuster Pepega.\nFor some reason, you can see through its body.", 
+        66, 300, 1660, 100, ["Two-Time", "Invisibility", "Become Champion"],
+        browserRuntime.getURL("images/pepegas/47_Doctor-Pepega.png")),
 
     new PepegaType(48, [], "REPLIGA", "", 
         -1000, 10, 10275, 120, ["t0rm3nt"],
