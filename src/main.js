@@ -1094,7 +1094,14 @@ var load = '{"playerCatchCount":3,"playerEncounterCount":25,"playerIqCount":470.
 
 function loadData(data) {
     try{
-        browserStorage.set(JSON.parse(data));
+        var result = JSON.parse(data);
+
+        for(var i in result.playerPepegas){
+            result.playerPepegas[i].pepegaType = pepegaTypes[result.playerPepegas[i].pepegaTypeId];
+            result.playerPepegas[i].pepegaTypeId = undefined;
+        }
+
+        browserStorage.set(result);
         chrome.runtime.reload();
     }catch{
         updateLoadDataErrorPopupDisplay("Error loading data!")
@@ -1104,6 +1111,11 @@ function loadData(data) {
 function saveData() {
     browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", 
     "playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses", "playerRank"], function(result) {
+        for(var i in result.playerPepegas){
+            result.playerPepegas[i].pepegaTypeId = result.playerPepegas[i].pepegaType.id;
+            result.playerPepegas[i].pepegaType = undefined;
+        }
+
         var text = JSON.stringify(result).replace(/\\n/g, '\\\\n')
         var blob = new Blob([text], { type: "plain/text" });
         var a = document.createElement('a');
@@ -1161,7 +1173,11 @@ browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "play
     if(result.playerPepegas != null){
         var index, length;
         for (index = 0, length = result.playerPepegas.length; index < length; ++index) {
-            var playerPepega = new Pepega(pepegaTypes[result.playerPepegas[index].pepegaType.id]);
+            if(result.playerPepegas[index].pepegaType != undefined){
+                var playerPepega = new Pepega(pepegaTypes[result.playerPepegas[index].pepegaType.id]);
+            }else{
+                var playerPepega = new Pepega(pepegaTypes[result.playerPepegas[index].pepegaTypeId]);
+            }
             
             playerPepega.id = result.playerPepegas[index].id;
             playerPepega.origin = result.playerPepegas[index].origin;
