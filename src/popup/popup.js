@@ -25,7 +25,10 @@ const EventMessageEnum = {
     "ConfigIsIqCountUnitizedUpdated":29,
     "ConfigFilteredSitesUpdated":30,
     "TutorialPhaseUpdated":31,
-    "ShowRandomTutorial":32
+    "ShowRandomTutorial":32,
+    "LoadData":33,
+    "LoadDataErrorUpdated":34,
+    "SaveData":35
 }
 
 const isBeta = true;
@@ -111,9 +114,16 @@ browserRuntime.onMessage.addListener(
 		}else if(request.message == EventMessageEnum.IdleUpdated){
 			setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
 			sendResponse();
+		}else if(request.message == EventMessageEnum.LoadDataErrorUpdated){
+			setDisplayedLoadDataError(request.errorMessage);
+			sendResponse();
 		}
 	}
 );
+
+function setDisplayedLoadDataError(errorMessage){
+	document.getElementById("loadModalError").innerHTML = errorMessage;
+}
 
 function setDisplayedIdle(isPlayerIdle, idleIqMultiplier){
 	if(isPlayerIdle){
@@ -826,6 +836,14 @@ function hideReleaseConfirmationModal(){
 	selectedPlayerPepegaId = null;
 }
 
+function showLoadModal(){
+	showModal("loadModal");
+}
+function hideLoadModal(){
+	setDisplayedLoadDataError("");
+	hideModal("loadModal");
+}
+
 function showSiteFiltersModal(){
 	showModal("siteFiltersModal");
 }
@@ -956,6 +974,14 @@ function showFusionRecipes(){
 	window.location.href=browserRuntime.getURL("src/popup/fusionRecipes/fusionRecipes.html");
 }
 
+function loadData(){
+	browserRuntime.sendMessage({"message": EventMessageEnum.LoadData, "loadData": document.getElementById("loadDataInputBox").value});
+}
+
+function saveData(){
+	browserRuntime.sendMessage({"message": EventMessageEnum.SaveData});
+}
+
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
@@ -982,3 +1008,9 @@ document.getElementById("battleBreakdownAlertHide").addEventListener("click", hi
 document.getElementById("battleBreakdownSmallAlert").addEventListener("click", showBattleBreakdown);
 document.getElementById("fusionRecipesTitle").addEventListener("click", showFusionRecipes);
 document.getElementById("iqCountContent").addEventListener("click", changeIqCountUnitization);
+
+document.getElementById("showLoadModal").addEventListener("click", showLoadModal);
+document.getElementById("hideLoadModal").addEventListener("click", hideLoadModal);
+document.getElementById("loadData").addEventListener("click", loadData);
+
+document.getElementById("save").addEventListener("click", saveData);

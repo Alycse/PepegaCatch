@@ -93,12 +93,33 @@ body{
 .greenButton:hover{
     background-color: rgb(24, 107, 24);
 }
+.goldButton {background-color: #a3872d;}
+.goldButton:hover{
+    background-color: rgb(107, 85, 24);
+}
 
 #tutorialAskModalTitle{
     font-size: 24px;
 }
 #tutorialAskModalDescription{
     font-size: 18px;
+}
+
+#loadModalTitle{
+    font-size: 24px;
+}
+#loadModalDescription{
+    font-size: 18px;
+}
+#loadModalDescription2{
+    font-size: 17px;
+    margin-top: -10px;
+    color: rgb(212, 193, 85);
+}
+#loadModalError{
+    font-size: 18px;
+    margin-top: -7px;
+    color: red;
 }
 
 #tutorialModalTitle{
@@ -410,7 +431,7 @@ textarea{
 
 #notificationsDisplay{
     margin-top: 18px;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
     font-size: 18px;
     
     color: rgb(184, 184, 184);
@@ -535,4 +556,36 @@ textarea{
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+#saveDisplay{
+    margin-left: -25px;
+    margin-right: -25px;
+    padding: 20px;
+    padding-bottom: 30px;
+    background-color: rgb(25, 25, 25);
+
+    font-size: 18px;
+    
+    background-color: rgb(30, 30, 30);
+    color: rgb(184, 184, 184);
+}
+#saveDisplayContent{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 40px;
+}
+#saveDisplayHeader{
+    font-size: 15px;
+    
+    color: rgb(197, 196, 125);
+}
+#saveDisplayMessage{
+    font-size: 14px;
+    
+    color: rgb(167, 165, 135);
+}
+
+#loadDataInputBox{
+    margin-bottom: 15px;
 }

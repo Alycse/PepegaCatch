@@ -82,6 +82,26 @@
 
 	</div>
 
+	<div id="loadModal" class="modal">
+		<div class="modalContent">
+			<span class="modalTitle" id="loadModalTitle">
+				Load Data
+			</span>
+			<p id="loadModalDescription">
+				Paste your save data in the box below.
+			</p>
+			<p id="loadModalDescription2">
+			Note: The extension's popup will close once the data has been loaded!
+			</p>
+			<textarea id="loadDataInputBox" rows="8" style="resize: none;"></textarea>
+			<p id="loadModalError"></p>
+			<div class="modalButtons">
+				<button id="hideLoadModal" class="button grayButton unselectable">Close</button>
+				<button id="loadData" class="button goldButton unselectable">Load Data</button>
+			</div>
+		</div>
+	</div>
+
 	<div id="tutorialAskModal" class="modal">
 		<div class="modalContent">
 			<span class="modalTitle" id="tutorialAskModalTitle">
@@ -342,6 +362,15 @@ You may completely disable your Pepega encounters by changing your Encounter Mod
 				You have no notifications at the moment!
 			</div>
 			<div id="notificationsDisplayMessage">
+			</div>
+		</div>
+	</div>
+
+	<div id="saveDisplay">
+		<div id="saveDisplayContent">
+			<div class="modalButtons">
+				<button id="save" class="button greenButton unselectable">Get Save Data</button>
+				<button id="showLoadModal" class="button grayButton unselectable">Load Data</button>
 			</div>
 		</div>
 	</div>
