@@ -1089,7 +1089,26 @@ browserStorage.get(["tutorialPhase", "randomTutorialPhase", "enableUniquePepegaR
         tutorial.enableDeadPepegaRandomTutorial = result.enableDeadPepegaRandomTutorial;
     }
 });
-browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", 
+
+var load = '{"playerCatchCount":3,"playerEncounterCount":25,"playerIqCount":470.5,"playerPepegaTypeStatuses":[{"acquired":true}],"playerPepegas":[{"alive":true,"date":"10/9/2019, 6:06:01 PM","fusioned":false,"id":1570615561322,"level":"1","origin":"www.wikipedia.org","pepegaType":{"attacks":["Shout","Push","Scream"],"basePower":15,"description":"The original Pepega we all know and love.\\nIts head is shaped like a garlic.","fusionIds":[],"healCostMultiplier":15,"id":0,"imageUrl":"chrome-extension://obbdcmagaolaljnnocgfdjeohpbppleb/images/pepegas/0_Pepega.png","iqReleasePriceMultiplier":1,"iqps":0.5,"name":"Pepega"},"power":"57.2","timeBeforeRecovery":null}],"playerSuccessfulCatchCount":2}';
+
+function getSaveData(data) {
+    return JSON.stringify(data).replace(/\\n/g, '\\\\n')
+}
+
+function loadData(data) {
+    browserStorage.set(JSON.parse(data));
+    chrome.runtime.reload();
+}
+
+/*
+browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", 
+"playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses", "playerRank"], function(result) {
+    saveData(result, "text/ppg", "save.ppg");
+});
+*/
+
+browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", 
 "playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses", "playerRank"], function(result) {
     if(parseInt(result.playerIqCount)){
         player.iqCount = result.playerIqCount;
@@ -1123,8 +1142,7 @@ browserStorage.get(["playerIqCount", "playerPepegaSlots", "playerCatchCount", "p
     if(result.playerRank != null){
         player.rank = result.playerRank;
     }
-});
-browserStorage.get(["playerPepegas"], function(result) {
+
     if(result.playerPepegas != null){
         var index, length;
         for (index = 0, length = result.playerPepegas.length; index < length; ++index) {
