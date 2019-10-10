@@ -40,13 +40,13 @@ browserStorage.get(["recentBattleBreakdown"], function(result) {
         }
         
         if(rounds.length == 0 || !rounds[rounds.length - 1].roundPlayerWon){
-            battleBreakdownText += "<p><b><span class=\"ally\">" + player.rankTitle + "</span></b> attacked <b><span class=\"enemy\"><img class=\"pepegaImage\" src=\"" + wildPepega.imageUrl + "\"> Wild " + wildPepega.name + 
+            battleBreakdownText += "<p><b><span class=\"ally\">" + player.rankTitle[0] + "</span></b> attacked <b><span class=\"enemy\"><img class=\"pepegaImage\" src=\"" + wildPepega.imageUrl + "\"> Wild " + wildPepega.name + 
                 "</span></b>, dealing <b>" + player.rolledRankPower + " damage</b>!</p>";
         }
 
         if(wildPepega.remainingPower <= 0){
             battleBreakdownText += "<p><b><span class=\"enemy\"><img class=\"pepegaImage dead\" src=\"" + wildPepega.imageUrl + "\"> Wild " + wildPepega.name + "</span></b> fainted!</p>";
-            battleBreakdownText += "<p><b><span class=\"ally\">" + player.rankTitle + "</span></b> successfully caught <b><span class=\"enemy\"><img class=\"pepegaImage\" src=\"" + wildPepega.imageUrl + "\"> Wild " + 
+            battleBreakdownText += "<p><b><span class=\"ally\">" + player.rankTitle[0] + "</span></b> successfully caught <b><span class=\"enemy\"><img class=\"pepegaImage\" src=\"" + wildPepega.imageUrl + "\"> Wild " + 
                 wildPepega.name + "</span></b>!</p>";
         }else{
             battleBreakdownText += "<p><b><span class=\"enemy\"><img class=\"pepegaImage\" src=\"" + wildPepega.imageUrl + "\"> Wild " + wildPepega.name + "</span></b> has <b>" + wildPepega.remainingPower + " remaining power</b>.</p>";
