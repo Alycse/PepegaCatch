@@ -1090,8 +1090,6 @@ browserStorage.get(["tutorialPhase", "randomTutorialPhase", "enableUniquePepegaR
     }
 });
 
-var load = '{"playerCatchCount":3,"playerEncounterCount":25,"playerIqCount":470.5,"playerPepegaTypeStatuses":[{"acquired":true}],"playerPepegas":[{"alive":true,"date":"10/9/2019, 6:06:01 PM","fusioned":false,"id":1570615561322,"level":"1","origin":"www.wikipedia.org","pepegaType":{"attacks":["Shout","Push","Scream"],"basePower":15,"description":"The original Pepega we all know and love.\\nIts head is shaped like a garlic.","fusionIds":[],"healCostMultiplier":15,"id":0,"imageUrl":"chrome-extension://obbdcmagaolaljnnocgfdjeohpbppleb/images/pepegas/0_Pepega.png","iqReleasePriceMultiplier":1,"iqps":0.5,"name":"Pepega"},"power":"57.2","timeBeforeRecovery":null}],"playerSuccessfulCatchCount":2}';
-
 function loadData(data) {
     try{
         var result = JSON.parse(data);
@@ -1110,7 +1108,7 @@ function loadData(data) {
 
 function saveData() {
     browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", 
-    "playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses", "playerRank"], function(result) {
+    "playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses"], function(result) {
         for(var i in result.playerPepegas){
             result.playerPepegas[i].pepegaTypeId = result.playerPepegas[i].pepegaType.id;
             result.playerPepegas[i].pepegaType = undefined;
