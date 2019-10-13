@@ -1219,10 +1219,10 @@ browserStorage.get(["settings"], function(result) {
 function answerTutorialAsk(tutorialAnswer){
     //If the player chooses yes, start the next phase of the tutorial
     if(tutorialAnswer){
-        updateTutorialPhase("catchPrompt");
+        updateTutorialPhase(TutorialPhaseEnum.CatchPrompt);
     }else{
-        updateTutorialPhase("disabled");
-        updateRandomTutorialPhase("disabled");
+        updateTutorialPhase(TutorialPhaseEnum.End);
+        updateRandomTutorialPhase(TutorialPhaseEnum.End);
     }
     updateTutorialPhasePopupDisplay();
 }
@@ -1351,7 +1351,7 @@ function analyzeUniquePepegas(){
     uniquePepegaIqpsMultiplier = 1 + ((uniquePepegaCount-1) * iqpsMultiplierForEachUniquePepega);
 
     if(uniquePepegaCount > 1 && tutorial.phase != "disabled" && tutorial.enableUniquePepegaRandomTutorial){
-        updateRandomTutorialPhase("uniquePepega");
+        updateRandomTutorialPhase(RandomTutorialPhaseEnum.UniquePepega);
     }
 }
 
@@ -1722,7 +1722,7 @@ function fightWildPepega(wildPepega){
             (playerPepega.power * playerPepega.level * multiplierBeforePepegaRecovers);
         
             if(tutorial.phase != "disabled" && tutorial.enableDeadPepegaRandomTutorial){
-                updateRandomTutorialPhase("deadPepega");
+                updateRandomTutorialPhase(RandomTutorialPhaseEnum.DeadPepega);
             }
         }else{
             results.battleBreakdown.rounds[j].roundPlayerWon = true;
@@ -1803,8 +1803,8 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
         notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", pepegaAdd[1].pepegaType.name + " caught!", 
         notificationMessage, pepegaAdd[1].pepegaType.imageUrl);
 
-        if(tutorial.phase == "catch"){
-            updateTutorialPhase("catchDone");
+        if(tutorial.phase == TutorialPhaseEnum.Catch){
+            updateTutorialPhase(TutorialPhaseEnum.CatchDone);
         }
 
         playSound(pepegaCatchSound);
@@ -1813,8 +1813,8 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
             wildPepega.pepegaType.name + " fusioned with other Pepegas into " + getArticle(pepegaAdd[1].pepegaType.name) + " " + pepegaAdd[1].pepegaType.name + "!\nPogChamp!",
             pepegaAdd[1].pepegaType.imageUrl);
 
-        if(tutorial.phase == "fusion"){
-            updateTutorialPhase("fusionDone");
+        if(tutorial.phase == TutorialPhaseEnum.Fusion){
+            updateTutorialPhase(TutorialPhaseEnum.FusionDone);
         }
 
         playSound(pepegaFusionSound);
@@ -1823,8 +1823,8 @@ function catchWildPepega(wildPepegaTypeId, wildPepegaPower, wildPepegaLevel, loc
             "Your " + pepegaAdd[1].pepegaType.name + " leveled up!\nIt is now level " + pepegaAdd[1].level + "!\nPog!",
             pepegaAdd[1].pepegaType.imageUrl);
 
-        if(tutorial.phase == "levelUp"){
-            updateTutorialPhase("levelUpDone");
+        if(tutorial.phase == TutorialPhaseEnum.LevelUp){
+            updateTutorialPhase(TutorialPhaseEnum.LevelUpDone);
         }
 
         playSound(pepegaLevelSound);
@@ -2172,7 +2172,7 @@ function analyzeRank(isNotifyIfRankUp = true){
                 "You've ranked up!\n" + rankDescription, browserRuntime.getURL("images/rank-up.png"));
 
                 if(tutorial.phase != "disabled" && tutorial.enableRankUpRandomTutorial){
-                    updateRandomTutorialPhase("rankUp");
+                    updateRandomTutorialPhase(RandomTutorialPhaseEnum.RankUp);
                 }
             }
 
@@ -2203,8 +2203,8 @@ function buyPepegaSlot(){
 
         playSound(pepegaBuySlotSound);
 
-        if(tutorial.phase == "buySlot"){
-            updateTutorialPhase("buySlotDone");
+        if(tutorial.phase == TutorialPhaseEnum.BuySlot){
+            updateTutorialPhase(TutorialPhaseEnum.BuySlotDone);
         }
     }
 }
@@ -2368,6 +2368,36 @@ const EventMessageEnum = {
     "LoadData":33,
     "LoadDataErrorUpdated":34,
     "SaveData":35
+}
+
+const TutorialPhaseEnum = {
+	"Ask":0,
+	"CatchPrompt":1,
+	"Catch":2,
+	"CatchDone":3,
+	"RepelInfo":4,
+	"LevelUpPrompt":5,
+	"LevelUp":6,
+	"LevelUpDone":7,
+	"BreakdownInfo":8,
+	"HoverInfo":9,
+	"ExploreInfo":10,
+	"BuySlotPrompt":11,
+	"BuySlot":12,
+	"BuySlotDone":13,
+	"IdleInfo":14,
+	"FusionPrompt":15,
+	"FusionInfo":16,
+	"Fusion":17,
+	"FusionDone":18,
+	"Complete":19,
+	"End":20
+}
+
+const RandomTutorialPhaseEnum = {
+	"UniquePepega":0,
+	"RankUp":1,
+	"DeadPepega":2,
 }
 
 browserRuntime.onMessage.addListener(
