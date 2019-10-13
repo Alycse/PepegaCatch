@@ -31,6 +31,36 @@ const EventMessageEnum = {
     "SaveData":35
 }
 
+const TutorialPhaseEnum = {
+	"Ask":0,
+	"CatchPrompt":1,
+	"Catch":2,
+	"CatchDone":3,
+	"RepelInfo":4,
+	"LevelUpPrompt":5,
+	"LevelUp":6,
+	"LevelUpDone":7,
+	"BreakdownInfo":8,
+	"HoverInfo":9,
+	"ExploreInfo":10,
+	"BuySlotPrompt":11,
+	"BuySlot":12,
+	"BuySlotDone":13,
+	"IdleInfo":14,
+	"FusionPrompt":15,
+	"FusionInfo":16,
+	"Fusion":17,
+	"FusionDone":18,
+	"Complete":19,
+	"End":20
+}
+
+const RandomTutorialPhaseEnum = {
+	"UniquePepega":0,
+	"RankUp":1,
+	"DeadPepega":2,
+}
+
 const isBeta = true;
 const gameLink = "https://github.com/Alycse/PepegaCatch";
 const gameIssuesLink = "https://github.com/Alycse/PepegaCatch/issues/new/choose";
@@ -166,164 +196,139 @@ function setDisplayedTutorialPhase(tutorialPhase){
 	var tutorialDisplayDescription = "";
 	document.getElementById("tutorialDisplay").style.display = "none";
 
-	if(tutorialPhase == "ask"){
-
-		setTimeout(function() {
-			showModal("tutorialAskModal");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "catchPrompt"){
-
-		setTimeout(function() {
-			showTutorialModal("Let's catch your first Pepega!", 
-			"<p>Go to any website, find the Wild Pepega hiding within the page, then click it!</p>" + 
-			"<p>You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)</p>" +
-			"<p>But since you don't have any Pepegas yet, you're gonna have to defeat it by yourself!</p>" +
-			"<p>Try catching one now! You may hover over the Wild Pepega to see its name and power.</p>");
-		}, tutorialModalDelay);
-		
-	} else if(tutorialPhase == "catch"){
-
-		tutorialDisplayContent = "Catch your first Pepega!";
-		tutorialDisplayDescription = "Go to any website, find the Wild Pepega hiding within the page, then click it!\n" + 
-		"You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)\n" + 
-		"But since you don't have any Pepegas yet, you're gonna have to defeat it yourself!\n"+
-		"Try catching one now! You may hover over the Wild Pepega to see its name and power.";
-
-	} else if(tutorialPhase == "catchDone"){
-
-		setTimeout(function() {
-			showTutorialModal("Great! You caught your first Pepega!", 
-			"<p>This Pepega will increase the amount of IQ you get per second, " +
-			"and it will also fight for you when you're catching more Wild Pepegas!</p>" +
-			"<p>Your Total Power is your rank's base power combined with your Pepegas' power, which you can find on your home screen.</p>");
-		}, tutorialModalDelay);
-
-	} else if (tutorialPhase == "repelInfo"){
-		setTimeout(function() {
-			showTutorialModal("Repelling Wild Pepegas", 
-			"<p>If you don't want to fight a Wild Pepega because it's too strong but you want it off the website, you may hold down the Shift key on your keyboard before clicking it in order to \"Repel\" it!</p>" + 
-			"<p>This will get rid of the Wild Pepega without you having to battle it.</p>");
-		}, tutorialModalDelay);
-	} else if(tutorialPhase == "levelUpPrompt"){
-
-		setTimeout(function() {
-			showTutorialModal("Now, let's try levelling up your Pepega!", 
-			"<p>To level up a Pepega, you need to combine it with two other Pepegas of the same type and level!</p>" + 
-			"<p>So three Level 1 Pepegas will combine into a Level 2 Pepega, and three Level 2 Pepegas will combine into a Level 3 Pepega!</p>" + 
-			"<p>The highest level a Pepega can get is Level 3! Go ahead and try levelling up your Pepega now!</p>");
-		}, tutorialModalDelay);
-
-	}else if(tutorialPhase == "levelUp"){
-
-		tutorialDisplayContent = "Level up your Pepega!";
-		tutorialDisplayDescription = "Catch THREE of the same type of Pepega to level it up.";
-
-	} else if(tutorialPhase == "levelUpDone"){
-
-		setTimeout(function() {
-			showTutorialModal("Amazing job! Your Pepega has leveled up!", "Now it's less stupid than before!");
-		}, tutorialModalDelay);
-
-	} /*else if(tutorialPhase == "breakdownInfo"){
-
-		setTimeout(function() {
-			showTutorialModal("How did the battle go against that Wild Pepega?", 
-			"<p>You may view the \"Battle Breakdown\" against the Wild Pepega you recently caught by clicking \"Show Breakdown of battle against Wild Pepega\"</p>" + 
-			"<p>You can use this to find out how you were able to catch the Wild Pepega, or how you lost to it.</p>" +
-			"<p>If any of your Pepegas died during the battle, take a look at the breakdown to find out what killed it!</p>");
-		}, tutorialModalDelay);
-
-	} */else if(tutorialPhase == "hoverInfo"){
-
-		setTimeout(function() {
-			showTutorialModal("Hovering over stuff with your cursor lets you view their information!", 
-			"<p>You may hover over a Pepega with your cursor in your Pepega Army to view its information.</p>" + 
-			"<p>You may also release/sell a Pepega by hovering over it then clicking the Release button on its top left.</p>" +
-			"<p>Remember, If you don't know what something is, just hover over it!</p>");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "exploreInfo"){
-
-		setTimeout(function() {
-			showTutorialModal("A Pepega's Natural Habitat", 
-			"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
-			"<p>This means that: you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
-			"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>"  +
-			"<p>Tip: If you find the Pepegas in a particular website too powerful, you may Filter that site for now and try strengthening your army first in other websites with less powerful Pepegas.</p>");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "buySlotPrompt"){
-
-		setTimeout(function() {
-			showTutorialModal("Buy more slots for your Pepega Army.", 
-			"<p>Notice how you only have a limited amount of space for Pepegas in your army.</p>" + 
-			"<p>You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count. Try it now!</p>" +
-			"<p>You might not have enough IQ yet, so just wait and let your Pepegas do their work! You should also catch more Pepegas to gain IQ faster!</p>");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "buySlot"){
-
-		tutorialDisplayContent = "Buy a slot";
-		tutorialDisplayDescription = "You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count.\nIf you don't have enough IQ yet to buy one, just wait and let your Pepegas do their work!\nYou should also catch more Pepegas to gain IQ faster!";
-
-	} else if(tutorialPhase == "buySlotDone"){
-
-		setTimeout(function() {
-			showTutorialModal("Excellent work!", "Now you have more space for more Pepegas!");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "idleInfo"){
-
-		setTimeout(function() {
-			showTutorialModal("\"AFK\"", 
-			"<p>When your machine is idle for more than 30 minutes, your Pepegas only generate half as much IQ!</p>" + 
-			"<p>Pepegas can be pretty lazy when their trainer is away.</p>" +
-			"<p>(This does NOT mean you need to open the browser extension popup every 30 minutes! Your cursor just needs to be moving inside the browser.)</p>")
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "fusionPrompt"){
-
-		setTimeout(function() {
-			showTutorialModal("For your last task, I want you to make a Fusion Pepega.", 
-			"<p>Fusing Pepegas can create new, different types of Pepegas that are stronger and way smarter.</p>" +
-			"<p>However, only Level 3 Pepegas can be used for fusions.</p>" + 
-			"<p>Fusions are also done automatically. Once you have all of the required Pepegas for a particular Pepega Fusion, they will automatically fuse.</p>");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "fusionInfo"){
-
-		setTimeout(function() {
-			showTutorialModal("You can make any Pepega Fusions to complete this task, but it's recommended to make an Okayga OR a Red Fastga!", 
-			"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or 27 Level 1 Pepegas in total!</p>" +
-			"<p>To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!</p>" +
-			"<p>Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.</p>");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "fusion"){
-
-		tutorialDisplayContent = "Make a Fusion Pepega";
-		tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but it's recommended to make an Okayga OR a Red Fastga!\n" + 
-			"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or 27 Level 1 Pepegas in total!\n" +
-			"To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!\n"+
-			"Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.";
-
-	} else if(tutorialPhase == "fusionDone"){
-
-		setTimeout(function() {
-			showTutorialModal("Wonderful! You made your first Pepega Fusion!", "Note that Fusions aren't always this simple. Some fusions require multiple different types of Pepegas!");
-		}, tutorialModalDelay);
-
-	} else if(tutorialPhase == "complete"){
-
-		setTimeout(function() {
-			showTutorialModal("You've completed the tutorial!", 
-				"<p>If you need more information about the game, you may <span id=\"gameLink\">visit the game's page</span>!</p>" + 
-				"<p>Thank you!</p>");
-			document.getElementById("gameLink").addEventListener("click", openGameLink);
-		}, tutorialModalDelay);
-
-	} 
+	switch (tutorialPhase){
+		case TutorialPhaseEnum.Ask:
+			setTimeout(function() {
+				showModal("tutorialAskModal");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.CatchPrompt:
+			setTimeout(function() {
+				showTutorialModal("Let's catch your first Pepega!", 
+				"<p>Go to any website, find the Wild Pepega hiding within the page, then click it!</p>" + 
+				"<p>You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)</p>" +
+				"<p>But since you don't have any Pepegas yet, you're gonna have to defeat it by yourself!</p>" +
+				"<p>Try catching one now! You may hover over the Wild Pepega to see its name and power.</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.Catch:
+			tutorialDisplayContent = "Catch your first Pepega!";
+			tutorialDisplayDescription = "Go to any website, find the Wild Pepega hiding within the page, then click it!\n" + 
+			"You and your Pepega Army will then battle the Wild Pepega (Don't worry, this is all done automatically!)\n" + 
+			"But since you don't have any Pepegas yet, you're gonna have to defeat it yourself!\n"+
+			"Try catching one now! You may hover over the Wild Pepega to see its name and power.";
+			break;
+		case TutorialPhaseEnum.CatchDone:
+			setTimeout(function() {
+				showTutorialModal("Great! You caught your first Pepega!", 
+				"<p>This Pepega will increase the amount of IQ you get per second, " +
+				"and it will also fight for you when you're catching more Wild Pepegas!</p>" +
+				"<p>Your Total Power is your rank's base power combined with your Pepegas' power, which you can find on your home screen.</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.RepelInfo:
+			setTimeout(function() {
+				showTutorialModal("Repelling Wild Pepegas", 
+				"<p>If you don't want to fight a Wild Pepega because it's too strong but you want it off the website, you may hold down the Shift key on your keyboard before clicking it in order to \"Repel\" it!</p>" + 
+				"<p>This will get rid of the Wild Pepega without you having to battle it.</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.LevelUpPrompt:
+			setTimeout(function() {
+				showTutorialModal("Now, let's try levelling up your Pepega!", 
+				"<p>To level up a Pepega, you need to combine it with two other Pepegas of the same type and level!</p>" + 
+				"<p>So three Level 1 Pepegas will combine into a Level 2 Pepega, and three Level 2 Pepegas will combine into a Level 3 Pepega!</p>" + 
+				"<p>The highest level a Pepega can get is Level 3! Go ahead and try levelling up your Pepega now!</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.LevelUp:
+			tutorialDisplayContent = "Level up your Pepega!";
+			tutorialDisplayDescription = "Catch THREE of the same type of Pepega to level it up.";
+			break;
+		case TutorialPhaseEnum.LevelUpDone:
+			setTimeout(function() {
+				showTutorialModal("Amazing job! Your Pepega has leveled up!", "Now it's less stupid than before!");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.HoverInfo:
+			setTimeout(function() {
+				showTutorialModal("Hovering over stuff with your cursor lets you view their information!", 
+				"<p>You may hover over a Pepega with your cursor in your Pepega Army to view its information.</p>" + 
+				"<p>You may also release/sell a Pepega by hovering over it then clicking the Release button on its top left.</p>" +
+				"<p>Remember, If you don't know what something is, just hover over it!</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.ExploreInfo:
+			setTimeout(function() {
+				showTutorialModal("A Pepega's Natural Habitat", 
+				"<p>Pepegas have a natural habitat that is based on their type, and those habitats are the websites that you visit!</p>" +
+				"<p>This means that: you will find more Pepegas of a particular type that is related to the website that you're on!</p>" +
+				"<p>For example, you will find more Weebgas on anime websites, and more Kappagas on Twitch!</p>"  +
+				"<p>Tip: If you find the Pepegas in a particular website too powerful, you may Filter that site for now and try strengthening your army first in other websites with less powerful Pepegas.</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.BuySlotPrompt:
+			setTimeout(function() {
+				showTutorialModal("Buy more slots for your Pepega Army.", 
+				"<p>Notice how you only have a limited amount of space for Pepegas in your army.</p>" + 
+				"<p>You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count. Try it now!</p>" +
+				"<p>You might not have enough IQ yet, so just wait and let your Pepegas do their work! You should also catch more Pepegas to gain IQ faster!</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.BuySlot:
+			tutorialDisplayContent = "Buy a slot";
+			tutorialDisplayDescription = "You can buy an extra slot by clicking 'Buy a slot' below the Pepega Count.\nIf you don't have enough IQ yet to buy one, just wait and let your Pepegas do their work!\nYou should also catch more Pepegas to gain IQ faster!";
+			break;
+		case TutorialPhaseEnum.BuySlotDone:
+			setTimeout(function() {
+				showTutorialModal("Excellent work!", "Now you have more space for more Pepegas!");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.IdleInfo:
+			setTimeout(function() {
+				showTutorialModal("\"AFK\"", 
+				"<p>When your machine is idle for more than 30 minutes, your Pepegas only generate half as much IQ!</p>" + 
+				"<p>Pepegas can be pretty lazy when their trainer is away.</p>" +
+				"<p>(This does NOT mean you need to open the browser extension popup every 30 minutes! Your cursor just needs to be moving inside the browser.)</p>")
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.FusionPrompt:
+			setTimeout(function() {
+				showTutorialModal("For your last task, I want you to make a Fusion Pepega.", 
+				"<p>Fusing Pepegas can create new, different types of Pepegas that are stronger and way smarter.</p>" +
+				"<p>However, only Level 3 Pepegas can be used for fusions.</p>" + 
+				"<p>Fusions are also done automatically. Once you have all of the required Pepegas for a particular Pepega Fusion, they will automatically fuse.</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.FusionInfo:
+			setTimeout(function() {
+				showTutorialModal("You can make any Pepega Fusions to complete this task, but it's recommended to make an Okayga OR a Red Fastga!", 
+				"<p>To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or 27 Level 1 Pepegas in total!</p>" +
+				"<p>To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!</p>" +
+				"<p>Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.</p>");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.Fusion:
+			tutorialDisplayContent = "Make a Fusion Pepega";
+			tutorialDisplayDescription = "You can make any Pepega Fusions to complete this task, but it's recommended to make an Okayga OR a Red Fastga!\n" + 
+				"To make an Okayga, you need to fuse THREE Pepegas. That means THREE Level 3 Pepegas, or 27 Level 1 Pepegas in total!\n" +
+				"To make a Red Fastga, you need to fuse ONE Pastorga, and TWO Fastgas. That means a Level 3 Pastorga, and two Level 3 Fastgas!\n"+
+				"Click 'View Fusion Recipes' in the home screen to learn more fusions. Good luck! This might take you a while to complete.";
+			break;
+		case TutorialPhaseEnum.FusionDone:
+			setTimeout(function() {
+				showTutorialModal("Wonderful! You made your first Pepega Fusion!", "Note that Fusions aren't always this simple. Some fusions require multiple different types of Pepegas!");
+			}, tutorialModalDelay);
+			break;
+		case TutorialPhaseEnum.Complete:
+			setTimeout(function() {
+				showTutorialModal("You've completed the tutorial!", 
+					"<p>If you need more information about the game, you may <span id=\"gameLink\">visit the game's page</span>!</p>" + 
+					"<p>Thank you!</p>");
+				document.getElementById("gameLink").addEventListener("click", openGameLink);
+			}, tutorialModalDelay);
+			break;
+	}
 
 	if(tutorialDisplayContent != ""){
 		document.getElementById("tutorialDisplay").style.display = "block";
@@ -363,61 +368,74 @@ function hideBattleBreakdownAlert(){
 }
 
 function closeTutorialModal(){
-	var tutorialPhase = "end";
-	if(shownTutorialPhase == "catchPrompt"){
-		tutorialPhase = "catch";
-	}else if(shownTutorialPhase == "catchDone"){
-		tutorialPhase = "repelInfo";
-	}else if(shownTutorialPhase == "repelInfo"){
-		tutorialPhase = "levelUpPrompt";
-	}else if(shownTutorialPhase == "levelUpPrompt"){
-		tutorialPhase = "levelUp";
-	}else if(shownTutorialPhase == "levelUpDone"){
-		tutorialPhase = "hoverInfo";
-	}else if(shownTutorialPhase == "hoverInfo"){
-		tutorialPhase = "exploreInfo";
-	}else if(shownTutorialPhase == "exploreInfo"){
-		tutorialPhase = "buySlotPrompt";
-	}else if(shownTutorialPhase == "buySlotPrompt"){
-		tutorialPhase = "buySlot";
-	}else if(shownTutorialPhase == "buySlotDone"){
-		tutorialPhase = "idleInfo";
-	}else if(shownTutorialPhase == "idleInfo"){
-		tutorialPhase = "fusionPrompt";
-	}else if(shownTutorialPhase == "fusionPrompt"){
-		tutorialPhase = "fusionInfo";
-	}else if(shownTutorialPhase == "fusionInfo"){
-		tutorialPhase = "fusion";
-	}else if(shownTutorialPhase == "fusionDone"){
-		tutorialPhase = "complete";
-	}else if(shownTutorialPhase == "complete"){
-		tutorialPhase = "end";
+	var tutorialPhase = TutorialPhaseEnum.End;
+
+	switch (shownTutorialPhase){
+		case TutorialPhaseEnum.CatchPrompt:
+			tutorialPhase = TutorialPhaseEnum.CatchDone;
+			break;
+		case TutorialPhaseEnum.CatchDone:
+			tutorialPhase = TutorialPhaseEnum.RepelInfo;
+			break;
+		case TutorialPhaseEnum.RepelInfo:
+			tutorialPhase = TutorialPhaseEnum.LevelUpPrompt;
+			break;
+		case TutorialPhaseEnum.LevelUpPrompt:
+			tutorialPhase = TutorialPhaseEnum.HoverInfo;
+			break;
+		case TutorialPhaseEnum.HoverInfo:
+			tutorialPhase = TutorialPhaseEnum.ExploreInfo;
+			break;
+		case TutorialPhaseEnum.ExploreInfo:
+			tutorialPhase = TutorialPhaseEnum.BuySlotPrompt;
+			break;
+		case TutorialPhaseEnum.BuySlotPrompt:
+			tutorialPhase = TutorialPhaseEnum.BuySlotDone;
+			break;
+		case TutorialPhaseEnum.BuySlotDone:
+			tutorialPhase = TutorialPhaseEnum.IdleInfo;
+			break;
+		case TutorialPhaseEnum.IdleInfo:
+			tutorialPhase = TutorialPhaseEnum.FusionPrompt;
+			break;
+		case TutorialPhaseEnum.FusionPrompt:
+			tutorialPhase = TutorialPhaseEnum.FusionInfo;
+			break;
+		case TutorialPhaseEnum.FusionInfo:
+			tutorialPhase = TutorialPhaseEnum.FusionDone;
+			break;
+		case TutorialPhaseEnum.FusionDone:
+			tutorialPhase = TutorialPhaseEnum.Complete;
+			break;
+		case TutorialPhaseEnum.Complete:
+			tutorialPhase = TutorialPhaseEnum.End;
+			break;
 	}
+
 	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateTutorialPhase, "tutorialPhase": tutorialPhase});
 	hideTutorialModal();
 }
 
 function setDisplayedRandomTutorialPhase(randomTutorialPhase){
-	if(randomTutorialPhase.includes("uniquePepega")){
-
-		showRandomTutorialModal("uniquePepega", "You've acquired a new type of Pepega!", 
-		"<p>For every unique type of Pepega you have in your army, your IQ/s multiplier increases!</p>");
-
-	}else if(randomTutorialPhase.includes("rankUp")){
-
-		showRandomTutorialModal("rankUp", "You've ranked up!", 
-		"<p>By ranking up, your IQ/s multiplier and your Base Power increases!</p>" +
-		"<p>This will help you gain IQ much faster, and also allow you to catch even more powerful Wild Pepegas!</p>");
-
-	}else if(randomTutorialPhase.includes("deadPepega")){
-
-		showRandomTutorialModal("deadPepega", "Oh no! One of your Pepegas died while fighting the Wild Pepega!", 
-		"<p>When a Pepega dies, it won't produce any IQ and it won't fight for you.</p>"+
-		"<p>To bring it back to life, you can either wait for it to be ressurected (you can see how long this will take by hovering over the dead Pepega with your cursor)...</p>" +
-		"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button.</p>" + 
-		"<p>Remember, you can hover your cursor over the Wild Pepega on the website to find out if it's too strong for your army!</p>");
-	
+	switch (randomTutorialPhase){
+		case RandomTutorialPhaseEnum.UniquePepega:
+			showRandomTutorialModal(RandomTutorialPhaseEnum.UniquePepega, "You've acquired a new type of Pepega!", 
+			"<p>For every unique type of Pepega you have in your army, your IQ/s multiplier increases!</p>");
+			break;
+		case RandomTutorialPhaseEnum.RankUp:
+			showRandomTutorialModal(RandomTutorialPhaseEnum.RankUp, "You've ranked up!", 
+			"<p>By ranking up, your IQ/s multiplier and your Base Power increases!</p>" +
+			"<p>This will help you gain IQ much faster, and also allow you to catch even more powerful Wild Pepegas!</p>");
+			break;
+		case RandomTutorialPhaseEnum.DeadPepega:
+			showRandomTutorialModal(RandomTutorialPhaseEnum.DeadPepega, "Oh no! One of your Pepegas died while fighting the Wild Pepega!", 
+			"<p>When a Pepega dies, it won't produce any IQ and it won't fight for you.</p>"+
+			"<p>To bring it back to life, you can either wait for it to be ressurected (you can see how long this will take by hovering over the dead Pepega with your cursor)...</p>" +
+			"<p>OR you can click the Heal button on its top right to instantly ressurect it! Healing, however, costs IQ, and you can view how much it costs by hovering over the Heal button.</p>" + 
+			"<p>Remember, you can hover your cursor over the Wild Pepega on the website to find out if it's too strong for your army!</p>");
+			break;
 	}
+
 	shownRandomTutorialPhase = randomTutorialPhase;
 }
 
