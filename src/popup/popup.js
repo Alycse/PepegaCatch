@@ -70,53 +70,69 @@ function updateGameTitle(){
 
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		if(request.message == EventMessageEnum.PlayerIqCountUpdated){
-			setDisplayedPlayerIqCount(request.playerIqCount);
-			setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength, request.isBeforeLastRank);
-			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.PlayerPepegasUpdated){
-			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
-			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
-			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
-			setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
-			setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.SettingsUpdated){
-			setDisplayedSettings(request.settings);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.PlayerArmyNameUpdated){
-			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.NotificationsDisplayUpdated){
-			setDisplayedNotifications(request.notificationsDisplayHeader, request.notificationsDisplayMessage);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.PlayerPepegaSlotsUpdated){
-			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
-			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.ConfigEncounterModeUpdated){
-			setDisplayedEncounterMode(request.configEncounterMode);
-			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.ConfigFilteredSitesUpdated){
-			setDisplayedFilteredSites(request.configFilteredSites);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.TutorialPhaseUpdated){
-			setDisplayedTutorialPhase(request.tutorialPhase);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.ShowRandomTutorial){
-			setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.ConfigIsIqCountUnitizedUpdated){
-			setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.IdleUpdated){
-			setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
-			sendResponse();
-		}else if(request.message == EventMessageEnum.LoadDataErrorUpdated){
-			setDisplayedLoadDataError(request.errorMessage);
-			sendResponse();
+		switch(request.message){
+			case EventMessageEnum.PlayerIqCountUpdated:
+				setDisplayedPlayerIqCount(request.playerIqCount);
+				setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength, request.isBeforeLastRank);
+				setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+				sendResponse();
+				break;
+			case EventMessageEnum.PlayerPepegasUpdated:
+				setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
+				setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
+				setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
+				setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
+				setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
+				sendResponse();
+				break;
+			case EventMessageEnum.SettingsUpdated:
+				setDisplayedSettings(request.settings);
+				sendResponse();
+				break;
+			case EventMessageEnum.PlayerArmyNameUpdated:
+				setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
+				sendResponse();
+				break;
+			case EventMessageEnum.NotificationsDisplayUpdated:
+				setDisplayedNotifications(request.notificationsDisplayHeader, request.notificationsDisplayMessage);
+				sendResponse();
+				break;
+			case EventMessageEnum.PlayerPepegaSlotsUpdated:
+				setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
+				setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+				sendResponse();
+				break;
+			case EventMessageEnum.ConfigEncounterModeUpdated:
+				setDisplayedEncounterMode(request.configEncounterMode);
+				setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
+				sendResponse();
+				break;
+			case EventMessageEnum.ConfigFilteredSitesUpdated:
+				setDisplayedFilteredSites(request.configFilteredSites);
+				sendResponse();
+				break;
+			case EventMessageEnum.TutorialPhaseUpdated:
+				setDisplayedTutorialPhase(request.tutorialPhase);
+				sendResponse();
+				break;
+			case EventMessageEnum.ShowRandomTutorial:
+				setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
+				sendResponse();
+				break;
+			case EventMessageEnum.ConfigIsIqCountUnitizedUpdated:
+				setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
+				sendResponse();
+				break;
+			case EventMessageEnum.IdleUpdated:
+				setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
+				sendResponse();
+				break;
+			case EventMessageEnum.LoadDataErrorUpdated:
+				setDisplayedLoadDataError(request.errorMessage);
+				sendResponse();
+				break;
+			default:
+				sendResponse();
 		}
 	}
 );
