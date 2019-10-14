@@ -372,7 +372,7 @@ function closeTutorialModal(){
 
 	switch (shownTutorialPhase){
 		case TutorialPhaseEnum.CatchPrompt:
-			tutorialPhase = TutorialPhaseEnum.CatchDone;
+			tutorialPhase = TutorialPhaseEnum.Catch;
 			break;
 		case TutorialPhaseEnum.CatchDone:
 			tutorialPhase = TutorialPhaseEnum.RepelInfo;
@@ -381,6 +381,9 @@ function closeTutorialModal(){
 			tutorialPhase = TutorialPhaseEnum.LevelUpPrompt;
 			break;
 		case TutorialPhaseEnum.LevelUpPrompt:
+			tutorialPhase = TutorialPhaseEnum.LevelUp;
+			break;
+		case TutorialPhaseEnum.LevelUpDone:
 			tutorialPhase = TutorialPhaseEnum.HoverInfo;
 			break;
 		case TutorialPhaseEnum.HoverInfo:
@@ -390,7 +393,7 @@ function closeTutorialModal(){
 			tutorialPhase = TutorialPhaseEnum.BuySlotPrompt;
 			break;
 		case TutorialPhaseEnum.BuySlotPrompt:
-			tutorialPhase = TutorialPhaseEnum.BuySlotDone;
+			tutorialPhase = TutorialPhaseEnum.BuySlot;
 			break;
 		case TutorialPhaseEnum.BuySlotDone:
 			tutorialPhase = TutorialPhaseEnum.IdleInfo;
@@ -402,7 +405,7 @@ function closeTutorialModal(){
 			tutorialPhase = TutorialPhaseEnum.FusionInfo;
 			break;
 		case TutorialPhaseEnum.FusionInfo:
-			tutorialPhase = TutorialPhaseEnum.FusionDone;
+			tutorialPhase = TutorialPhaseEnum.Fusion;
 			break;
 		case TutorialPhaseEnum.FusionDone:
 			tutorialPhase = TutorialPhaseEnum.Complete;
@@ -440,7 +443,7 @@ function setDisplayedRandomTutorialPhase(randomTutorialPhase){
 }
 
 function closeRandomTutorialModal(){
-	shownRandomTutorialPhase = shownRandomTutorialPhase.replace("_" + document.getElementById("randomTutorialModal").randomTutorialPhase + "_", "");
+	shownRandomTutorialPhase = -1;
 
 	browserRuntime.sendMessage({"message": EventMessageEnum.ReplaceRandomTutorialPhase, "randomTutorialPhase": shownRandomTutorialPhase});
 	hideRandomTutorialModal();
