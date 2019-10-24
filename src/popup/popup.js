@@ -485,11 +485,11 @@ function setDisplayedPepegaSlots(playerPepegaCount, playerPepegaSlots, pepegaSlo
 var mouseEnterBuyPepegaSlotColor;
 var mouseLeaveBuyPepegaSlotColor;
 var mouseEnteredBuyPepegaSlot;
-function mouseEntertDisplayedPepegaSlots(){
+function mouseEnterDisplayedPepegaSlots(){
 	document.getElementById("buyPepegaSlot").style.color = mouseEnterBuyPepegaSlotColor;
 	mouseEnteredBuyPepegaSlot = true;
 }
-function mouseLeavetDisplayedPepegaSlots(){
+function mouseLeaveDisplayedPepegaSlots(){
 	document.getElementById("buyPepegaSlot").style.color = mouseLeaveBuyPepegaSlotColor;
 	mouseEnteredBuyPepegaSlot = false;
 }
@@ -703,7 +703,7 @@ function checkPepegas(){
 		if(!pepegaAlive){
 			secondsLeft = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000));
 		}
-		if(!pepegaAlive && secondsLeft > allowedPepegaHealingTime){
+		if(secondsLeft > allowedPepegaHealingTime){
 			var healCost = healCostMultiplier * Math.ceil((secondsLeft / 10));
 			if(healCost != pepegaElement.healCost){
 				pepegaElement.healCost = healCost;
@@ -804,10 +804,12 @@ function setDisplayedPlayerPepegas(playerPepegas, uniquePepegaIqpsMultiplier){
 			}
 
 			pepegaElement.healCost = 0;
+			pepegaElement.id = playerPepegas[index].id;
+			pepegaElement.index = index;
 			pepegaElement.getElementsByClassName("healButton")[0].healPepegaId = playerPepegas[index].id;
 			pepegaElement.getElementsByClassName("healButton")[0].index = index;
 			pepegaElement.getElementsByClassName("healButton")[0].addEventListener("click", function(){
-				healPlayerPepega(this.healPepegaId, this.index);
+				healPlayerPepega(this.healPepegaId, this.index, true, true, true, false);
 			});
 			pepegaElement.getElementsByClassName("releaseButton")[0].releasePepegaId = playerPepegas[index].id;
 			pepegaElement.getElementsByClassName("releaseButton")[0].releasePepegaName = playerPepegas[index].pepegaType.name;
@@ -853,13 +855,20 @@ function checkForIqpsMultiplier(){
 	}
 }
 
-function healPlayerPepega(playerPepegaId, pepegaElementIndex){
+function healPlayerPepega(playerPepegaId, pepegaElementIndex, willNotify, willPlaySound, willUpdatePopupDisplay, healAll){
 	var healCost = pepegaElements[pepegaElementIndex].healCost;
-	browserRuntime.sendMessage({"message": EventMessageEnum.HealPlayerPepega, "playerPepegaId": playerPepegaId, "healCost": healCost});
+	browserRuntime.sendMessage({
+		"message": EventMessageEnum.HealPlayerPepega, "playerPepegaId": playerPepegaId, "healCost": healCost,
+			"willNotify": willNotify, "willPlaySound": willPlaySound, "willUpdatePopupDisplay": willUpdatePopupDisplay, "healAll" : healAll});
+}
+
+function healAllPlayerPepegas(){
+	for(var i = 0; i < pepegaElements.length; i++){
+		healPlayerPepega(pepegaElements[i].id, i, false, false, false, true);
+	}
 }
 
 var selectedPlayerPepegaId = null;
-
 function showReleaseConfirmationModal(playerPepegaId, playerPepegaName, playerPepegaIqReleasePrice){
 	showModal("releaseConfirmationModal");
 
@@ -871,6 +880,12 @@ function hideReleaseConfirmationModal(){
 	hideModal("releaseConfirmationModal");
 
 	selectedPlayerPepegaId = null;
+}
+
+function releasePlayerPepega(){
+	browserRuntime.sendMessage({"message": EventMessageEnum.ReleasePlayerPepega, "playerPepegaId": selectedPlayerPepegaId}, function() {
+		hideReleaseConfirmationModal();
+	});
 }
 
 function showLoadModal(){
@@ -914,6 +929,7 @@ function hideModal(modalId){
 	modalYPosition = null
 	document.getElementById(modalId).style.display = "none";
 }
+
 var modalYPosition = null;
 window.onscroll = function () { 
 	if(modalYPosition != null){
@@ -921,12 +937,6 @@ window.onscroll = function () {
 	}
 	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateSavedScrollPosition, "y": window.scrollY});
 };
-
-function releasePlayerPepega(){
-	browserRuntime.sendMessage({"message": EventMessageEnum.ReleasePlayerPepega, "playerPepegaId": selectedPlayerPepegaId}, function() {
-		hideReleaseConfirmationModal();
-	});
-}
 
 function updateSettings(){
 	var settings = {};
@@ -1023,9 +1033,11 @@ document.getElementById("releaseConfirmationModalNo").addEventListener("click", 
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
 document.getElementById("renameArmyModalClose").addEventListener("click", updateArmyName);
+
 document.getElementById("buyPepegaSlot").addEventListener("click", buyPepegaSlot);
-document.getElementById("buyPepegaSlot").addEventListener("mouseenter", mouseEntertDisplayedPepegaSlots);
-document.getElementById("buyPepegaSlot").addEventListener("mouseleave", mouseLeavetDisplayedPepegaSlots);
+document.getElementById("buyPepegaSlot").addEventListener("mouseenter", mouseEnterDisplayedPepegaSlots);
+document.getElementById("buyPepegaSlot").addEventListener("mouseleave", mouseLeaveDisplayedPepegaSlots);
+
 document.getElementById("settingsTitle").addEventListener("click", showSettingsModal);
 document.getElementById("settingsModalClose").addEventListener("click", updateSettings);
 document.getElementById("siteFilters").addEventListener("click", showSiteFiltersModal);
@@ -1051,3 +1063,5 @@ document.getElementById("hideLoadModal").addEventListener("click", hideLoadModal
 document.getElementById("loadData").addEventListener("click", loadData);
 
 document.getElementById("save").addEventListener("click", saveData);
+
+document.getElementById("healAllPepegas").addEventListener("click", healAllPlayerPepegas);

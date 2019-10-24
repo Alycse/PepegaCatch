@@ -589,3 +589,17 @@ textarea{
 #loadDataInputBox{
     margin-bottom: 15px;
 }
+
+#healAllPepegas{
+    color: rgb(225, 190, 5);
+    margin-top: 2px;
+    font-size: 14px;
+}
+#healAllPepegasCost{
+    font-size: 16px;
+    text-decoration: underline;
+}
+#healAllPepegas:hover{
+    color: rgb(245, 230, 35);
+    cursor: pointer;
+}
