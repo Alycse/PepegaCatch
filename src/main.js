@@ -1640,22 +1640,45 @@ function releasePlayerPepega(id){
 }
 
 //Heal a pepega from the player's pepega army
-function healPlayerPepega(id, healCost){
+function healPlayerPepega(id, healCost, notify = true, playSound = true, updatePopupDisplay = true){
     if(player.iqCount >= healCost){
         var playerPepega = getPlayerPepega(id);
 
         if(!playerPepega.alive){
             updatePlayerIqCount(-healCost);
     
-            notify(NotificationPurposeEnum.pepegaHeal, "basic", playerPepega.pepegaType.name + " was healed!", "You lost " + healCost  + " IQ.", playerPepega.pepegaType.imageUrl);
-
-            playSound(pepegaHealSound);
+            if(notify){
+                notify(NotificationPurposeEnum.pepegaHeal, "basic", playerPepega.pepegaType.name + " was healed!", "You lost " + healCost  + " IQ.", playerPepega.pepegaType.imageUrl);
+            }
+            if(playSound){
+                playSound(pepegaHealSound);
+            }
 
             playerPepega.setAlive(true);
 
-            updatePlayerPepegasPopupDisplay();
+            if(updatePopupDisplay){
+                updatePlayerPepegasPopupDisplay();
+            }
+            return true;
         }
+        return false;
     }
+}
+
+function healAllPlayerPepegas(totalHealCost){
+    if(player.iqCount >= totalHealCost){
+        var healedCount = 0;
+        for(var i = 0; i < player.pepegas.length; i++){
+            if(healPlayerPepega(player.pepegas[i].id, 0, false, false, false)){
+                healedCount++;
+            }
+        }
+        notify(NotificationPurposeEnum.pepegaHeal, "basic", healedCount + " Pepegas were healed!", "You lost " + totalHealCost  + " IQ.", pepegaTypes[0].imageUrl);
+        playSound(pepegaHealSound);
+
+        return true;
+    }
+    return false;
 }
 
 function getArticle(word){
@@ -2403,7 +2426,8 @@ const EventMessageEnum = {
     "ShowRandomTutorial":32,
     "LoadData":33,
     "LoadDataErrorUpdated":34,
-    "SaveData":35
+    "SaveData":35,
+    "HeallAllPlayerPepegas":36
 }
 
 browserRuntime.onMessage.addListener(
@@ -2492,6 +2516,10 @@ browserRuntime.onMessage.addListener(
                 break;
             case EventMessageEnum.SaveData:
                 saveData();
+                sendResponse();
+                break;
+            case EventMessageEnum.HeallAllPlayerPepegas:
+                healAllPlayerPepegas(request.totalHealCost);
                 sendResponse();
                 break;
             default:
