@@ -71,6 +71,8 @@ const defaultInputBoxArmyName = "My Pepega Army";
 
 const allowedPepegaHealingTime = 2;
 
+const deadPepegaMinimumCountForHealAll = 10;
+
 const tutorialModalDelay = 200;
 var displayedIqCount = 0;
 
@@ -686,6 +688,7 @@ var interval = setInterval(function() {
 }, 300);
 
 function checkPepegas(){
+	var deadPepegaCount = 0;
 	for(var i = 0; i < pepegaElements.length; i++){
 		var currentTime = new Date().getTime();
 		var pepegaElement = pepegaElements[i];
@@ -702,6 +705,7 @@ function checkPepegas(){
 		var secondsLeft = 0;
 		if(!pepegaAlive){
 			secondsLeft = Math.round((((pepegaTimeOfRecovery - currentTime)) / 1000));
+			deadPepegaCount++;
 		}
 		if(secondsLeft > allowedPepegaHealingTime){
 			var healCost = healCostMultiplier * Math.ceil((secondsLeft / 10));
@@ -733,8 +737,21 @@ function checkPepegas(){
 			healButtonElement.style.display = "none";
 		}
 	}
+	if(deadPepegaCount < deadPepegaMinimumCountForHealAll){
+		hideHealAllPepegasButton();
+	}else{
+		showHealAllPepegasButton();
+	}
 }
 
+function showHealAllPepegasButton(){
+	document.getElementById("healAllPepegas").style.display = "inline";
+	document.getElementById("pepegaArmyOptionSeperator").style.display = "inline";
+}
+function hideHealAllPepegasButton(){
+	document.getElementById("healAllPepegas").style.display = "none";
+	document.getElementById("pepegaArmyOptionSeperator").style.display = "none";
+}
 
 var pepegaTemplateElement = document.getElementById("pepegaTemplate");
 pepegaTemplateElement.parentNode.removeChild(pepegaTemplateElement);
