@@ -1017,6 +1017,7 @@ var totalIqps = 0;
 var totalPepegaPower = 0;
 var branch = branches[0];
 var pepegaSlotCost = 0;
+var healAllPepegaCost = 0;
 var uniquePepegaIqpsMultiplier = 1;
 var uniquePepegaCount = 0;
 var isPlayerIdle = false;
@@ -1640,23 +1641,24 @@ function releasePlayerPepega(id){
 }
 
 //Heal a pepega from the player's pepega army
-function healPlayerPepega(id, healCost, notify = true, playSound = true, updatePopupDisplay = true){
+function healPlayerPepega(id, healCost, willNotify = true, willPlaySound = true, willUpdatePopupDisplay = true){
     if(player.iqCount >= healCost){
         var playerPepega = getPlayerPepega(id);
 
         if(!playerPepega.alive){
             updatePlayerIqCount(-healCost);
     
-            if(notify){
-                notify(NotificationPurposeEnum.pepegaHeal, "basic", playerPepega.pepegaType.name + " was healed!", "You lost " + healCost  + " IQ.", playerPepega.pepegaType.imageUrl);
+            if(willNotify){
+                notify(NotificationPurposeEnum.pepegaHeal, "basic", playerPepega.pepegaType.name + " was healed!", 
+                    "You lost " + healCost  + " IQ.", playerPepega.pepegaType.imageUrl);
             }
-            if(playSound){
+            if(willPlaySound){
                 playSound(pepegaHealSound);
             }
 
             playerPepega.setAlive(true);
 
-            if(updatePopupDisplay){
+            if(willUpdatePopupDisplay){
                 updatePlayerPepegasPopupDisplay();
             }
             return true;
@@ -1665,20 +1667,9 @@ function healPlayerPepega(id, healCost, notify = true, playSound = true, updateP
     }
 }
 
-function healAllPlayerPepegas(totalHealCost){
-    if(player.iqCount >= totalHealCost){
-        var healedCount = 0;
-        for(var i = 0; i < player.pepegas.length; i++){
-            if(healPlayerPepega(player.pepegas[i].id, 0, false, false, false)){
-                healedCount++;
-            }
-        }
-        notify(NotificationPurposeEnum.pepegaHeal, "basic", healedCount + " Pepegas were healed!", "You lost " + totalHealCost  + " IQ.", pepegaTypes[0].imageUrl);
-        playSound(pepegaHealSound);
-
-        return true;
-    }
-    return false;
+function healAllPlayerPepegasFeedback(){
+    playSound(pepegaHealSound);
+    updatePlayerPepegasPopupDisplay();
 }
 
 function getArticle(word){
@@ -2426,8 +2417,7 @@ const EventMessageEnum = {
     "ShowRandomTutorial":32,
     "LoadData":33,
     "LoadDataErrorUpdated":34,
-    "SaveData":35,
-    "HeallAllPlayerPepegas":36
+    "SaveData":35
 }
 
 browserRuntime.onMessage.addListener(
@@ -2489,7 +2479,10 @@ browserRuntime.onMessage.addListener(
                 sendResponse();
                 break;
             case EventMessageEnum.HealPlayerPepega:
-                healPlayerPepega(request.playerPepegaId, request.healCost);
+                healPlayerPepega(request.playerPepegaId, request.healCost, request.willNotify, request.willPlaySound, request.willUpdatePopupDisplay);
+                if(request.healAll){
+                    healAllPlayerPepegasFeedback();
+                }
                 sendResponse();
                 break;
             case EventMessageEnum.GetPepegaTypes:
@@ -2516,10 +2509,6 @@ browserRuntime.onMessage.addListener(
                 break;
             case EventMessageEnum.SaveData:
                 saveData();
-                sendResponse();
-                break;
-            case EventMessageEnum.HeallAllPlayerPepegas:
-                healAllPlayerPepegas(request.totalHealCost);
                 sendResponse();
                 break;
             default:
