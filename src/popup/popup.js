@@ -532,7 +532,13 @@ function setDisplayedArmyName(playerArmyName, isDefaultArmyName = false){
 
 function setDisplayedFilteredSites(settingsFilteredSites){
 	if(settingsFilteredSites != null){
-		var settingsFilteredSitesText = settingsFilteredSites.join('\n');
+		var settingsFilteredSitesText = "";
+		for(var i in settingsFilteredSites){
+			if(i != ""){
+				settingsFilteredSitesText += i + "\n";
+			}
+		}
+
 		document.getElementById("siteFiltersModalTextArea").value = settingsFilteredSitesText;
 
 		chrome.tabs.query({'active': true, currentWindow: true},

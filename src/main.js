@@ -98,7 +98,9 @@ browser.tabs.onActivated.addListener(function() {
 function updateIconFromSelectedTab(){
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         var activeTab = tabs[0];
-        updateIcon(activeTab.url);
+        if(activeTab){
+            updateIcon(activeTab.url);
+        }
     });
 }
 
@@ -1048,7 +1050,7 @@ var settings = {
 
 //User configurations
 var config = {
-    filteredSites: [],
+    filteredSites: {},
     encounterMode: encounterModes[0],
     isIqCountUnitized: true
 }
@@ -1566,14 +1568,10 @@ function getWildPepega(locationHref){
 
 //Checks if the site has been filtered by the player
 function isSiteFiltered(locationHref){
-    if(locationHref){
-        for (var i = 0; i < config.filteredSites.length; ++i) {
-            if(config.filteredSites[i] && config.filteredSites[i] != "" && 
-                (locationHref.includes(config.filteredSites[i]))){
-                browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-disabled-icon-128.png")});
-                return true;
-            }
-        }
+    var site = new URL(locationHref);
+    if(locationHref && site.hostname in config.filteredSites){
+        browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-disabled-icon-128.png")});
+        return true;
     }
 	return false;
 }
@@ -2102,7 +2100,13 @@ function updateSettings(updatedSettings){
 }
 
 function updateConfigFilteredSites(filteredSitesText){
-    config.filteredSites = filteredSitesText.split('\n');
+    var filteredSitesTemp = filteredSitesText.split('\n');
+
+    config.filteredSites = {};
+
+    for(var i = 0; i < filteredSitesTemp.length; i++){
+        config.filteredSites[filteredSitesTemp[i]] = true;
+    }
 
     updateConfigFilteredSitesPopupDisplay();
     updateIconFromSelectedTab();
