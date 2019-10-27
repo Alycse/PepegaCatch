@@ -926,6 +926,7 @@ function showSettingsModal(){
 	showModal("settingsModal");
 }
 function hideSiteFiltersModal(){
+	updateFilteredSites();
 	hideModal("siteFiltersModal");
 }
 function hideSettingsModal(){

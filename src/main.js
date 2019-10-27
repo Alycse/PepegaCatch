@@ -1567,9 +1567,13 @@ function getWildPepega(locationHref){
 }
 
 //Checks if the site has been filtered by the player
-function isSiteFiltered(locationHref){
-    var site = new URL(locationHref);
-    if(locationHref && site.hostname in config.filteredSites){
+function isSiteFiltered(location){
+    try{
+        var site = new URL(location).hostname;
+    }catch{
+        var site = location;
+    }
+    if(location && site in config.filteredSites){
         browser.browserAction.setIcon({path: browserRuntime.getURL("icons/pepega-disabled-icon-128.png")});
         return true;
     }
