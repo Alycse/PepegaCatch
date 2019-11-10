@@ -268,14 +268,16 @@ const ranks = [
     
     new Rank(14, ["a", "the", "a"], ["Pepega Legend Gold", "Pepega Zuperra", "Pepega Machinto"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(1000000000); }, "1,000,000,000 IQ", 4.5, 500),
     
-    new Rank(15, ["a", "the", "the"], ["Pepega Legend Diamond", "President of the Pepega States", "Emperor of Pepegan"], 
-    ["", "", ""], 
-    function iqRankRequirement(){ 
-        return isPlayerIqHigher(3000000000); 
-    }, 
-    "3,000,000,000 IQ", 5.0, 1000),
+    new Rank(15, ["a", "the", "a"], ["Pepega Legend Diamond", "Pepega Shahon", "Pepega Metinto"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(2500000000); }, "2,500,000,000 IQ", 5.0, 750),
     
-    new Rank(16, ["the", "the", "the"], ["True Pepega", "PepeGOD", "Gaijinga"], 
+    new Rank(16, ["a", "the", "the"], ["Mythical Pepega", "President of the Pepega States", "Emperor of Pepegan"], 
+    ["", "", ""], 
+    function iqRankRequirement(){
+        return isPlayerIqHigher(5000000000); 
+    }, 
+    "5,000,000,000 IQ", 7.5, 1000),
+    
+    new Rank(17, ["the", "the", "the"], ["True Pepega", "PepeGOD", "Gaijinga"], 
     ["Your IQ is less than 100... you are the truest of all Pepegas!", "Pepegas across the globe bow down to your presence.", "You are the ultimate weeb. AYAYA Clap"], 
     function finalRankRequirement(){
         if(pepegaTypes.length == uniquePepegaCount){
