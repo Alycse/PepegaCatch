@@ -53,7 +53,7 @@ body{
     color: rgb(200, 200, 200);
 }
 .modalDescription{
-    font-size: 15px;
+    font-size: 17px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -211,6 +211,16 @@ body{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+#rise{
+    color: rgb(212, 191, 113);
+    font-size: 24px;
+    margin-top: 20px;
+}
+#rise:hover{
+    color: rgb(255, 250, 231);
+    cursor: pointer;
 }
 
 #quickSettings{

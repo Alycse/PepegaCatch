@@ -1053,6 +1053,10 @@ function saveData(){
 	browserRuntime.sendMessage({"message": EventMessageEnum.SaveData});
 }
 
+function riseUp(){
+	showModal("riseModal");
+}
+
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
 document.getElementById("releaseConfirmationModalYes").addEventListener("click", releasePlayerPepega);
 document.getElementById("pepegaArmyTitle").addEventListener("click", showRenameArmyModal);
@@ -1089,3 +1093,4 @@ document.getElementById("loadData").addEventListener("click", loadData);
 document.getElementById("save").addEventListener("click", saveData);
 
 document.getElementById("healAllPepegas").addEventListener("click", healAllPlayerPepegas);
+document.getElementById("rise").addEventListener("click", riseUp);
