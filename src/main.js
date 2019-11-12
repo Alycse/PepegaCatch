@@ -2216,7 +2216,7 @@ function updatePlayerIqCount(iq, canRankDown = false, isNotifyIfRankUp = true){
     if(isPlayerIdle){
         additionalIq *= idleIqMultiplier;
     }
-    var newPlayerIqCount = player.iqCount + additionalIq + 100000000000;
+    var newPlayerIqCount = player.iqCount + additionalIq;
 
     if(newPlayerIqCount > maxPlayerIqCount){
         newPlayerIqCount = maxPlayerIqCount;
