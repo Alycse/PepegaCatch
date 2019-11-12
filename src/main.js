@@ -33,6 +33,10 @@ var browserStorage = browser.storage.local;
 var browserExtension = browser.extension;
 
 ////Sounds////
+var haruyokoiSound = new Audio(browserRuntime.getURL("sounds/hanban-yumimatsutoya-haruyokoi.ogg"));
+haruyokoiSound.volume = 0.3;
+//Original: https://www.youtube.com/watch?v=R-gYO7UvtvM
+
 var pepegaCatchSound = new Audio(browserRuntime.getURL("sounds/pepega-catch.ogg"));
 pepegaCatchSound.volume = 0.25;
 var pepegaReleaseSound = new Audio(browserRuntime.getURL("sounds/pepega-release.ogg"));
@@ -2212,7 +2216,7 @@ function updatePlayerIqCount(iq, canRankDown = false, isNotifyIfRankUp = true){
     if(isPlayerIdle){
         additionalIq *= idleIqMultiplier;
     }
-    var newPlayerIqCount = player.iqCount + additionalIq;
+    var newPlayerIqCount = player.iqCount + additionalIq + 100000000000;
 
     if(newPlayerIqCount > maxPlayerIqCount){
         newPlayerIqCount = maxPlayerIqCount;
@@ -2290,19 +2294,26 @@ function buyPepegaSlot(){
 }
 
 function removeAllPepegasExcept(typeIdException){
-    var index, length;
-    for (index = 0, length = player.pepegas.length; index < length; ++index) {
-        if(player.pepegas[index].pepegaType.id != typeIdException){
-            
-            if(player.pepegas[index].alive){
-                totalIqps -= player.pepegas[index].pepegaType.iqps * player.pepegas[index].level;
-                totalPepegaPower -= player.pepegas[index].power * player.pepegas[index].level;
-            }
+    var removedAll = false;
+    while(!removedAll){
+        removedAll = true;
+        var index, length;
+        for (index = 0, length = player.pepegas.length; index < length; ++index) {
+            if(player.pepegas[index].pepegaType.id != typeIdException){
+                
+                if(player.pepegas[index].alive){
+                    totalIqps -= player.pepegas[index].pepegaType.iqps * player.pepegas[index].level;
+                    totalPepegaPower -= player.pepegas[index].power * player.pepegas[index].level;
+                }
+    
+                player.pepegas.splice(index, 1);
 
-            player.pepegas.splice(index, 1);
+                removedAll = false;
+                break;
+            }
         }
     }
-
+    
     analyzeUniquePepegas();
     analyzeBranch();
     updatePlayerPepegasPopupDisplay();
@@ -2327,6 +2338,8 @@ function riseUp(){
     addPlayerPepega(gamerga);
 
     updatePlayerIqCount(-player.iqCount, true, false);
+
+    playSound(haruyokoiSound);
 
     notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "Candlelight", "The time has come. Your Pepegas perform a ritual using your browser; summoning the ultimate, greatest form of Pepega!", pepegaTypes[51].imageUrl);
 }
