@@ -28,7 +28,8 @@ const EventMessageEnum = {
     "ShowRandomTutorial":32,
     "LoadData":33,
     "LoadDataErrorUpdated":34,
-    "SaveData":35
+    "SaveData":35,
+    "RiseUp":36
 }
 
 const TutorialPhaseEnum = {
@@ -72,6 +73,8 @@ const defaultInputBoxArmyName = "My Pepega Army";
 const allowedPepegaHealingTime = 2;
 
 const deadPepegaMinimumCountForHealAll = 10;
+
+const minimumRankForRiseUpDisplay = 12;
 
 const tutorialModalDelay = 200;
 var displayedIqCount = 0;
@@ -597,6 +600,12 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 		document.getElementById("rankContent").style.fontSize = "20px";
 	}
 
+	if(rank.id >= minimumRankForRiseUpDisplay){
+		document.getElementById("showRiseModal").style.display = "block";
+	}else{
+		document.getElementById("showRiseModal").style.display = "none";
+	}
+
 	var rankDescription = rank.description[0];
 	if(rank.description[branch.id]){
 		rankDescription = rank.description[branch.id];
@@ -940,6 +949,13 @@ function hideRenameArmyModal(){
 	hideModal("renameArmyModal");
 }
 
+function showRiseModal(){
+	showModal("riseModal");
+}
+function hideRiseModal(){
+	hideModal("riseModal");
+}
+
 function clearPepegaArmyContent(){
 	document.getElementById("pepegaArmyContent").innerHTML = "";
 }
@@ -1054,7 +1070,8 @@ function saveData(){
 }
 
 function riseUp(){
-	showModal("riseModal");
+	browserRuntime.sendMessage({"message": EventMessageEnum.RiseUp});
+	hideRiseModal();
 }
 
 document.getElementById("releaseConfirmationModalNo").addEventListener("click", hideReleaseConfirmationModal);
@@ -1093,4 +1110,7 @@ document.getElementById("loadData").addEventListener("click", loadData);
 document.getElementById("save").addEventListener("click", saveData);
 
 document.getElementById("healAllPepegas").addEventListener("click", healAllPlayerPepegas);
-document.getElementById("rise").addEventListener("click", riseUp);
+
+document.getElementById("showRiseModal").addEventListener("click", showRiseModal);
+document.getElementById("riseModalYea").addEventListener("click", riseUp);
+document.getElementById("riseModalNay").addEventListener("click", hideRiseModal);

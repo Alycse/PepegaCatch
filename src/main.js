@@ -10,6 +10,7 @@ const startingPlayerPepegaSlots = 5;
 const maxArmyNameLength = 64;
 const iqpsMultiplierForEachUniquePepega = 0.2;
 const baseEncounterRate = 60;
+const minimumRankForRiseUp = 12;
 //Used by a special event that determines whether the player can encounter more powerful Pepegas
 const minimumCatchCountForMorePepegas = 5;
 const multiplierBeforePepegaRecovers = 2100;
@@ -262,7 +263,7 @@ const ranks = [
     
     new Rank(11, ["a"], ["Pepega Champion"], [""], function iqRankRequirement(){ return isPlayerIqHigher(150000000); }, "150,000,000 IQ", 3.0, 250),
     
-    new Rank(12, ["a", "a", "a"], ["Pepega Legend", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 3.5, 300),
+    new Rank(12, ["a", "a", "a"], ["Pepega Legend Bronze", "Pepega Master", "Pepega Titan"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(300000000); }, "300,000,000 IQ", 3.5, 300),
     
     new Rank(13, ["a", "the", "a"], ["Pepega Legend Silver", "Pepega King", "Pepega Machine"], ["", "", ""], function iqRankRequirement(){ return isPlayerIqHigher(500000000); }, "500,000,000 IQ", 4.0, 400),
     
@@ -531,6 +532,10 @@ const pepegaTypes = [
     new PepegaType(50, [], "FINAL ZOZOGA", "", 
         22000, -10, 285000, 160, ["Hijack", "Shut Down", "Possess"],
         browserRuntime.getURL("images/pepegas/50_FINAL-ZOZOGA.png")),
+
+    new PepegaType(51, [], "Gamerga", "Gamergas don't occupy a slot in your army, and they don't die when you rise up.", 
+        50, 0, 250, 0, ["Just Rise Up", "Ground Beef", "Revolution!"],
+        browserRuntime.getURL("images/pepegas/51_Gamerga.png")),
 ]
 
 //Site categories
@@ -1038,7 +1043,8 @@ var player = {
     successfulCatchCount: 0,
     encounterCount: 0,
     pepegaTypeStatuses: [],
-    rank: ranks[0]
+    rank: ranks[0],
+    riseCount: 0
 }
 
 //User settings
@@ -1173,7 +1179,7 @@ function saveData() {
 }
 
 browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "playerCatchCount", "playerSuccessfulCatchCount", 
-"playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses", "playerRank"], function(result) {
+"playerEncounterCount", "playerArmyName", "playerPepegaTypeStatuses", "playerRank", "playerRiseCount"], function(result) {
     if(parseInt(result.playerIqCount)){
         player.iqCount = result.playerIqCount;
     }
@@ -1205,6 +1211,10 @@ browserStorage.get(["playerPepegas", "playerIqCount", "playerPepegaSlots", "play
 
     if(result.playerRank != null){
         player.rank = result.playerRank;
+    }
+
+    if(result.playerRiseCount != null){
+        player.riseCount = result.playerRiseCount;
     }
 
     if(result.playerPepegas != null){
@@ -1335,6 +1345,8 @@ function removePlayerPepega(id, save = true){
     analyzeUniquePepegas();
     analyzeBranch();
     updatePlayerPepegasPopupDisplay();
+
+    updatePlayerPepegaSlotsPopupDisplay();
 
     if(save){
         browserStorage.set({playerPepegas: player.pepegas});
@@ -1623,7 +1635,7 @@ function notify(purpose, type, title, message, iconUrl){
 
 //Checks whether there are Pepega slots available
 function isPepegaSlotsAvailable(playerPepegaCount){
-    if(playerPepegaCount <= player.pepegaSlots){
+    if(countPlayerPepegasExcept(51) <= player.pepegaSlots){
         return true;
     }else{
         return false;
@@ -1929,6 +1941,8 @@ function addPlayerPepega(pepega, save = true, displayForPopup = true, addEvents 
             updatePlayerPepegasPopupDisplay();
         }
 
+        updatePlayerPepegaSlotsPopupDisplay();
+
         if(save){
             browserStorage.set({playerPepegas: player.pepegas});
         }
@@ -1944,6 +1958,10 @@ function addPlayerPepega(pepega, save = true, displayForPopup = true, addEvents 
 
 //Checks whether the recently added Pepega is leveling up
 function checkPepegaLevelingUp(addedPepega, addEvents = {}){
+    if(addedPepega.pepegaType.id == 51){
+        return [CombiningPlayerPepegaResultEnum.noCombination, addedPepega];
+    }
+
     if(addedPepega.level >= maxPepegaLevel){
         return [CombiningPlayerPepegaResultEnum.noCombination, addedPepega];
     }
@@ -2189,7 +2207,7 @@ var updateIqCountInterval = function () {
 pepegaAliveCheckInterval();
 updateIqCountInterval();
 
-function updatePlayerIqCount(iq){
+function updatePlayerIqCount(iq, canRankDown = false, isNotifyIfRankUp = true){
     var additionalIq = iq;
     if(isPlayerIdle){
         additionalIq *= idleIqMultiplier;
@@ -2204,7 +2222,7 @@ function updatePlayerIqCount(iq){
 
     player.iqCount = newPlayerIqCount;
     
-    analyzeRank();
+    analyzeRank(canRankDown, isNotifyIfRankUp);
 
     updatePlayerIqCountPopupDisplay();
     
@@ -2212,9 +2230,9 @@ function updatePlayerIqCount(iq){
 }
 
 //Analyzes what rank the player should be based on the player's current statistics, and sets the player's rank accordingly
-function analyzeRank(isNotifyIfRankUp = true){
+function analyzeRank(canRankDown = false, isNotifyIfRankUp = true){
     for (var i = ranks.length - 1; i >= 0; i--) {
-        if(i > player.rank.id && ranks[i].functionRequirement()){
+        if((i > player.rank.id || canRankDown) && ranks[i].functionRequirement()){
             if(isNotifyIfRankUp){
                 analyzeBranch();
 
@@ -2271,6 +2289,59 @@ function buyPepegaSlot(){
     }
 }
 
+function removeAllPepegasExcept(typeIdException){
+    var index, length;
+    for (index = 0, length = player.pepegas.length; index < length; ++index) {
+        if(player.pepegas[index].pepegaType.id != typeIdException){
+            
+            if(player.pepegas[index].alive){
+                totalIqps -= player.pepegas[index].pepegaType.iqps * player.pepegas[index].level;
+                totalPepegaPower -= player.pepegas[index].power * player.pepegas[index].level;
+            }
+
+            player.pepegas.splice(index, 1);
+        }
+    }
+
+    analyzeUniquePepegas();
+    analyzeBranch();
+    updatePlayerPepegasPopupDisplay();
+
+    browserStorage.set({playerPepegas: player.pepegas});
+}
+
+function riseUp(){
+    if(player.rank.id < minimumRankForRiseUp){
+        return;
+    }
+
+    browserStorage.set({playerRiseCount: ++player.riseCount});
+    
+    removeAllPepegasExcept(51);
+
+    var gamergaPower = (Math.pow(1.65, player.riseCount + (player.rank.id * 1.9)) + (1500000 * player.riseCount)) / 30000;
+    
+    var gamerga = new Pepega(pepegaTypes[51], "Pepegá Revolución", 
+        new Date().toLocaleString(), false, gamergaPower, 3, true, null);
+
+    addPlayerPepega(gamerga);
+
+    updatePlayerIqCount(-player.iqCount, true, false);
+
+    notify(NotificationPurposeEnum.pepegaCatchRelease, "basic", "Candlelight", "The time has come. Your Pepegas perform a ritual using your browser; summoning the ultimate, greatest form of Pepega!", pepegaTypes[51].imageUrl);
+}
+
+function countPlayerPepegasExcept(typeIdException){
+    var count = 0;
+    var index, length;
+    for (index = 0, length = player.pepegas.length; index < length; ++index) {
+        if(player.pepegas[index].pepegaType.id != typeIdException){
+            count++;
+        }
+    }
+    return count;
+}
+
 function updateSavedScrollPosition(y){
     savedScrollPosition = y;
 }
@@ -2298,7 +2369,7 @@ function updateNotificationsPopupDisplay(){
 }
 function updatePlayerPepegaSlotsPopupDisplay(){
     if(popup.isOpened){
-		browserRuntime.sendMessage({"message": EventMessageEnum.PlayerPepegaSlotsUpdated, "playerPepegaCount": player.pepegas.length, "playerPepegaSlots": player.pepegaSlots, "pepegaSlotCost": pepegaSlotCost, "playerIqCount": player.iqCount});
+		browserRuntime.sendMessage({"message": EventMessageEnum.PlayerPepegaSlotsUpdated, "playerPepegaCount": countPlayerPepegasExcept(51), "playerPepegaSlots": player.pepegaSlots, "pepegaSlotCost": pepegaSlotCost, "playerIqCount": player.iqCount});
     }
 }
 function updateIdlePopupDisplay(){
@@ -2429,7 +2500,8 @@ const EventMessageEnum = {
     "ShowRandomTutorial":32,
     "LoadData":33,
     "LoadDataErrorUpdated":34,
-    "SaveData":35
+    "SaveData":35,
+    "RiseUp":36
 }
 
 browserRuntime.onMessage.addListener(
@@ -2521,6 +2593,10 @@ browserRuntime.onMessage.addListener(
                 break;
             case EventMessageEnum.SaveData:
                 saveData();
+                sendResponse();
+                break;
+            case EventMessageEnum.RiseUp:
+                riseUp();
                 sendResponse();
                 break;
             default:
