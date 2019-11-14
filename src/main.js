@@ -836,9 +836,9 @@ const categories = [
             new Site("metafilter")
         ],
         [ 
-            new Option(pepegaTypes[2], 3),
-            new Option(pepegaTypes[3], 2),
-            new Option(pepegaTypes[4], 2),
+            new Option(pepegaTypes[2], 4),
+            new Option(pepegaTypes[3], 3),
+            new Option(pepegaTypes[4], 3),
             new Option(pepegaTypes[5], 8),
             new Option(pepegaTypes[8], 2),
             new Option(pepegaTypes[9], 1.5),
@@ -849,8 +849,8 @@ const categories = [
             new Option(pepegaTypes[14], 7.5),
             new Option(pepegaTypes[15], 3),
             new Option(pepegaTypes[22], 7.5),
-            new Option(pepegaTypes[23], 12.5),
-            new Option(pepegaTypes[24], 15),
+            new Option(pepegaTypes[23], 8.5),
+            new Option(pepegaTypes[24], 10),
             new Option(pepegaTypes[29], 3.5)
         ]
     ),
@@ -1639,7 +1639,7 @@ function notify(purpose, type, title, message, iconUrl){
 
 //Checks whether there are Pepega slots available
 function isPepegaSlotsAvailable(playerPepegaCount){
-    if(countPlayerPepegasExcept(51) <= player.pepegaSlots){
+    if(countPlayerPepegasExcept(51) < player.pepegaSlots){
         return true;
     }else{
         return false;
