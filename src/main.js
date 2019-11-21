@@ -2338,6 +2338,7 @@ function riseUp(){
     addPlayerPepega(gamerga);
 
     updatePlayerIqCount(-player.iqCount, true, false);
+    updatePlayerPepegaSlots(startingPlayerPepegaSlots, true);
 
     playSound(haruyokoiSound);
 
