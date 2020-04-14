@@ -105,72 +105,117 @@ function updateGameTitle(){
 
 browserRuntime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		switch(request.message){
-			case EventMessageEnum.PlayerIqCountUpdated:
-				setDisplayedPlayerIqCount(request.playerIqCount);
-				setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength, request.isBeforeLastRank);
-				setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
-				sendResponse();
-				break;
-			case EventMessageEnum.PlayerPepegasUpdated:
-				setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
-				setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
-				setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
-				setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
-				setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
-				sendResponse();
-				break;
-			case EventMessageEnum.SettingsUpdated:
-				setDisplayedSettings(request.settings);
-				sendResponse();
-				break;
-			case EventMessageEnum.PlayerArmyNameUpdated:
-				setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
-				sendResponse();
-				break;
-			case EventMessageEnum.NotificationsDisplayUpdated:
-				setDisplayedNotifications(request.notificationsDisplayHeader, request.notificationsDisplayMessage);
-				sendResponse();
-				break;
-			case EventMessageEnum.PlayerPepegaSlotsUpdated:
-				setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
-				setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
-				sendResponse();
-				break;
-			case EventMessageEnum.ConfigEncounterModeUpdated:
-				setDisplayedEncounterMode(request.configEncounterMode);
-				setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
-				sendResponse();
-				break;
-			case EventMessageEnum.ConfigFilteredSitesUpdated:
-				setDisplayedFilteredSites(request.configFilteredSites);
-				sendResponse();
-				break;
-			case EventMessageEnum.TutorialPhaseUpdated:
-				setDisplayedTutorialPhase(request.tutorialPhase);
-				sendResponse();
-				break;
-			case EventMessageEnum.ShowRandomTutorial:
-				setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
-				sendResponse();
-				break;
-			case EventMessageEnum.ConfigIsIqCountUnitizedUpdated:
-				setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
-				sendResponse();
-				break;
-			case EventMessageEnum.IdleUpdated:
-				setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
-				sendResponse();
-				break;
-			case EventMessageEnum.LoadDataErrorUpdated:
-				setDisplayedLoadDataError(request.errorMessage);
-				sendResponse();
-				break;
-			default:
-				sendResponse();
+		if(request.message == EventMessageEnum.PlayerIqCountUpdated){
+			setDisplayedPlayerIqCount(request.playerIqCount);
+			setDisplayedRank(request.rank, request.branch, request.nextRank, request.ranksLength, request.isBeforeLastRank);
+			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+			sendResponse();
 		}
 	}
 );
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.PlayerPepegasUpdated){
+			setDisplayedPlayerPepegas(request.playerPepegas, request.uniquePepegaIqpsMultiplier);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
+			setDisplayedPepegaSlots(request.playerPepegas.length, request.playerPepegaSlots);
+			setDisplayedIqps(request.totalIqps, request.multipliedTotalIqps);
+			setDisplayedPower(request.rankBasePower, request.totalPepegaPower);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.SettingsUpdated){
+			setDisplayedSettings(request.settings);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.PlayerArmyNameUpdated){
+			setDisplayedArmyName(request.playerArmyName, request.isDefaultArmyName);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.NotificationsDisplayUpdated){
+			setDisplayedNotifications(request.notificationsDisplayHeader, request.notificationsDisplayMessage);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.PlayerPepegaSlotsUpdated){
+			setDisplayedPepegaSlots(request.playerPepegaCount, request.playerPepegaSlots, request.pepegaSlotCost);
+			setDisplayedPepegaSlotCostAvailability(request.playerIqCount, request.pepegaSlotCost);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.ConfigEncounterModeUpdated){
+			setDisplayedEncounterMode(request.configEncounterMode);
+			setDisplayedEncounterRate(request.baseEncounterRate, request.configEncounterMode);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.ConfigFilteredSitesUpdated){
+			setDisplayedFilteredSites(request.configFilteredSites);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.TutorialPhaseUpdated){
+			setDisplayedTutorialPhase(request.tutorialPhase);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.ShowRandomTutorial){
+			setDisplayedRandomTutorialPhase(request.randomTutorialPhase);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.ConfigIsIqCountUnitizedUpdated){
+			setDisplayedIsIqCountUnitized(request.configIsIqCountUnitized, request.playerIqCount);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.IdleUpdated){
+			setDisplayedIdle(request.isPlayerIdle, request.idleIqMultiplier);
+			sendResponse();
+		}
+	}
+);
+browserRuntime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if(request.message == EventMessageEnum.LoadDataErrorUpdated){
+			setDisplayedLoadDataError(request.errorMessage);
+			sendResponse();
+		}
+	}
+);
+
 
 function setDisplayedLoadDataError(errorMessage){
 	document.getElementById("loadModalError").innerHTML = errorMessage;
@@ -372,53 +417,26 @@ function hideBattleBreakdownAlert(){
 	}
 }
 
+var tutorialCloseNextPhase = {};
+tutorialCloseNextPhase[TutorialPhaseEnum.CatchPrompt] = TutorialPhaseEnum.Catch;
+tutorialCloseNextPhase[TutorialPhaseEnum.CatchDone] = TutorialPhaseEnum.RepelInfo;
+tutorialCloseNextPhase[TutorialPhaseEnum.RepelInfo] = TutorialPhaseEnum.LevelUpPrompt;
+tutorialCloseNextPhase[TutorialPhaseEnum.LevelUpPrompt] = TutorialPhaseEnum.LevelUp;
+tutorialCloseNextPhase[TutorialPhaseEnum.LevelUpDone] = TutorialPhaseEnum.HoverInfo;
+tutorialCloseNextPhase[TutorialPhaseEnum.HoverInfo] = TutorialPhaseEnum.ExploreInfo;
+tutorialCloseNextPhase[TutorialPhaseEnum.ExploreInfo] = TutorialPhaseEnum.BuySlotPrompt;
+tutorialCloseNextPhase[TutorialPhaseEnum.BuySlotPrompt] = TutorialPhaseEnum.BuySlot;
+tutorialCloseNextPhase[TutorialPhaseEnum.BuySlotDone] = TutorialPhaseEnum.IdleInfo;
+tutorialCloseNextPhase[TutorialPhaseEnum.IdleInfo] = TutorialPhaseEnum.FusionPrompt;
+tutorialCloseNextPhase[TutorialPhaseEnum.FusionPrompt] = TutorialPhaseEnum.FusionInfo;
+tutorialCloseNextPhase[TutorialPhaseEnum.FusionInfo] = TutorialPhaseEnum.Fusion;
+tutorialCloseNextPhase[TutorialPhaseEnum.FusionDone] = TutorialPhaseEnum.Complete;
+tutorialCloseNextPhase[TutorialPhaseEnum.Complete] = TutorialPhaseEnum.End;
+
 function closeTutorialModal(){
 	var tutorialPhase = TutorialPhaseEnum.End;
 
-	switch (shownTutorialPhase){
-		case TutorialPhaseEnum.CatchPrompt:
-			tutorialPhase = TutorialPhaseEnum.Catch;
-			break;
-		case TutorialPhaseEnum.CatchDone:
-			tutorialPhase = TutorialPhaseEnum.RepelInfo;
-			break;
-		case TutorialPhaseEnum.RepelInfo:
-			tutorialPhase = TutorialPhaseEnum.LevelUpPrompt;
-			break;
-		case TutorialPhaseEnum.LevelUpPrompt:
-			tutorialPhase = TutorialPhaseEnum.LevelUp;
-			break;
-		case TutorialPhaseEnum.LevelUpDone:
-			tutorialPhase = TutorialPhaseEnum.HoverInfo;
-			break;
-		case TutorialPhaseEnum.HoverInfo:
-			tutorialPhase = TutorialPhaseEnum.ExploreInfo;
-			break;
-		case TutorialPhaseEnum.ExploreInfo:
-			tutorialPhase = TutorialPhaseEnum.BuySlotPrompt;
-			break;
-		case TutorialPhaseEnum.BuySlotPrompt:
-			tutorialPhase = TutorialPhaseEnum.BuySlot;
-			break;
-		case TutorialPhaseEnum.BuySlotDone:
-			tutorialPhase = TutorialPhaseEnum.IdleInfo;
-			break;
-		case TutorialPhaseEnum.IdleInfo:
-			tutorialPhase = TutorialPhaseEnum.FusionPrompt;
-			break;
-		case TutorialPhaseEnum.FusionPrompt:
-			tutorialPhase = TutorialPhaseEnum.FusionInfo;
-			break;
-		case TutorialPhaseEnum.FusionInfo:
-			tutorialPhase = TutorialPhaseEnum.Fusion;
-			break;
-		case TutorialPhaseEnum.FusionDone:
-			tutorialPhase = TutorialPhaseEnum.Complete;
-			break;
-		case TutorialPhaseEnum.Complete:
-			tutorialPhase = TutorialPhaseEnum.End;
-			break;
-	}
+	tutorialPhase = tutorialCloseNextPhase[shownTutorialPhase];
 
 	browserRuntime.sendMessage({"message": EventMessageEnum.UpdateTutorialPhase, "tutorialPhase": tutorialPhase});
 	hideTutorialModal();
@@ -592,43 +610,68 @@ function setDisplayedRank(rank, branch, nextRank, ranksLength){
 	if(rank.title[branch.id]){
 		rankTitle = rank.title[branch.id];
 	}
-	if(rankTitle.length < 21){
-		document.getElementById("rankTitle").style.fontSize = "22px";
-		document.getElementById("rankContent").style.fontSize = "24px";
-	}else{
-		document.getElementById("rankTitle").style.fontSize = "18px";
-		document.getElementById("rankContent").style.fontSize = "20px";
-	}
+	setRankFontSize();
 
-	if(rank.id >= minimumRankForRiseUpDisplay){
-		document.getElementById("showRiseModal").style.display = "block";
-	}else{
-		document.getElementById("showRiseModal").style.display = "none";
-	}
+	checkRiseModal();
 
-	var rankDescription = rank.description[0];
-	if(rank.description[branch.id]){
-		rankDescription = rank.description[branch.id];
-	}
+	var rankDescription = getRankDescription();
 
-	document.getElementById("rankContent").innerHTML = rankTitle;
-	document.getElementById("rankContent").title = "Rank " + (ranksLength - rank.id) + " / " + ranksLength + "\n" + rankDescription;
-	if(rank.iqpsMultiplier != 1){
-		document.getElementById("rankIqpsMultiplier").innerHTML = " x " + rank.iqpsMultiplier.toFixed(2) + "";
-		hasRankIqpsMultiplier = true;
-	}else{
-		document.getElementById("rankIqpsMultiplier").innerHTML = "";
-		hasRankIqpsMultiplier = false;
-	}
+	setRankContent();
 
 	checkForIqpsMultiplier();
 
-	if(nextRank){
-		document.getElementById("nextRank").style.display = "inline";
-		document.getElementById("nextRankTitle").innerHTML =  "Prerequisite for ranking up:"
-		document.getElementById("nextRankContent").innerHTML =  nextRank.requirementDescription;
-	}else{
-		document.getElementById("nextRank").style.display = "none";
+	setNextRankContent();
+
+	function setNextRankContent() {
+		if (nextRank) {
+			document.getElementById("nextRank").style.display = "inline";
+			document.getElementById("nextRankTitle").innerHTML = "Prerequisite for ranking up:";
+			document.getElementById("nextRankContent").innerHTML = nextRank.requirementDescription;
+		}
+		else {
+			document.getElementById("nextRank").style.display = "none";
+		}
+	}
+
+	function setRankContent() {
+		document.getElementById("rankContent").innerHTML = rankTitle;
+		document.getElementById("rankContent").title = "Rank " + (ranksLength - rank.id) + " / " + ranksLength + "\n" + rankDescription;
+		if (rank.iqpsMultiplier != 1) {
+			document.getElementById("rankIqpsMultiplier").innerHTML = " x " + rank.iqpsMultiplier.toFixed(2) + "";
+			hasRankIqpsMultiplier = true;
+		}
+		else {
+			document.getElementById("rankIqpsMultiplier").innerHTML = "";
+			hasRankIqpsMultiplier = false;
+		}
+	}
+
+	function getRankDescription() {
+		var rankDescription = rank.description[0];
+		if (rank.description[branch.id]) {
+			rankDescription = rank.description[branch.id];
+		}
+		return rankDescription;
+	}
+
+	function checkRiseModal() {
+		if (rank.id >= minimumRankForRiseUpDisplay) {
+			document.getElementById("showRiseModal").style.display = "block";
+		}
+		else {
+			document.getElementById("showRiseModal").style.display = "none";
+		}
+	}
+
+	function setRankFontSize() {
+		if (rankTitle.length < 21) {
+			document.getElementById("rankTitle").style.fontSize = "22px";
+			document.getElementById("rankContent").style.fontSize = "24px";
+		}
+		else {
+			document.getElementById("rankTitle").style.fontSize = "18px";
+			document.getElementById("rankContent").style.fontSize = "20px";
+		}
 	}
 }
 
@@ -727,23 +770,13 @@ function checkPepegas(){
 			if(healCost != pepegaElement.healCost){
 				pepegaElement.healCost = healCost;
 
-				if(secondsLeft > 10){
-					pepegaImageTitle += "\n\nEstimated time of recovery: " + ((secondsLeft/10)*10) + "+ seconds";
-				}else{
-					pepegaImageTitle += "\n\nEstimated time of recovery: a few seconds";
-				}
+				setTimeOfRecovery();
 
 				pepegaImageElement.title = pepegaImageTitle;
 
 				healButtonElement.title = "Heal this Pepega. This will cost you " + healCost + " IQ.";
 
-				if(displayedIqCount >= healCost){
-					healButtonElement.style.webkitFilter = "grayscale(0%)";
-					healButtonElement.style.filter = "grayscale(0%)";
-				}else{
-					healButtonElement.style.webkitFilter = "grayscale(100%)";
-					healButtonElement.style.filter = "grayscale(100%)";
-				}
+				updateHealIconColor();
 			}
 			if(healButtonElement.style.display != "inline"){
 				healButtonElement.style.display = "inline";
@@ -756,6 +789,26 @@ function checkPepegas(){
 		hideHealAllPepegasButton();
 	}else{
 		showHealAllPepegasButton();
+	}
+
+	function setTimeOfRecovery() {
+		if (secondsLeft > 10) {
+			pepegaImageTitle += "\n\nEstimated time of recovery: " + ((secondsLeft / 10) * 10) + "+ seconds";
+		}
+		else {
+			pepegaImageTitle += "\n\nEstimated time of recovery: a few seconds";
+		}
+	}
+
+	function updateHealIconColor() {
+		if (displayedIqCount >= healCost) {
+			healButtonElement.style.webkitFilter = "grayscale(0%)";
+			healButtonElement.style.filter = "grayscale(0%)";
+		}
+		else {
+			healButtonElement.style.webkitFilter = "grayscale(100%)";
+			healButtonElement.style.filter = "grayscale(100%)";
+		}
 	}
 }
 
