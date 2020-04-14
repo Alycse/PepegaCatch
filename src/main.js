@@ -385,9 +385,9 @@ const pepegaTypes = [
         4, 15, 50, 80, ["React", "Poggers", "Yeet"],
         browserRuntime.getURL("images/pepegas/12_Joyga.png")),
 
-    new PepegaType(13, [], "Kkoga", "Kkogas are well-known for their obsession with weapons and unhealthy food.\nIt is living the Pepega dream.", 
+    new PepegaType(13, [], "KKoga", "KKogas are well-known for their obsession with weapons and unhealthy food.\nIt is living the Pepega dream.", 
         16, 30, 180, 80, ["Shoot", "Guitar Time", "Pray"],
-        browserRuntime.getURL("images/pepegas/13_Kkoga.png")),
+        browserRuntime.getURL("images/pepegas/13_KKoga.png")),
 
     new PepegaType(14, [], "Bitga", "This Pepega has as much IQ as the number of pixels it has.", 
         34, 30, 395, 100, ["Backseat", "Throw Controller", "Release Mobile Game"],
